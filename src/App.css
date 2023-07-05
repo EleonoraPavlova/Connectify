@@ -27,10 +27,15 @@
   background-color: var(--base-color);
   text-align: left;
   border-radius: 5px;
+  padding: 20px;
 }
 
 .nav > ul > li {
-  padding: 5px;
+  padding: 7px;
+}
+
+.nav > ul > li:hover {
+  color: green;
 }
 
 .nav > ul > li:last-of-type {
@@ -41,12 +46,47 @@
   grid-area: content;
 }
 
-/* .content-image {
+.content-image {
   width: 100%;
-  height: 30%;
-} */
+  height: 200px;
+  overflow: hidden;
+  background-image: url("https://media.istockphoto.com/id/905101900/uk/%D1%84%D0%BE%D1%82%D0%BE/%D1%82%D1%80%D0%BE%D0%BF%D1%96%D1%87%D0%BD%D1%96-%D0%B4%D0%B6%D1%83%D0%BD%D0%B3%D0%BB%D1%96.jpg?s=612x612&w=0&k=20&c=xOYOqdlVwZ0Q22Agw0GCtlADXd6u8SSwommUXan4j_w=");
+  background-position: center;
+  background-size: contain;
+  border-radius: 5px;
+}
 
-.content-image > img {
-  width: 100%;
-  height: 30%;
+
+.personal-info {
+  padding: 30px 0;
+}
+
+.personal-info > div > img {
+  width: 90px;
+  height: 90px;
+  margin: 10px;
+}
+
+.personal-info > ul > li > h4 {
+  padding-bottom: 15px;
+}
+
+.personal-info > ul > li {
+  padding-bottom: 10px;
+}
+
+.personal-info > ul > li > span {
+  font-weight: bold;
+  padding-right: 8px;
+}
+
+.personal-info > ul > li > a:hover {
+  color: green;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
 }
