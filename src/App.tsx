@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './styles/App.scss';
 
 // import Header from './Header';
 // import Technologies from "./Technologies";
@@ -11,7 +11,7 @@ function App() {
       {/* < Header title={'This is header'} />
       < Technologies title={1} />
       <Footer title={'This is footer'} /> */}
-      <header className="header">
+      <header className="App__header">
         <img src="https://cdn.pixabay.com/photo/2016/06/09/18/36/logo-1446293_1280.png" alt="logo"/>  
       </header>
       <nav className="nav">

@@ -39,6 +39,10 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "browserslist": "last 2 versions"
+  },
+  "devDependencies": {
+    "postcss-normalize": "^10.0.1"
   }
 }

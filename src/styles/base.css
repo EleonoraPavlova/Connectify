@@ -1,6 +1,4 @@
-:root {
-  --base-color: #c2c5cc;
-}
+@import "normalize.css/opinionated.css";
 
 * {
   margin: 0;
@@ -23,7 +21,6 @@ body {
   width: 1280px;
   margin: 0 auto;
 }
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
