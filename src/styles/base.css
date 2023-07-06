@@ -13,13 +13,13 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
-    'Ubuntu', 'Cantarell', 'Helvetica Neue',
-    sans-serif;
+  font-family: Handlee, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 1280px;
   margin: 0 auto;
+  letter-spacing: 2px;
+
 }
 
 code {
