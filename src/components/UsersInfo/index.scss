@@ -1,0 +1,26 @@
+@import "../../styles/variables.scss";
+
+.user {
+  padding: 30px 0 50px 0;
+  &__avatar {
+    width: 90px;
+    height: 90px;
+    margin: 10px;
+  }
+  &__name {
+    padding-bottom: 15px;
+    font-size: 24px;
+  }
+  &__item {
+    padding-bottom: 10px;
+
+    &-b {
+      padding-right: 8px;
+    }
+  }
+  &__link {
+    &:hover {
+      color: $color-green;
+    }
+  }
+}
