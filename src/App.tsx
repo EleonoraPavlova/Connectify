@@ -4,7 +4,7 @@ import './styles/App.scss';
 
 import Header from './components/Header/Header';
 import Nav from "./components/Nav/Nav";
-import MainContent from "./components/MainContent/MainContent";
+import Profile from "./components/Profile/Profile";
 
 
 
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       < Header />
       < Nav />
-      <MainContent />
+      <Profile />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+@import "../../../styles/variables.scss";
+
+.form-posts {
+  padding-left: 25px;
+  margin-bottom: 45px;
+  &__label {
+    font-family: Handlee;
+    font-weight: bolder;
+    font-size: 20px;
+    color: $color-green;
+    padding-bottom: 20px;
+    display: block;
+  }
+  &__texarea {
+    padding: 25px;
+    width: 100%;
+    min-height: 150px;
+    border-radius: 5px;
+    border: 1px solid $base-color;
+    margin-bottom: 25px;
+  }
+}

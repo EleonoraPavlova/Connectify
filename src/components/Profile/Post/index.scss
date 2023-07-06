@@ -1,0 +1,12 @@
+@import "../../../styles/variables.scss";
+
+.post {
+  padding: 25px;
+  border: 1px solid $base-color;
+  border-radius: 5px;
+  margin: 0 0 15px 25px;
+  &__header {
+    font-size: 15px;
+    padding-bottom: 25px;
+  }
+}
