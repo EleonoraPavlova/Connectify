@@ -1,33 +1,19 @@
 import React from 'react';
 import './styles/App.scss';
 
-// import Header from './Header';
-// import Technologies from "./Technologies";
-// import Footer from "./Footer";
+import Header from './components/Header/Header';
+import Nav from "./components/Nav/Nav";
+import Banner from "./components/Banner/Banner";
 
 
 function App() {
-  
   return (
     <div className="App">
-      {/* < Header title={'This is header'} />
-      < Technologies title={1} />
-      <Footer title={'This is footer'} /> */}
-      <header className="App__header">
-        <img className="App__header-img" src="https://cdn.pixabay.com/photo/2016/06/09/18/36/logo-1446293_1280.png" alt="logo" /> 
-        <h6 className="App__header-text">Social net</h6>
-      </header>
-      <nav className="App__nav">
-        <ul>
-          <li className="App__nav-item"><a href="#" className="App__nav-link">Profile</a> </li>
-          <li className="App__nav-item"><a href="#" className="App__nav-link">Messages</a></li>
-          <li className="App__nav-item"><a href="#" className="App__nav-link">News</a></li>
-          <li className="App__nav-item"><a href="#" className="App__nav-link">Music</a></li>
-          <li className="App__nav-item"><a href="#" className="App__nav-link">Settings</a></li>
-        </ul>
-      </nav>
+
+      < Header />
+      < Nav  />
       <div className="App__content">
-        <div className="App__content-banner"></div>
+       <Banner />
         <div className="App__content-personal flex-start" ><div>
             <img src="https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg" alt="avatar" className="App__content-personal-avatar"/>
           </div>

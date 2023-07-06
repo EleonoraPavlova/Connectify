@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+.nav {
+  grid-area: nav;
+  background-color: $base-color;
+  text-align: left;
+  border-radius: 5px;
+  padding: 20px;
+  &__item {
+    padding: 7px;
+    &:hover {
+      color: $color-green;
+    }
+    &:last-of-type {
+      padding-top: 45px;
+    }
+  }
+  &__link {
+    font-family: Handlee;
+  }
+}

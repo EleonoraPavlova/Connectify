@@ -1,3 +1,6 @@
+import React from 'react';
+import './index.scss';
+
 type FooterProps = {
     title: String
 }
