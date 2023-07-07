@@ -6,16 +6,12 @@
   background-color: $base-color;
   text-align: left;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  &-img {
+  &__img {
     width: 40px;
     height: 35px;
     margin-left: 2%;
   }
-  &-text {
+  &__text {
     font-family: Handlee;
     color: $color-green;
     font-size: 23px;

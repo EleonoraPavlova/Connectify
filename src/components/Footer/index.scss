@@ -1,1 +1,27 @@
 @import "../../styles/variables.scss";
+
+.footer {
+  grid-area: footer;
+  background-color: $base-color;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  &__logo {
+    float: right;
+  }
+  &__recerved {
+    flex: 1;
+    text-align: center;
+    margin-left: 101.78px;
+  }
+  &__img {
+    width: 20px;
+    height: 17px;
+  }
+  &__text {
+    font-family: Handlee;
+    color: $color-green;
+    font-size: 13px;
+  }
+}

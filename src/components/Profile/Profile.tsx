@@ -11,11 +11,10 @@ function Profile() {
     <Banner />
     <UsersInfo />
     <FormPosts />
-    <Post title={"Post 1"} />
-    <Post title={"Post 2"} />
-    <Post title={"Post 3"} />
-    <Post title={"Post 4"} />
-    <Post title={"Post 5"} />
+    <Post title={"Post 1"} post={'There is a post 1 here...'} />
+    <Post title={"Post 2"} post={'There is a post 2 here...'} />
+    <Post title={"Post 3"} post={'There is a post 3 here...'} />
+    <Post title={"Post 4"} post={'There is a post 4 here...'} />
   </div>)
 }
 
