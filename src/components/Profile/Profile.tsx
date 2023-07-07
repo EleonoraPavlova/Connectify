@@ -11,11 +11,11 @@ function Profile() {
     <Banner />
     <UsersInfo />
     <FormPosts />
-    <Post />
-    <Post />
-    <Post />
-    <Post />
-    <Post />
+    <Post title={"Post 1"} />
+    <Post title={"Post 2"} />
+    <Post title={"Post 3"} />
+    <Post title={"Post 4"} />
+    <Post title={"Post 5"} />
   </div>)
 }
 

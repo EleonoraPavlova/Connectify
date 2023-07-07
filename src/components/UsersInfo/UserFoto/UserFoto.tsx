@@ -1,10 +1,13 @@
 import React from 'react';
 import './index.scss';
 
+type UserFotoProps = {
+  link: string
+}
 
-function UserFoto() {
+function UserFoto(props: UserFotoProps) {
   return (<div>
-    <img src="https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg" alt="avatar" className="avatar" />
+    <img src={props.link} alt="avatar" className="avatar" />
   </div>)
 }
 
