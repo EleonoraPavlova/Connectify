@@ -4,19 +4,23 @@ import './styles/App.scss';
 
 import Header from './components/Header/Header';
 import Nav from "./components/Nav/Nav";
-import Profile from "./components/Profile/Profile";
 import Footer from "./components/Footer/Footer";
+import { HashRouter } from "react-router-dom";
+import RoutesComponents from "./routes";
 
 
 
 function App() {
   return (
     <div className="App">
-      < Header />
-      < Nav />
-      < Profile />
-      < Footer />
-    </div>
+      <HashRouter>
+        < Header />
+        < Nav />
+        < RoutesComponents />
+        < Footer />
+      </HashRouter>
+    </div >
+
   );
 }
 
