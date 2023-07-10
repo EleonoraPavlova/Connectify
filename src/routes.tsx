@@ -1,12 +1,20 @@
-import { Route, Routes } from "react-router-dom";
-import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
+import { Routes, Route } from 'react-router-dom';
+// import { RouteComponentProps } from '@reach/router';
+import Profile from "./pages/Profile/Profile";
+import Dialogs from "./pages/Dialogs/Dialogs"
+import News from "./pages/News/News"
+import Music from "./pages/Music/Music";
+import Settings from "./pages/Settings/Settings";
 
-function RoutesComponents() {
-  <Routes>
-    <Route path="/dialogs" element={<Dialogs name="Elena" />} />
+const RoutesComponents = () => {
+  return (<Routes>
+    <Route path="/dialogs" element={<Dialogs name={"Elena"} />} />
     <Route path="/profile" element={<Profile />} />
-  </Routes>
+    <Route path="/news" element={<News />} />
+    <Route path="/music" element={<Music />} />
+    <Route path="/settings" element={<Settings />} />
+  </Routes>)
+
 };
 
 export default RoutesComponents;

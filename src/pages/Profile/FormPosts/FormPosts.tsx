@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import Button from "../../Button/Button";
+import Button from "../../../common/Button/Button";
 
 
 function FormPosts() {

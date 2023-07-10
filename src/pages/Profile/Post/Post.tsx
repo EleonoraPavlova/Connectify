@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './index.scss';
-import UserFoto from "../../UsersInfo/UserFoto/UserFoto";
+import UserFoto from "../../../components/UsersInfo/UserFoto/UserFoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 

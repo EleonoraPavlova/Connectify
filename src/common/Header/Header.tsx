@@ -6,7 +6,7 @@ import Logo from "../Logo/Logo";
 
 function Header() {
   return (<header className="header">
-    <Logo styleImg="header__img" styletText="header__text" />
+    <Logo styleImg="header__img" styleText="header__text" />
   </header>)
 }
 

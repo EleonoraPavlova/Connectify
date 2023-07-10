@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
-import Banner from "../Banner/Banner";
-import UsersInfo from "../UsersInfo/UsersInfo";
+import Banner from "../../components/Banner/Banner";
+import UsersInfo from "../../components/UsersInfo/UsersInfo";
 import FormPosts from "./FormPosts/FormPosts";
 import Post from "./Post/Post";
 
