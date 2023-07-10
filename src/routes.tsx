@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-// import { RouteComponentProps } from '@reach/router';
 import Profile from "./pages/Profile/Profile";
 import Dialogs from "./pages/Dialogs/Dialogs"
 import News from "./pages/News/News"
