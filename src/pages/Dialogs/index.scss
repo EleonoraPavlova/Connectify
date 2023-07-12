@@ -1,0 +1,18 @@
+@import "../../styles/variables.scss";
+
+.dialogs {
+  display: grid;
+  grid-auto-columns: 20% 70%;
+  padding: 20px;
+  gap: 60px;
+  &__title {
+    color: $color-green;
+    font-size: 25px;
+  }
+  &__items {
+    border-right: 1px solid $color-green;
+  }
+  &__messeges {
+    grid-column-start: 2;
+  }
+}

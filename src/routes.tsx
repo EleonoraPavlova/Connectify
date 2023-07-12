@@ -7,8 +7,8 @@ import Settings from "./pages/Settings/Settings";
 
 const RoutesComponents = () => {
   return (<Routes>
-    <Route path="/dialogs" element={<Dialogs name={"Elena"} />} />
     <Route path="/profile" element={<Profile />} />
+    <Route path="/dialogs" element={<Dialogs />} />
     <Route path="/news" element={<News />} />
     <Route path="/music" element={<Music />} />
     <Route path="/settings" element={<Settings />} />
