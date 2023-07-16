@@ -4,14 +4,10 @@ import './index.scss';
 import UserFoto from "../../../components/UsersInfo/UserFoto/UserFoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { PostItem } from "../../../dataState"
 
 
-type PostTitleType = {
-  title: string
-  post: string
-  id: number
-  counter: number
-}
+type PostTitleType = PostItem
 
 
 
@@ -27,7 +23,7 @@ function Post(props: PostTitleType) {
     </div>
     <div className="post__wrap-icon">
       <FontAwesomeIcon icon={faHeart} className="post__icon" />
-      <p className="post__icon-counter">{props.counter}</p>
+      <p className="post__icon-counter">{props.likeCounter}</p>
     </div>
   </div >
   )

@@ -8,7 +8,6 @@ import { Dialogs, Messages, DialogsPage } from "../../dataState"
 type DialogsProps = DialogsPage & { welcome?: string };
 
 function DialogsBox(props: DialogsProps) {
-
   let dialogs = props.dialogsData.map((d: Dialogs) => <DialogItem key={d.id} id={d.id} name={d.name} />)
   let messages = props.messagesData.map((mes: Messages) => <DialogMessage key={mes.id} id={mes.id} message={mes.message} />)
 

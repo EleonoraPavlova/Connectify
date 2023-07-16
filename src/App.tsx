@@ -6,11 +6,11 @@ import Nav from "./components/Nav/Nav";
 import Footer from "./common/Footer/Footer";
 import { HashRouter } from 'react-router-dom'
 import RoutesComponents from "./routes";
-import { DialogsPage } from "./dataState"
+import { DialogsPage, ProfilePage } from "./dataState"
 
 
 
-type AppProps = DialogsPage;
+type AppProps = DialogsPage & ProfilePage;
 
 
 function App(props: AppProps) {
