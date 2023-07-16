@@ -1,13 +1,11 @@
 import React from 'react';
 import './index.scss';
-
-type DialogMessageProps = {
-  message: string
-  id: number
-}
+import { Messages } from "../../../dataState"
 
 
-function DialogMessage(props: DialogMessageProps) {
+type DialogMessage = Messages;
+
+function DialogMessage(props: DialogMessage) {
   return (
     <li className="dialog-message" id={`${props.id}`}>{props.message}</li>
   )

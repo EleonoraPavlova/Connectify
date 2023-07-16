@@ -5,10 +5,10 @@ import News from "./pages/News/News"
 import Music from "./pages/Music/Music";
 import Settings from "./pages/Settings/Settings";
 
-const RoutesComponents = () => {
+const RoutesComponents = ({ ...props }) => {
   return (<Routes>
     <Route path="/profile" element={<Profile />} />
-    <Route path="/dialogs" element={<Dialogs />} />
+    <Route path="/dialogs" element={<Dialogs dialogsData={[]} messagesData={[]} welcome="Hi, my friends!" {...props} />} />
     <Route path="/news" element={<News />} />
     <Route path="/music" element={<Music />} />
     <Route path="/settings" element={<Settings />} />

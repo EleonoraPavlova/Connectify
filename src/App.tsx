@@ -6,16 +6,20 @@ import Nav from "./components/Nav/Nav";
 import Footer from "./common/Footer/Footer";
 import { HashRouter } from 'react-router-dom'
 import RoutesComponents from "./routes";
+import { DialogsPage } from "./dataState"
 
 
 
-function App() {
+type AppProps = DialogsPage;
+
+
+function App(props: AppProps) {
   return (
     <div className="App">
       <HashRouter>
         < Header />
         < Nav />
-        < RoutesComponents />
+        < RoutesComponents {...props} />
         < Footer />
       </HashRouter>
     </div >

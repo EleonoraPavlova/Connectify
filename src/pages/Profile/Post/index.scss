@@ -11,9 +11,19 @@
     font-size: 15px;
     padding-bottom: 25px;
   }
+  &__wrap-icon {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-self: flex-end;
+  }
   &__icon {
     opacity: 0.9;
     font-size: 18px;
     color: red;
+    margin-bottom: 5px;
+    &-counter {
+      font-size: 12px;
+    }
   }
 }

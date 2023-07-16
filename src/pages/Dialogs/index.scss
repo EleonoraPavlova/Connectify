@@ -5,6 +5,10 @@
   grid-auto-columns: 20% 70%;
   padding: 20px;
   gap: 60px;
+  &__welcome {
+    text-align: end;
+    padding: 3px;
+  }
   &__title {
     color: $color-green;
     font-size: 25px;
