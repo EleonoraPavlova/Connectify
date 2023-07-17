@@ -3,11 +3,12 @@ import './index.scss';
 
 type UserFotoProps = {
   link: string
+  additionalClass: string
 }
 
 function UserFoto(props: UserFotoProps) {
   return (<div>
-    <img src={props.link} alt="avatar" className="avatar" />
+    <img src={props.link} alt="avatar" className={`avatar ${props.additionalClass}`} />
   </div>)
 }
 

@@ -1,15 +1,13 @@
 import React from 'react';
 import './index.scss';
 import { NavLink } from "react-router-dom";
+import { Dialogs } from "../../../state/dataState";
 
 
-type DialogItemType = {
-  name: string
-  id: number
-}
+type DialogItemProps = Dialogs;
 
 
-function DialogItem(props: DialogItemType) {
+function DialogItem(props: DialogItemProps) {
   return (
     <li className="dialog-item"><NavLink to={"/dialogs/id:" + props.id}>{props.name}</NavLink></li>)
 }

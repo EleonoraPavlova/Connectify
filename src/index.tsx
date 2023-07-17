@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App dialogsData={dataState.dialogsPage.dialogsData} messagesData={dataState.dialogsPage.messagesData}
-      postsData={dataState.profilePage.postsData} />
+      postsData={dataState.profilePage.postsData} friendsData={dataState.friendsPage.friendsData} />
   </React.StrictMode>
 );
 
