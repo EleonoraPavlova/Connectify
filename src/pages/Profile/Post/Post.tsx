@@ -4,7 +4,7 @@ import './index.scss';
 import UserFoto from "../../../components/UsersInfo/UserFoto/UserFoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { PostItem } from "../../../dataState"
+import { PostItem } from "../../../state/dataState"
 
 
 type PostTitleType = PostItem

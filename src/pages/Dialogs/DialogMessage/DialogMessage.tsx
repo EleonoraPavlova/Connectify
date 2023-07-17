@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { Messages } from "../../../dataState"
+import { Messages } from "../../../state/dataState"
 
 
 type DialogMessage = Messages;

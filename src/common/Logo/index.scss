@@ -6,3 +6,9 @@
   justify-content: flex-start;
   gap: 10px;
 }
+
+.not-active {
+  &::before {
+    content: none !important;
+  }
+}

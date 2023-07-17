@@ -4,7 +4,7 @@ import Banner from "../../components/Banner/Banner";
 import UsersInfo from "../../components/UsersInfo/UsersInfo";
 import FormPosts from "./FormPosts/FormPosts";
 import Post from "./Post/Post";
-import { ProfilePage, PostItem } from "../../dataState"
+import { ProfilePage, PostItem } from "../../state/dataState"
 
 type ProfileProps = ProfilePage
 

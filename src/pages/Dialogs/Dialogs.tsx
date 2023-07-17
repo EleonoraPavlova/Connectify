@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import DialogItem from "./DialogItem/DialogItem"
 import DialogMessage from "./DialogMessage/DialogMessage"
-import { Dialogs, Messages, DialogsPage } from "../../dataState"
+import { Dialogs, Messages, DialogsPage } from "../../state/dataState"
 
 
 type DialogsProps = DialogsPage & { welcome?: string };

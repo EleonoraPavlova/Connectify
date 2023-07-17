@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import dataState from "./dataState"
+import dataState from "./state/dataState"
 
 test('renders learn react link', () => {
   render(<App dialogsData={dataState.dialogsPage.dialogsData} messagesData={dataState.dialogsPage.messagesData} postsData={dataState.profilePage.postsData} />);

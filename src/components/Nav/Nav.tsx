@@ -35,7 +35,7 @@ function Nav() {
   return (
     <nav className="nav">
       <ul>
-        <li className="nav__item"><NavLink to="/profile"> Profile</NavLink> </li>
+        <li className="nav__item"><NavLink to="/"> Profile</NavLink> </li>
         <li className="nav__item"><NavLink to="/dialogs">Dialogs</NavLink></li>
         <li className="nav__item"><NavLink to="/news">News</NavLink></li>
         <li className="nav__item"><NavLink to="/music">Music</NavLink></li>
