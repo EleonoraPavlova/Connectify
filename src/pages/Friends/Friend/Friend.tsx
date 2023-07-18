@@ -3,13 +3,16 @@ import './index.scss';
 import UserFoto from "../../../common/UserFoto/UserFoto";
 import { FriendItem } from "../../../state/dataState";
 
-type FriendProps = FriendItem;
 
-function Friend(props: FriendProps) {
+type FriendProps = {
+  friend: FriendItem
+}
+
+function Friend({ friend }: FriendProps) {
   return (
     <div className="friend">
-      <UserFoto link={props.src} additionalClass="friend__foto" />
-      <h5 className="friend__name"> {props.name} {props.lastName} </h5>
+      <UserFoto link={friend.src} additionalClass="friend__foto" />
+      <h5 className="friend__name"> {friend.name} {friend.lastName} </h5>
     </div>
   )
 }

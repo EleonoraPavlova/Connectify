@@ -20,6 +20,7 @@ export type PostItem = {
   id: number
   post: string
   likeCounter: number
+  authorId: number
 }
 
 export type ProfilePage = {
@@ -28,9 +29,9 @@ export type ProfilePage = {
 
 
 export type FriendItem = {
-  name: string
-  id?: number
-  lastName: string
+  name?: string
+  id: number
+  lastName?: string
   src: string
 }
 
@@ -69,13 +70,13 @@ let dataState: RootDataState = {
   },
   profilePage: {
     postsData: [
-      { id: 1, title: '1', post: 'There is a post 1 here...', likeCounter: 12 },
-      { id: 2, title: '2', post: 'There is a post 2 here...', likeCounter: 12 },
-      { id: 3, title: '3', post: 'There is a post 3 here...', likeCounter: 12 },
-      { id: 4, title: '4', post: 'There is a post 4 here...', likeCounter: 12 },
-      { id: 5, title: '5', post: 'There is a post 4 here...', likeCounter: 12 },
-      { id: 6, title: '6', post: 'There is a post 4 here...', likeCounter: 12 },
-      { id: 7, title: '7', post: 'There is a post 7 here...', likeCounter: 12 },
+      { id: 1, title: '1', post: 'There is a post 1 here...', likeCounter: 12, authorId: 2, },
+      { id: 2, title: '2', post: 'There is a post 2 here...', likeCounter: 12, authorId: 4, },
+      { id: 3, title: '3', post: 'There is a post 3 here...', likeCounter: 12, authorId: 6, },
+      { id: 4, title: '4', post: 'There is a post 4 here...', likeCounter: 12, authorId: 7, },
+      { id: 5, title: '5', post: 'There is a post 4 here...', likeCounter: 12, authorId: 2, },
+      { id: 6, title: '6', post: 'There is a post 4 here...', likeCounter: 12, authorId: 7, },
+      { id: 7, title: '7', post: 'There is a post 7 here...', likeCounter: 12, authorId: 6, },
     ]
   },
   friendsPage: {

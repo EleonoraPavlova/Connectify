@@ -1,29 +1,32 @@
 
 import React from 'react';
 import './index.scss';
-import UserFoto from "../../../common/UserFoto/UserFoto";
+import Friend from "../../../pages/Friends/Friend/Friend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { PostItem } from "../../../state/dataState"
+import { PostItem, FriendItem } from "../../../state/dataState"
 
 
-type PostTitleType = PostItem
+type PostType = {
+  post: PostItem
+  friendsData: FriendItem[]
+}
 
 
+function Post({ post, friendsData }: PostType) {
+  let friend = friendsData.find(f => f.id === post.authorId)
 
-function Post(props: PostTitleType) {
-
-  return (<div className="post" id={`${props.id}`} >
+  return (<div className="post" id={`${post.id}`} >
     <div className="flex-start">
-      <UserFoto link={"https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg"} additionalClass="" />
+      {friend ? <Friend friend={friend} /> : null}
       <div>
-        <h6 className="post__header"> {props.title} </h6>
-        <p> {props.post} </p>
+        <h6 className="post__header"> Post  {post.title} </h6>
+        <p> {post.post} </p>
       </div>
     </div>
     <div className="post__wrap-icon">
       <FontAwesomeIcon icon={faHeart} className="post__icon" />
-      <p className="post__icon-counter">{props.likeCounter}</p>
+      <p className="post__icon-counter">{post.likeCounter}</p>
     </div>
   </div >
   )

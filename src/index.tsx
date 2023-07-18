@@ -4,6 +4,7 @@ import './styles/base.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import dataState from "./state/dataState"
+import { HashRouter } from 'react-router-dom'
 
 
 
@@ -14,8 +15,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App dialogsData={dataState.dialogsPage.dialogsData} messagesData={dataState.dialogsPage.messagesData}
-      postsData={dataState.profilePage.postsData} friendsData={dataState.friendsPage.friendsData} />
+    <HashRouter>
+      <App dialogsData={dataState.dialogsPage.dialogsData} messagesData={dataState.dialogsPage.messagesData}
+        postsData={dataState.profilePage.postsData} friendsData={dataState.friendsPage.friendsData} />
+    </HashRouter>
   </React.StrictMode>
 );
 
