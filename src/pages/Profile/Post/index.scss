@@ -20,10 +20,13 @@
   &__icon {
     opacity: 0.9;
     font-size: 18px;
-    color: red;
     margin-bottom: 5px;
     &-counter {
       font-size: 12px;
     }
   }
+}
+
+.red {
+  color: red;
 }

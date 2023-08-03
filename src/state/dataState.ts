@@ -1,14 +1,15 @@
+import { v1 } from "uuid";
+
 export type Messages = {
   message: string
-  id: number
+  id: string
 }
 
 
 export type Dialogs = {
   name: string
-  id: number
+  id: string
 }
-
 
 export type DialogsPage = {
   dialogsData: Dialogs[]
@@ -17,10 +18,10 @@ export type DialogsPage = {
 
 export type PostItem = {
   title: string
-  id: number
+  id: string
   post: string
   likeCounter: number
-  authorId: number
+  authorId: string
 }
 
 export type ProfilePage = {
@@ -30,7 +31,7 @@ export type ProfilePage = {
 
 export type FriendItem = {
   name?: string
-  id: number
+  id: string
   lastName?: string
   src: string
 }
@@ -44,51 +45,48 @@ type RootDataState = {
   profilePage: ProfilePage
   friendsPage: FriendsPage
 }
+const friendsData = [{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
+{ id: v1(), name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
+{ id: v1(), name: 'Makar', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2015/08/05/04/25/people-875617_1280.jpg' },
+{ id: v1(), name: 'Tatiana', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/29/06/08/woman-1867715_1280.jpg' },
+{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
+{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/10/15/06/girl-2623543_1280.jpg' },
+{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2020/02/20/23/21/woman-4866179_1280.jpg' },]
 
 let dataState: RootDataState = {
   dialogsPage: {
     dialogsData: [
-      { id: 1, name: 'One' },
-      { id: 2, name: 'Two' },
-      { id: 3, name: 'Three' },
-      { id: 4, name: 'Four' },
-      { id: 5, name: 'Five' },
-      { id: 6, name: 'Six' },
-      { id: 7, name: 'Seven' },
+      { id: v1(), name: 'One' },
+      { id: v1(), name: 'Two' },
+      { id: v1(), name: 'Three' },
+      { id: v1(), name: 'Four' },
+      { id: v1(), name: 'Five' },
+      { id: v1(), name: 'Six' },
+      { id: v1(), name: 'Seven' },
     ],
     messagesData: [
-      { id: 1, message: 'Hi, how is going?' },
-      { id: 2, message: 'Where are you?' },
-      { id: 3, message: 'Ok' },
-      {
-        id: 4, message: 'Don\'t ask'
-      },
-      { id: 5, message: 'Five' },
-      { id: 6, message: 'Six' },
-      { id: 7, message: 'Seven' },
+      { id: v1(), message: 'Hi, how is going?' },
+      { id: v1(), message: 'Where are you?' },
+      { id: v1(), message: 'Ok' },
+      { id: v1(), message: 'Don\'t ask' },
+      { id: v1(), message: 'Five' },
+      { id: v1(), message: 'Six' },
+      { id: v1(), message: 'Seven' },
     ]
   },
   profilePage: {
     postsData: [
-      { id: 1, title: '1', post: 'There is a post 1 here...', likeCounter: 12, authorId: 2, },
-      { id: 2, title: '2', post: 'There is a post 2 here...', likeCounter: 12, authorId: 4, },
-      { id: 3, title: '3', post: 'There is a post 3 here...', likeCounter: 12, authorId: 6, },
-      { id: 4, title: '4', post: 'There is a post 4 here...', likeCounter: 12, authorId: 7, },
-      { id: 5, title: '5', post: 'There is a post 4 here...', likeCounter: 12, authorId: 2, },
-      { id: 6, title: '6', post: 'There is a post 4 here...', likeCounter: 12, authorId: 7, },
-      { id: 7, title: '7', post: 'There is a post 7 here...', likeCounter: 12, authorId: 6, },
+      { id: v1(), title: '1', post: 'There is a post 1 here...', likeCounter: 12, authorId: friendsData[0].id, },
+      { id: v1(), title: '2', post: 'There is a post 2 here...', likeCounter: 12, authorId: friendsData[1].id, },
+      { id: v1(), title: '3', post: 'There is a post 3 here...', likeCounter: 12, authorId: friendsData[2].id, },
+      { id: v1(), title: '4', post: 'There is a post 4 here...', likeCounter: 12, authorId: friendsData[3].id, },
+      { id: v1(), title: '5', post: 'There is a post 4 here...', likeCounter: 12, authorId: friendsData[4].id, },
+      { id: v1(), title: '6', post: 'There is a post 4 here...', likeCounter: 12, authorId: friendsData[5].id, },
+      { id: v1(), title: '7', post: 'There is a post 7 here...', likeCounter: 12, authorId: friendsData[6].id, },
     ]
   },
   friendsPage: {
-    friendsData: [
-      { id: 1, name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
-      { id: 2, name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
-      { id: 3, name: 'Makar', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2015/08/05/04/25/people-875617_1280.jpg' },
-      { id: 4, name: 'Tatiana', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/29/06/08/woman-1867715_1280.jpg' },
-      { id: 5, name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
-      { id: 6, name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/10/15/06/girl-2623543_1280.jpg' },
-      { id: 7, name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2020/02/20/23/21/woman-4866179_1280.jpg' },
-    ]
+    friendsData: friendsData
   }
 }
 

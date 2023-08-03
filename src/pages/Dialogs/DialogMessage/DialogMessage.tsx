@@ -3,9 +3,9 @@ import './index.scss';
 import { Messages } from "../../../state/dataState"
 
 
-type DialogMessage = Messages;
+type DialogMessageProps = Messages;
 
-function DialogMessage(props: DialogMessage) {
+function DialogMessage(props: DialogMessageProps) {
   return (
     <li className="dialog-message" id={`${props.id}`}>{props.message}</li>
   )

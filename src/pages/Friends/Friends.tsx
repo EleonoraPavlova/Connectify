@@ -9,9 +9,11 @@ type FriendsProps = FriendsPage
 function Friends(props: FriendsProps) {
   let friend = props.friendsData.map((f: FriendItem) => <Friend key={f.id} friend={f} />)
   return (
+
     <div className="friends">
       {friend}
     </div>
+
   )
 }
 
