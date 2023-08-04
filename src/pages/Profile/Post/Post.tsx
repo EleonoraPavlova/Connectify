@@ -21,7 +21,7 @@ function Post({ post, friendsData }: PostType) {
       post.likeCounter += 1
       return setisHighlighted(true)
     } else {
-      post.likeCounter += -1
+      post.likeCounter -= 1
       return setisHighlighted(false)
     }
   }

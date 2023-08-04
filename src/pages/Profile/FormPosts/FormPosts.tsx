@@ -20,6 +20,7 @@ function FormPosts(props: FormPostsType) {
       authorId: dataState.friendsPage.friendsData[2].id,
     }
     props.addPostHandler(newPost)
+    setTextValue("")
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
