@@ -3,7 +3,6 @@ import './index.scss';
 import { Link } from "react-router-dom";
 
 
-
 type NavlinkProps = {
   url: string
   title: string

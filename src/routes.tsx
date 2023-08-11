@@ -7,6 +7,7 @@ import Settings from "./pages/Settings/Settings";
 import dataState from "./state/dataState";
 import { DialogsPage, ProfilePage, FriendsPage } from "./state/dataState";
 import Friends from "./pages/Friends/Friends";
+import UserDialogs from "./pages/Dialogs/UserDialogs/UserDialogs";
 
 type RoutesComponentsProps = DialogsPage & ProfilePage & FriendsPage;
 
@@ -19,6 +20,7 @@ const RoutesComponents = (props: RoutesComponentsProps) => {
     <Route path="/news" element={<News />} />
     <Route path="/music" element={<Music />} />
     <Route path="/settings" element={<Settings />} />
+    <Route path="/dialogs/:id" element={<UserDialogs name="Valentin" />} />
   </Routes>)
 
 };

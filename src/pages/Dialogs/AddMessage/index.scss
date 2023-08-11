@@ -1,0 +1,30 @@
+@import "../../../styles/variables.scss";
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  &__output {
+  }
+}
+
+.speech {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 15px;
+  margin: 15px;
+  max-width: 250px;
+  height: auto;
+  text-align: center;
+  line-height: 2px;
+  background-color: transparent;
+  border: 1px solid $color-green;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px $color-green;
+  -moz-box-shadow: 2px 2px 4px $color-green;
+  box-shadow: 2px 2px 4px $color-green;
+}

@@ -10,7 +10,7 @@ type ProfileProps = ProfilePage
 
 function Profile(props: ProfileProps) {
   let [arrPosts, setArrPosts] = useState<PostItem[]>(dataState.profilePage.postsData)
-  console.log(arrPosts)
+
   let posts = arrPosts.map((post: PostItem) =>
     <Post key={post.id} post={post} friendsData={dataState.friendsPage.friendsData} />)
 

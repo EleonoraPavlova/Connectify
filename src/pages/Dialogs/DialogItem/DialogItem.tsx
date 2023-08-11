@@ -9,7 +9,7 @@ type DialogItemProps = Dialogs;
 
 function DialogItem(props: DialogItemProps) {
   return (
-    <li className="dialog-item"><NavLink to={"/dialogs/id:" + props.id}>{props.name}</NavLink></li>)
+    <li className="dialog-item"><NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink></li>)
 }
 
 export default DialogItem;
