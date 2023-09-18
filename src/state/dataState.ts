@@ -45,13 +45,15 @@ type RootDataState = {
   profilePage: ProfilePage
   friendsPage: FriendsPage
 }
-export const friendsData = [{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
-{ id: v1(), name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
-{ id: v1(), name: 'Makar', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2015/08/05/04/25/people-875617_1280.jpg' },
-{ id: v1(), name: 'Tatiana', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/29/06/08/woman-1867715_1280.jpg' },
-{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
-{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/10/15/06/girl-2623543_1280.jpg' },
-{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2020/02/20/23/21/woman-4866179_1280.jpg' },]
+export const friendsData = [
+  { id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
+  { id: v1(), name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
+  { id: v1(), name: 'Makar', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2015/08/05/04/25/people-875617_1280.jpg' },
+  { id: v1(), name: 'Tatiana', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/29/06/08/woman-1867715_1280.jpg' },
+  { id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
+  { id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/10/15/06/girl-2623543_1280.jpg' },
+  { id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2020/02/20/23/21/woman-4866179_1280.jpg' }
+]
 
 let dataState: RootDataState = {
   dialogsPage: {

@@ -17,7 +17,7 @@ function FormPosts(props: FormPostsType) {
       id: v1(),
       post: textValue,
       likeCounter: Math.floor(Math.random() * 100),
-      authorId: dataState.friendsPage.friendsData[2].id,
+      authorId: dataState.profilePage.postsData[3].id,
     }
     props.addPostHandler(newPost)
     setTextValue("")
