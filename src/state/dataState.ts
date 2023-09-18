@@ -45,7 +45,7 @@ type RootDataState = {
   profilePage: ProfilePage
   friendsPage: FriendsPage
 }
-const friendsData = [{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
+export const friendsData = [{ id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
 { id: v1(), name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
 { id: v1(), name: 'Makar', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2015/08/05/04/25/people-875617_1280.jpg' },
 { id: v1(), name: 'Tatiana', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/29/06/08/woman-1867715_1280.jpg' },

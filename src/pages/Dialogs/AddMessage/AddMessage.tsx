@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import './index.scss';
-// import Button from "../../../common/Button/Button";
+import Button from "../../../common/Button/Button";
 import { Messages } from "../../../state/dataState"
 import { v1 } from "uuid";
 
@@ -13,7 +13,7 @@ function AddMessages(props: AddMessageType) {
   const [texts, setTexts] = useState<string[]>([]);
 
   const addMessageHandler = (textValue: string) => {
-    if (!textValue) {
+    if (textValue) {
       let newMessage = {
         id: v1(),
         message: textValue,
@@ -38,18 +38,27 @@ function AddMessages(props: AddMessageType) {
   function mappedList() {
     return texts.map((el, index) => {
       return (
-        <p className="message__output speech" key={index}>
-          {el} </p>)
+        <div className="message__output" key={index}>
+          <img
+            className="message__img"
+            src="https://cdn.pixabay.com/photo/2023/07/22/05/50/wolf-8142720_1280.png"
+            alt="avatar"
+          />
+          <p className="message__output-text" >
+            {el} </p>
+        </div>
+      )
     })
   }
 
   return (
     <div className="message">
-      <textarea minLength={10} className="message__texarea speech" placeholder="......." id="textarea1" name="message" value={textValue}
-        onChange={onChangeHandler} onKeyDown={onKeyDownHandler} />
-      <div> {mappedList()}</div>
-
-      {/* < Button callBack={() => addMessageHandler(textValue)} name="Add" additionalClass="" /> */}
+      <div className="message__main"> {mappedList()}</div>
+      <div className="message__footer">
+        <textarea minLength={10} className="message__texarea" placeholder="......." id="textarea1" name="message" value={textValue}
+          onChange={onChangeHandler} onKeyDown={onKeyDownHandler} />
+        < Button callBack={() => addMessageHandler(textValue)} name="Send" additionalClass="message__button" />
+      </div>
     </div>)
 }
 

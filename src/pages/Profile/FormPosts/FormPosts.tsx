@@ -30,8 +30,12 @@ function FormPosts(props: FormPostsType) {
   return (
     <div className="form-posts">
       <label htmlFor="posts" className="form-posts__label">My posts</label>
-      <textarea minLength={10} className="form-posts__texarea" placeholder="My news...." id="posts" name="posts" value={textValue} onChange={onChangeHandler} />
-      < Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="" />
+      <textarea minLength={10} className="form-posts__texarea"
+        placeholder="My news...." id="posts" name="posts" value={textValue}
+        onChange={onChangeHandler} />
+      <div className="flex-end">
+        < Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="form-posts__button" />
+      </div>
     </div>)
 }
 

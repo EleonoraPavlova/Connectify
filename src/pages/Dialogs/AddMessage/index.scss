@@ -2,10 +2,71 @@
 
 .message {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  min-height: 50vh;
+  flex-direction: column;
   gap: 20px;
+  &__img {
+    width: 70px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 5px;
+    margin-bottom: 0;
+    object-fit: cover;
+  }
   &__output {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    & > p {
+      position: relative;
+      font-weight: 400;
+      size: 16px;
+      line-height: 19.5px;
+      background-color: #f5f7fb;
+      padding: 18px;
+      border-radius: 5px;
+      box-shadow: 0px 1px 2px 0px $color-green;
+      max-width: 255px;
+      overflow-wrap: break-word;
+    }
+    &-text {
+      &:before {
+        left: -7px;
+        width: 20px;
+        background-color: #f5f7fb;
+        border-bottom-right-radius: 16px 14px;
+      }
+      &:after {
+        left: -26px;
+        width: 26px;
+        background-color: white;
+        border-bottom-right-radius: 10px;
+      }
+    }
+  }
+  &__main {
+    flex: 1;
+  }
+  &__texarea {
+    background-color: transparent;
+    padding: 6px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 2px 0px $color-green;
+    border: 1px solid $base-color;
+    width: 55%;
+  }
+  &__button {
+    font-size: 14px;
+    padding: 12px 8px;
+    font-weight: bolder;
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-shrink: 0;
   }
 }
 
@@ -28,3 +89,17 @@
   -moz-box-shadow: 2px 2px 4px $color-green;
   box-shadow: 2px 2px 4px $color-green;
 }
+
+// align-self: flex-start;
+// &::before {
+//   left: -7px;
+//   width: 20px;
+//   background-color: #f5f7fb;
+//   border-bottom-right-radius: 16px 14px;
+// }
+// &::after {
+//   left: -26px;
+//   width: 26px;
+//   background-color: white;
+//   border-bottom-right-radius: 10px;
+// }

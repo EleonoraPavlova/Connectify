@@ -12,7 +12,6 @@ function UserDialogs(props: UserDialogsType) {
 
   const AddMessage = (mes: Messages) => {
     setMessages([mes, ...arrMessages])
-    console.log(arrMessages)
   }
 
   return (

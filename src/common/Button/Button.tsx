@@ -12,9 +12,8 @@ function Button(props: ButtonProps) {
     return props.callBack();
   };
   return (
-    <div className="flex-end">
-      <button className={`button ${props.additionalClass}`} type="submit" onClick={onClickHandler}>{props.name}</button>
-    </div>)
+    <button className={`button ${props.additionalClass}`} type="submit" onClick={onClickHandler}>{props.name}</button>
+  )
 }
 
 export default Button;

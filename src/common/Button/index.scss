@@ -1,14 +1,11 @@
 @import "../../styles/variables.scss";
 
 .button {
-  padding: 15px 10px;
   border-radius: 5px;
   border: 1px solid $color-green;
   background-color: transparent;
   font-family: Handlee;
-  font-size: 18px;
-  font-weight: bolder;
-
+  cursor: pointer;
   &:hover {
     color: $color-green;
     border: 1px solid $base-color;
