@@ -1,4 +1,4 @@
-import { addMessageAC, dialogsPageReducer, initialState } from "src/reducer/dialogsPageReducer"
+import { addMessageAC, dialogsPageReducer, initialState } from "src/reducers/dialogsPageReducer"
 import { Messages } from "src/state/dataState"
 
 
