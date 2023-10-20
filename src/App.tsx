@@ -13,7 +13,7 @@ import { DialogsPage, ProfilePage, FriendsPage } from "./state/dataState";
 type AppProps = DialogsPage & ProfilePage & FriendsPage;
 
 
-function App(props: AppProps) {
+const App = (props: AppProps) => {
   return (
     <div className="App">
       < Header />

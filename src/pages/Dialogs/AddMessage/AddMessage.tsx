@@ -8,7 +8,7 @@ type AddMessageType = {
   AddMessage: (mes: Messages) => void;
 }
 
-function AddMessages(props: AddMessageType) {
+const AddMessages = (props: AddMessageType) => {
   let [textValue, setTextValue] = useState<string>("")
   const [texts, setTexts] = useState<string[]>([]);
 
