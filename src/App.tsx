@@ -4,21 +4,15 @@ import './styles/App.scss';
 import Header from './common/Header/Header';
 import Nav from "./components/Nav/Nav";
 import Footer from "./common/Footer/Footer";
-
 import RoutesComponents from "./routes";
-import { DialogsPage, ProfilePage, FriendsPage } from "./state/dataState";
 
 
-
-type AppProps = DialogsPage & ProfilePage & FriendsPage;
-
-
-const App = (props: AppProps) => {
+const App = () => {
   return (
     <div className="App">
       < Header />
       < Nav />
-      < RoutesComponents {...props} />
+      < RoutesComponents />
       < Footer />
     </div >
 

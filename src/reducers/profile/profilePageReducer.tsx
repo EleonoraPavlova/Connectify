@@ -15,7 +15,7 @@ export const profilePageReducer = (state: PostItem[] = initialState, action: Act
   switch (action.type) {
     case "ADD-POST":
       let newPost = {
-        title: "New Post",
+        title: "This is a post",
         id: v1(),
         post: action.textValue,
         likeCounter: Math.floor(Math.random() * 100),

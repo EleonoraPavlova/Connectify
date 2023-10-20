@@ -1,4 +1,4 @@
-import dataState, { Messages } from "src/state/dataState"
+import dataState, { DialogsPage, Messages } from "src/state/dataState"
 import { v1 } from "uuid"
 
 export type AddMessage = ReturnType<typeof addMessageAC>
@@ -9,19 +9,22 @@ export type SendMessage = ReturnType<typeof SendMessageAC>
 type ActionsType = AddMessage | UpdateMessage | SendMessage
 
 
-export const initialState = dataState.dialogsPage.messagesData
+export const initialState = dataState.dialogsPage
 
 //НЕЛЬЗЯ МЕНЯТЬ ТОТ state КОТОРЫЙ ПРИШЕЛ! РАБОТАТЬ ТОЛЬКО С КОПИЕЙ!
-export const dialogsPageReducer = (state: Messages[] = initialState, action: ActionsType): Messages[] => {
+export const dialogsPageReducer = (state: DialogsPage = initialState, action: ActionsType): DialogsPage => {
   switch (action.type) {
     case "ADD-MESSAGE":
       let newMessage = {
         id: v1(),
         message: action.textValue
       }
-      return [newMessage, ...state]
+      return {
+        ...state,
+        messagesData: [newMessage, ...state.messagesData]
+      }
     case "UPDATE-MESSAGE":
-      return state.map(m => m.id === action.messageId ? { ...m, message: action.textValue } : m);
+      return { ...state, messagesData: state.messagesData.map(m => m.id === action.messageId ? { ...m, message: action.textValue } : m) };
     case "SEND-MESSAGE":
       return state;
     default:

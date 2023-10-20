@@ -1,25 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
 import Button from "../../../common/Button/Button";
-import dataState, { PostItem } from "../../../state/dataState"
-import { v1 } from "uuid";
+import { useDispatch } from "react-redux";
+import { addPostAC } from "src/reducers/profile/profilePageReducer";
 
 type FormPostsType = {
-  addPostHandler: (post: PostItem) => void;
+  // addPostHandler: (post: string) => void;
 }
 
 function FormPosts(props: FormPostsType) {
   let [textValue, setTextValue] = useState<string>("")
 
+  const dispatch = useDispatch()
   const addPostHandler = (textValue: string) => {
-    let newPost = {
-      title: "One Title",
-      id: v1(),
-      post: textValue,
-      likeCounter: Math.floor(Math.random() * 100),
-      authorId: dataState.profilePage.postsData[3].id,
-    }
-    props.addPostHandler(newPost)
+    dispatch(addPostAC(textValue))
     setTextValue("")
   }
 

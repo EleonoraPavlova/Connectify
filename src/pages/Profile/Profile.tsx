@@ -3,25 +3,25 @@ import './index.scss';
 import Banner from "../../components/Banner/Banner";
 import FormPosts from "./FormPosts/FormPosts";
 import Post from "./Post/Post";
-import dataState, { ProfilePage, PostItem } from "../../state/dataState"
+import { PostItem } from "../../state/dataState"
 import UsersInfo from "../../components/UsersInfo/UsersInfo";
+import { useSelector } from "react-redux";
+import { AppRootState } from "src/state/store";
 
-type ProfileProps = ProfilePage
+// type ProfileProps = ProfilePage
 
-function Profile(props: ProfileProps) {
-  let [arrPosts, setArrPosts] = useState<PostItem[]>(dataState.profilePage.postsData)
+function Profile() {
+  // let [arrPosts, setArrPosts] = useState<PostItem[]>(dataState.profilePage.postsData)
 
-  let posts = arrPosts.map((post: PostItem) =>
-    <Post key={post.id} post={post} friendsData={dataState.friendsPage.friendsData} />)
+  const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage)
 
-  const addPost = (post: PostItem) => {
-    setArrPosts([post, ...arrPosts])
-  }
+  let posts = postsData.map((post: PostItem) =>
+    <Post key={post.id} post={post} />)
 
   return (<div className="content">
     <Banner />
     <UsersInfo />
-    <FormPosts addPostHandler={addPost} />
+    <FormPosts />
     {posts}
 
   </div>)

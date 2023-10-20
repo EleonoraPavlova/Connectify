@@ -5,16 +5,19 @@ import Friend from "../../../pages/Friends/Friend/Friend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { PostItem, FriendItem } from "../../../state/dataState"
+import { useSelector } from "react-redux";
+import { AppRootState } from "src/state/store";
 
 
 type PostType = {
   post: PostItem
-  friendsData: FriendItem[]
 }
 
 
-function Post({ post, friendsData }: PostType) {
+export const Post = ({ post }: PostType) => {
   let [isHighlighted, setisHighlighted] = useState<boolean>(false)
+  // friendsData = { dataState.friendsPage.friendsData } 
+  const friendsData = useSelector<AppRootState, FriendItem[]>(state => state.friendsPage)
 
   const isHighlightedHandler = () => {
     if (!isHighlighted) {
