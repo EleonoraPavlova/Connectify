@@ -3,35 +3,8 @@ import './index.scss';
 import { NavLink } from "react-router-dom";
 
 
-// const items = [
-//   {
-//     title: "Profile",
-//     url: '/profile'
-//   },
-//   {
-//     title: "Dialogs",
-//     url: '/dialogs'
-//   },
-//   {
-//     title: "News",
-//     url: '/news'
-//   },
-//   {
-//     title: "Music",
-//     url: '/music'
-//   },
-//   {
-//     title: "Settings",
-//     url: '/settings'
-//   },
 
-// ]
-
-
-function Nav() {
-  // const location = useLocation();
-  // const { pathname } = location;
-  // const splitLocation = pathname.split("/");
+export const Nav = () => {
   return (
     <nav className="nav">
       <ul>
@@ -44,5 +17,4 @@ function Nav() {
       </ul>
     </nav >)
 }
-//className={splitLocation[1] === "dialogs" ? "active" : "nav__link"}
 export default Nav;

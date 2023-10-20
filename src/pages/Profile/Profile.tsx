@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 import Banner from "../../components/Banner/Banner";
-import FormPosts from "./FormPosts/FormPosts";
-import Post from "./Post/Post";
+import { FormPosts } from "./FormPosts/FormPosts";
+import { Post } from "./Post/Post";
 import { PostItem } from "../../state/dataState"
-import UsersInfo from "../../components/UsersInfo/UsersInfo";
+import { UsersInfo } from "../../components/UsersInfo/UsersInfo";
 import { useSelector } from "react-redux";
 import { AppRootState } from "src/state/store";
 
 // type ProfileProps = ProfilePage
 
-function Profile() {
+export const Profile = () => {
   // let [arrPosts, setArrPosts] = useState<PostItem[]>(dataState.profilePage.postsData)
 
   const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage)
@@ -26,5 +26,3 @@ function Profile() {
 
   </div>)
 }
-
-export default Profile;

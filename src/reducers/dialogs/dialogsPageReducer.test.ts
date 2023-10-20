@@ -5,7 +5,6 @@ import { DialogsPage } from "src/state/dataState"
 test("reducer should add message", () => {
   //data
   let state: DialogsPage = initialState
-  let { messagesData } = state
 
   //action
   let endState = dialogsPageReducer(state, addMessageAC("This is a new message"))

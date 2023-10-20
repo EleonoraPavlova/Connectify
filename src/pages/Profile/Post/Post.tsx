@@ -35,7 +35,7 @@ export const Post = ({ post }: PostType) => {
     <div className="flex-start">
       {friend ? <Friend friend={friend} /> : null}
       <div>
-        <h6 className="post__header"> Post  {post.title} </h6>
+        <h6 className="post__header">  {post.title} </h6>
         <p> {post.post} </p>
       </div>
     </div>
@@ -46,5 +46,3 @@ export const Post = ({ post }: PostType) => {
   </div >
   )
 }
-
-export default Post;

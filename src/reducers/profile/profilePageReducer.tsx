@@ -24,7 +24,9 @@ export const profilePageReducer = (state: PostItem[] = initialState, action: Act
       }
       return [newPost, ...state]
     case "UPDATE-POST":
-      return state;
+      return {
+        ...state.map(p => p.id === action.taskId ? { ...p, post: action.textValue } : p)
+      };
     default:
       return state;
   }
@@ -36,8 +38,8 @@ export const addPostAC = (textValue: string) => {
   } as const
 }
 
-export const UpdatePostAC = (textValue: string, postId: string) => {
+export const UpdatePostAC = (textValue: string, taskId: string) => {
   return {
-    type: 'UPDATE-POST', textValue, postId
+    type: 'UPDATE-POST', textValue, taskId
   } as const
 }

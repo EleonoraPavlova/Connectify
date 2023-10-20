@@ -1,17 +1,21 @@
 import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
 import Button from "../../../common/Button/Button";
-import { useDispatch } from "react-redux";
-import { addPostAC } from "src/reducers/profile/profilePageReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { UpdatePostAC, addPostAC } from "src/reducers/profile/profilePageReducer";
+import { AppRootState } from "src/state/store";
+import { PostItem } from "src/state/dataState";
 
-type FormPostsType = {
-  // addPostHandler: (post: string) => void;
-}
+// type FormPostsType = {
+//   // addPostHandler: (post: string) => void;
+// }
 
-function FormPosts(props: FormPostsType) {
+export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>("")
-
   const dispatch = useDispatch()
+
+  // const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage.map())
+
   const addPostHandler = (textValue: string) => {
     dispatch(addPostAC(textValue))
     setTextValue("")
@@ -28,9 +32,7 @@ function FormPosts(props: FormPostsType) {
         placeholder="My news...." id="posts" name="posts" value={textValue}
         onChange={onChangeHandler} />
       <div className="flex-end">
-        < Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="form-posts__button" />
+        <Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="form-posts__button" />
       </div>
     </div>)
 }
-
-export default FormPosts;

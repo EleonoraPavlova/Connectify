@@ -4,7 +4,7 @@ import UserFoto from "../../common/UserFoto/UserFoto";
 
 
 
-function UsersInfo() {
+export const UsersInfo = () => {
   return (<div className="user flex-start" >
     < UserFoto link={"https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg"} additionalClass="" />
     <ul>
@@ -16,5 +16,3 @@ function UsersInfo() {
     </ul>
   </div>)
 }
-
-export default UsersInfo;
