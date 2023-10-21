@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import { Profile } from "./pages/Profile/Profile";
-import Dialogs from "./pages/Dialogs/Dialogs";
-import News from "./pages/News/News";
-import Music from "./pages/Music/Music";
-import Settings from "./pages/Settings/Settings";
+import { Dialogs } from "./pages/Dialogs/Dialogs";
+import { News } from "./pages/News/News";
+import { Music } from "./pages/Music/Music";
+import { Settings } from "./pages/Settings/Settings";
 import { Friends } from "./pages/Friends/Friends";
-import UserDialogs from "./pages/Dialogs/UserDialogs/UserDialogs";
+import { UserDialogs } from "./pages/Dialogs/UserDialogs/UserDialogs";
 
 
-const RoutesComponents = () => {
+export const RoutesComponents = () => {
   return (<Routes>
     <Route path="/" element={<Profile />} />
     <Route path="/dialogs" element={<Dialogs welcome="Hi, my friends!" />} />

@@ -1,19 +1,19 @@
 import { v1 } from "uuid";
 
-export type Messages = {
+export type MessagesType = {
   message: string
   id: string
 }
 
 
-export type Dialogs = {
+export type DialogsType = {
   name: string
   id: string
 }
 
 export type DialogsPage = {
-  dialogsData: Dialogs[]
-  messagesData: Messages[]
+  dialogsData: DialogsType[]
+  messagesData: MessagesType[]
 }
 
 export type PostItem = {

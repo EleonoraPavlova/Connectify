@@ -11,8 +11,6 @@ import { AppRootState } from "src/state/store";
 // type ProfileProps = ProfilePage
 
 export const Profile = () => {
-  // let [arrPosts, setArrPosts] = useState<PostItem[]>(dataState.profilePage.postsData)
-
   const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage)
 
   let posts = postsData.map((post: PostItem) =>

@@ -3,10 +3,8 @@ import './index.scss';
 
 
 
-function Music() {
+export const Music = () => {
   return (<div className="music">
     <p>music</p>
   </div>)
 }
-
-export default Music;

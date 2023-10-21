@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss';
 import { NavLink } from "react-router-dom";
-import { Dialogs } from "../../../state/dataState";
+import { DialogsType } from "../../../state/dataState";
 
 
-type DialogItemProps = Dialogs;
+type DialogItemProps = DialogsType;
 
 
 function DialogItem(props: DialogItemProps) {

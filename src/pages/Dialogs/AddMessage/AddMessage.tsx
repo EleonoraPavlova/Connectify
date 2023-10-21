@@ -1,29 +1,26 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import './index.scss';
 import Button from "../../../common/Button/Button";
-import { Messages } from "../../../state/dataState"
-import { v1 } from "uuid";
+import { useDispatch } from "react-redux";
+import { addMessageAC } from "src/reducers/dialogs/dialogsPageReducer";
 
-type AddMessageType = {
-  AddMessage: (mes: Messages) => void;
-}
 
-const AddMessages = (props: AddMessageType) => {
+
+export const AddMessages = () => {
   let [textValue, setTextValue] = useState<string>("")
   const [texts, setTexts] = useState<string[]>([]);
 
+  const dispatch = useDispatch()
+
+
   const addMessageHandler = (textValue: string) => {
     if (textValue) {
-      let newMessage = {
-        id: v1(),
-        message: textValue,
-      }
-      setTexts([textValue, ...texts])
-      props.AddMessage(newMessage)
-      setTextValue("")
+      dispatch(addMessageAC(textValue))
     }
-
+    setTexts([textValue, ...texts])
+    setTextValue("")
   }
+
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextValue(e.currentTarget.value)
@@ -51,6 +48,8 @@ const AddMessages = (props: AddMessageType) => {
     })
   }
 
+
+
   return (
     <div className="message">
       <div className="message__main"> {mappedList()}</div>
@@ -60,6 +59,5 @@ const AddMessages = (props: AddMessageType) => {
         < Button callBack={() => addMessageHandler(textValue)} name="Send" additionalClass="message__button" />
       </div>
     </div>)
-}
 
-export default AddMessages;
+}

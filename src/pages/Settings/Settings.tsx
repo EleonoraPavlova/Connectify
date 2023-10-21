@@ -3,10 +3,8 @@ import './index.scss';
 
 
 
-function Settings() {
+export const Settings = () => {
   return (<div className="settings">
     <p>Settings</p>
   </div>)
 }
-
-export default Settings;

@@ -14,8 +14,6 @@ export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>("")
   const dispatch = useDispatch()
 
-  // const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage.map())
-
   const addPostHandler = (textValue: string) => {
     dispatch(addPostAC(textValue))
     setTextValue("")

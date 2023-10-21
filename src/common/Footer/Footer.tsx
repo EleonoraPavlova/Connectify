@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 
 
 
-function Footer() {
+export const Footer = () => {
   return (<div className="footer">
     <p className="footer__recerved">® 2023 All rights recerved</p>
     <div className="footer__logo">
@@ -12,5 +12,3 @@ function Footer() {
     </div>
   </div>)
 }
-
-export default Footer;

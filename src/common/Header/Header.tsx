@@ -4,10 +4,8 @@ import Logo from "../Logo/Logo";
 
 
 
-function Header() {
+export const Header = () => {
   return (<header className="header">
     <Logo styleImg="header__img" styleText="header__text" />
   </header>)
 }
-
-export default Header;

@@ -1,14 +1,12 @@
 import React from 'react';
 import './index.scss';
-import { Messages } from "../../../state/dataState"
+import { MessagesType } from "../../../state/dataState"
 
 
-type DialogMessageProps = Messages;
+type DialogMessageProps = MessagesType;
 
-function DialogMessage(props: DialogMessageProps) {
+export const DialogMessage = (props: DialogMessageProps) => {
   return (
     <li className="dialog-message" id={`${props.id}`}>{props.message}</li>
   )
 }
-
-export default DialogMessage;
