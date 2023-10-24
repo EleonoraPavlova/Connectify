@@ -56,7 +56,7 @@ export const AddMessages = () => {
       <div className="message__footer">
         <textarea minLength={10} className="message__texarea" placeholder="......." id="textarea1" name="message" value={textValue}
           onChange={onChangeHandler} onKeyDown={onKeyDownHandler} />
-        < Button callBack={() => addMessageHandler(textValue)} name="Send" additionalClass="message__button" />
+        < Button callBack={() => addMessageHandler(textValue)} name="Add" additionalClass="message__button" />
       </div>
     </div>)
 

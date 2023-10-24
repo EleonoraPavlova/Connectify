@@ -8,7 +8,6 @@ import { UsersInfo } from "../../components/UsersInfo/UsersInfo";
 import { useSelector } from "react-redux";
 import { AppRootState } from "src/state/store";
 
-// type ProfileProps = ProfilePage
 
 export const Profile = () => {
   const postsData = useSelector<AppRootState, PostItem[]>(state => state.profilePage)

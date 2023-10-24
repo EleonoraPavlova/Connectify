@@ -26,7 +26,7 @@ export const dialogsPageReducer = (state: DialogsPage = initialState, action: Ac
     case "UPDATE-MESSAGE":
       return { ...state, messagesData: state.messagesData.map(m => m.id === action.messageId ? { ...m, message: action.textValue } : m) };
     case "SEND-MESSAGE":
-      return state;
+      return state
     default:
       return state;
   }

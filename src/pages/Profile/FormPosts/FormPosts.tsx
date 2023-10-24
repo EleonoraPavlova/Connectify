@@ -1,10 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
 import Button from "../../../common/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { UpdatePostAC, addPostAC } from "src/reducers/profile/profilePageReducer";
-import { AppRootState } from "src/state/store";
-import { PostItem } from "src/state/dataState";
+import { useDispatch } from "react-redux";
+import { addPostAC } from "src/reducers/profile/profilePageReducer";
+
 
 // type FormPostsType = {
 //   // addPostHandler: (post: string) => void;

@@ -15,9 +15,8 @@ type PostType = {
 
 
 export const Post = ({ post }: PostType) => {
-  let [isHighlighted, setisHighlighted] = useState<boolean>(false)
-  // friendsData = { dataState.friendsPage.friendsData } 
   const friendsData = useSelector<AppRootState, FriendItem[]>(state => state.friendsPage)
+  let [isHighlighted, setisHighlighted] = useState<boolean>(false)
 
   const isHighlightedHandler = () => {
     if (!isHighlighted) {
