@@ -6,7 +6,7 @@ import { Music } from "./pages/Music/Music";
 import { Settings } from "./pages/Settings/Settings";
 import { Friends } from "./pages/Friends/Friends";
 import { UserDialogs } from "./pages/Dialogs/UserDialogs/UserDialogs";
-import { FindUsers } from "./pages/FindUsers/FindUsers";
+import { Users } from "./pages/FindUsers/Users";
 
 
 export const RoutesComponents = () => {
@@ -14,7 +14,7 @@ export const RoutesComponents = () => {
     <Route path="/" element={<Profile />} />
     <Route path="/dialogs" element={<Dialogs welcome="Hi, my friends!" />} />
     <Route path="/friends" element={<Friends />} />
-    <Route path="/find-friends" element={<FindUsers />} />
+    <Route path="/findUsers" element={<Users />} />
     <Route path="/news" element={<News />} />
     <Route path="/music" element={<Music />} />
     <Route path="/settings" element={<Settings />} />

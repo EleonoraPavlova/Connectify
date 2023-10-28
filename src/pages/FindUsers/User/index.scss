@@ -1,0 +1,29 @@
+@import "../../../styles/variables.scss";
+
+.find-users {
+  border: 1px solid $base-color;
+  border-radius: 5px;
+  padding: 6px;
+  width: 22%;
+  height: 170px;
+  &__box {
+    display: flex;
+  }
+  &__data {
+    margin: 10px;
+    &-name {
+      font-weight: bold;
+      padding-bottom: 10px;
+    }
+  }
+  &__image {
+    border-radius: 5px;
+    width: 70px;
+    height: 70px;
+  }
+  &__button {
+    padding: 10px;
+    font-size: 500;
+    width: 100%;
+  }
+}

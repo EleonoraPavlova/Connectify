@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
 import './index.scss';
-import Button from "../../../common/Button/Button";
+import { Button } from "../../../common/Button/Button";
 import { useDispatch } from "react-redux";
 import { addMessageAC } from "src/reducers/dialogs/dialogsPageReducer";
 

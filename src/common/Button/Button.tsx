@@ -7,7 +7,7 @@ type ButtonProps = {
   callBack: () => void
 }
 
-function Button(props: ButtonProps) {
+export const Button = (props: ButtonProps) => {
   const onClickHandler = () => {
     return props.callBack();
   };
@@ -15,5 +15,3 @@ function Button(props: ButtonProps) {
     <button className={`button ${props.additionalClass}`} type="submit" onClick={onClickHandler}>{props.name}</button>
   )
 }
-
-export default Button;

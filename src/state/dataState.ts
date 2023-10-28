@@ -40,11 +40,26 @@ export type FriendsPage = {
   friendsData: FriendItem[]
 }
 
+export type usersItem = {
+  id: string,
+  topic: string,
+  name: string,
+  lastName: string,
+  src: string
+  location: { city: string, country: string }
+}
+
+export type UsersPage = {
+  usersData: usersItem[]
+}
+
 type RootDataState = {
   dialogsPage: DialogsPage
   profilePage: ProfilePage
   friendsPage: FriendsPage
+  usersPage: UsersPage
 }
+
 export const friendsData = [
   { id: v1(), name: 'Irina', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg' },
   { id: v1(), name: 'Andre', lastName: "LastName", src: 'https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg' },
@@ -89,7 +104,39 @@ let dataState: RootDataState = {
   },
   friendsPage: {
     friendsData: friendsData
-  }
+  },
+  usersPage: {
+    usersData: [
+      {
+        id: v1(), topic: 'I am a boss', name: 'Ben', lastName: "Carlisle",
+        src: "https://static.vecteezy.com/system/resources/previews/004/819/327/original/male-avatar-profile-icon-of-smiling-caucasian-man-vector.jpg", location: { city: "Kyiv", country: "Ukraine" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Ben', lastName: "Carlisle",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRRXSr4fj9_S-uoxa5iCQFditPI-kM1E6ZwQ&usqp=CAU", location: { city: "Valencia", country: "Spain" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Ben', lastName: "Carlisle",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRRXSr4fj9_S-uoxa5iCQFditPI-kM1E6ZwQ&usqp=CAU", location: { city: "Kyiv", country: "Ukraine" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Ben', lastName: "Carlisle",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRRXSr4fj9_S-uoxa5iCQFditPI-kM1E6ZwQ&usqp=CAU", location: { city: "Kyiv", country: "Ukraine" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Ben', lastName: "Carlisle",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3ufOqFL6mbhJnkjVRCn4qf7mW-qSns1EvJA&usqp=CAU", location: { city: "Kyiv", country: "Ukraine" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Sochnik', lastName: "Juicy",
+        src: "https://imageup.ru/img78/4593159/photo_2023-10-28-144747.jpeg", location: { city: "Epsom", country: "Uk" }
+      },
+      {
+        id: v1(), topic: 'I am a boss', name: 'Sasha', lastName: "Carlisle",
+        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3ufOqFL6mbhJnkjVRCn4qf7mW-qSns1EvJA&usqp=CAU", location: { city: "Kyiv", country: "Ukraine" }
+      }
+    ]
+  },
 }
 
 export default dataState;

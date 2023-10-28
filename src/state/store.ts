@@ -2,6 +2,7 @@ import { combineReducers, legacy_createStore } from "redux";
 import { dialogsPageReducer } from "src/reducers/dialogs/dialogsPageReducer";
 import { friendsPageReducer } from "src/reducers/friends/friendsPageReducer";
 import { profilePageReducer } from "src/reducers/profile/profilePageReducer";
+import { usersPageReducer } from "src/reducers/users/usersPageReducer";
 
 //обязательно Provider в App
 //одельный reducer отвечает за каждую ветку
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   //по нужным напрвлениям
   dialogsPage: dialogsPageReducer,
   profilePage: profilePageReducer,
-  friendsPage: friendsPageReducer
+  friendsPage: friendsPageReducer,
+  usersPage: usersPageReducer
 })
 
 export const store = legacy_createStore(rootReducer)
