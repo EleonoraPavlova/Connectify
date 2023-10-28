@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import UserFoto from "../../common/UserFoto/UserFoto";
+import { UserFoto } from "../../common/UserFoto/UserFoto";
 
 
 

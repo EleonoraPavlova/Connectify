@@ -7,7 +7,6 @@ export type UpdatePost = ReturnType<typeof UpdatePostAC>
 
 type ActionsType = AddPost | UpdatePost
 
-
 export const initialState = dataState.profilePage.postsData
 
 //НЕЛЬЗЯ МЕНЯТЬ ТОТ state КОТОРЫЙ ПРИШЕЛ! РАБОТАТЬ ТОЛЬКО С КОПИЕЙ!
@@ -15,8 +14,8 @@ export const profilePageReducer = (state: PostItem[] = initialState, action: Act
   switch (action.type) {
     case "ADD-POST":
       let newPost = {
-        title: "This is a post",
         id: v1(),
+        title: "This is a post",
         post: action.textValue,
         likeCounter: Math.floor(Math.random() * 100),
         authorId: dataState.friendsPage.friendsData[3].id,

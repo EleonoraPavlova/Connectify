@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import './index.scss';
-import Friend from "../../../pages/Friends/Friend/Friend";
+import { Friend } from "../../../pages/Friends/Friend/Friend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { PostItem, FriendItem } from "../../../state/dataState"

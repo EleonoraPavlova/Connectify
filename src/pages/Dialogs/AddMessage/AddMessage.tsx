@@ -12,7 +12,6 @@ export const AddMessages = () => {
 
   const dispatch = useDispatch()
 
-
   const addMessageHandler = (textValue: string) => {
     if (textValue) {
       dispatch(addMessageAC(textValue))

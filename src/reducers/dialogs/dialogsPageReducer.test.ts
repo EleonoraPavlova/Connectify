@@ -12,5 +12,5 @@ test("reducer should add message", () => {
   // expection
   expect(state.messagesData.length).toBe(7)
   expect(endState.messagesData.length).toBe(8)
-  expect(endState.messagesData[0].message).toBe("This is a new message")
+  expect(endState.messagesData[endState.messagesData.length - 1].message).toBe("This is a new message")
 })

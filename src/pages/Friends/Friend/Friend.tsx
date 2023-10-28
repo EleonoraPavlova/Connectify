@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import UserFoto from "../../../common/UserFoto/UserFoto";
+import { UserFoto } from "../../../common/UserFoto/UserFoto";
 import { FriendItem } from "../../../state/dataState";
 
 
@@ -8,7 +8,7 @@ type FriendProps = {
   friend: FriendItem
 }
 
-function Friend({ friend }: FriendProps) {
+export const Friend = ({ friend }: FriendProps) => {
   return (
     <div className="friend">
       <UserFoto link={friend.src} additionalClass="friend__foto" />
@@ -16,5 +16,3 @@ function Friend({ friend }: FriendProps) {
     </div>
   )
 }
-
-export default Friend;
