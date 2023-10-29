@@ -1,5 +1,19 @@
 .users {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  padding: 20px;
+  &__list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  &__wrap-button {
+    display: flex;
+    justify-content: center;
+  }
+  &__button {
+    margin: 10px;
+    width: 12%;
+    padding: 16px;
+    font-size: medium;
+  }
 }

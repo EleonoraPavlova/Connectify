@@ -1,19 +1,17 @@
 
-import { usersItem } from "src/state/dataState"
-import { initialState } from "./usersPageReducer"
-import { FollowUsersAC, usersPageReducer } from "./usersPageReducer"
+import { UsersPage } from "src/state/dataState"
+import { initialState, toggleFollowUserAC } from "./usersPageReducer"
+import { usersPageReducer } from "./usersPageReducer"
 
 
-test("reducer should add new friend", () => {
+test("reducer should toggle follow status", () => {
   //data
-  let state: usersItem[] = initialState
+  let state: UsersPage = initialState
 
   //action
-  let endState = usersPageReducer(state, FollowUsersAC("id"))
+  let endState = usersPageReducer(state, toggleFollowUserAC(initialState.usersData[0].id, true))
 
   // expection
-  expect(state.length).toBe(7)
-  // expect(endState.length).toBe(8)
-  // expect(endState[0].name).toBe("Victor")
-  // expect(endState[0].lastName).toBe("EEEEEyy")
+  expect(state.usersData.length).toBe(7)
+  expect(endState.usersData[0].followed).toBe(false)
 })
