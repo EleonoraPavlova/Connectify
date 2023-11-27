@@ -1,5 +1,5 @@
 
-import { PostItem } from "src/state/dataState"
+import { PostItem } from "src/state/initialState"
 import { addPostAC, initialState, profilePageReducer } from "./profilePageReducer"
 
 

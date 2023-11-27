@@ -1,4 +1,4 @@
-import dataState, { FriendItem } from "src/state/dataState"
+import dataState, { FriendItem } from "src/state/initialState"
 import { v1 } from "uuid"
 
 export type AddFriend = ReturnType<typeof addFriendAC>

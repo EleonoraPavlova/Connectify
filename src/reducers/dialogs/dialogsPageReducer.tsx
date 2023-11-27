@@ -1,4 +1,4 @@
-import dataState, { DialogsPage } from "src/state/dataState"
+import dataState, { DialogsPage } from "src/state/initialState"
 import { v1 } from "uuid"
 
 export type AddMessage = ReturnType<typeof addMessageAC>

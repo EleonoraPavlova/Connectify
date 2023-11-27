@@ -1,4 +1,5 @@
-import { combineReducers, legacy_createStore } from "redux";
+import { AnyAction, combineReducers, legacy_createStore } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { dialogsPageReducer } from "src/reducers/dialogs/dialogsPageReducer";
 import { friendsPageReducer } from "src/reducers/friends/friendsPageReducer";
 import { profilePageReducer } from "src/reducers/profile/profilePageReducer";
@@ -7,7 +8,7 @@ import { usersPageReducer } from "src/reducers/users/usersPageReducer";
 //обязательно Provider в App
 //одельный reducer отвечает за каждую ветку
 
-export type AppRootState = ReturnType<typeof rootReducer>
+export type AppRootStateType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
   //все dispatch приходят в rootReducer, а он самостоятельно раскидывает их
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 })
 
 export const store = legacy_createStore(rootReducer)
+export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction> //будет приниматься любой action
 
 
 //@ts-ignore

@@ -1,4 +1,5 @@
-import dataState, { UsersPage, usersItem } from "src/state/dataState"
+import dataState, { UsersPage, usersItem } from "src/state/initialState"
+import { v1 } from "uuid"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetUsers = ReturnType<typeof setUsersAC>
@@ -13,7 +14,19 @@ export const usersPageReducer = (state: UsersPage = initialState, action: Action
     case "CHANGE-FOLLOWED-USERS":
       return { ...state, usersData: state.usersData.map(u => u.id === action.id ? { ...u, followed: !action.followed } : u) }
     case "SET-USERS":
-      return { ...state, usersData: [...state.usersData, ...action.users] }
+      const addedUser: usersItem = {
+        id: v1(),
+        topic: "Added",
+        firstName: "Leo",
+        lastName: "King",
+        followed: true,
+        src: "https://avatarko.ru/img/kartinka/1/morda_lva.jpg",
+        location: {
+          city: "Milano",
+          country: "Italy",
+        }
+      }
+      return { ...state, usersData: [...state.usersData, addedUser] }
     default:
       return state;
   }
@@ -26,8 +39,8 @@ export const toggleFollowUserAC = (id: string, followed: boolean) => {
   } as const
 }
 
-export const setUsersAC = (users: []) => {
+export const setUsersAC = () => {
   return {
-    type: 'SET-USERS', users
+    type: 'SET-USERS'
   } as const
 }

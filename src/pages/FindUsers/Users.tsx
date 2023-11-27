@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 import { useSelector } from "react-redux";
-import { AppRootState } from "src/state/store";
-import { usersItem } from "src/state/dataState";
+import { AppRootStateType } from "src/state/store";
+import { usersItem } from "src/state/initialState";
 import { User } from "./User/User";
 import { Button } from "src/common/Button/Button";
 import { useDispatch } from "react-redux";
-import { toggleFollowUserAC } from "src/reducers/users/usersPageReducer";
+import { setUsersAC, toggleFollowUserAC } from "src/reducers/users/usersPageReducer";
+
 
 
 export const Users = () => {
-  const users = useSelector<AppRootState, usersItem[]>(state => state.usersPage.usersData)
+  const users = useSelector<AppRootStateType, usersItem[]>(state => state.usersPage.usersData)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(setUsersAC())
+  }, [dispatch])
+
   const usersMap = users.map((u: usersItem) => {
-    const unFollowUser = () => {
+    const toggleFollowUser = () => {
       dispatch(toggleFollowUserAC(u.id, u.followed));
     }
-
     return (
-      <User key={u.id} user={u} toggleFollowUser={unFollowUser} btnText={u.followed ? "Unfollowed" : "Follow"} />
+      <User key={u.id} user={u} toggleFollowUser={toggleFollowUser} btnText={u.followed ? "Unfollowed" : "Follow"} />
     );
   });
-
 
   const showMoreHandler = () => {
     alert("Show more")

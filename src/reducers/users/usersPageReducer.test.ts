@@ -1,5 +1,5 @@
 
-import { UsersPage } from "src/state/dataState"
+import { UsersPage } from "src/state/initialState"
 import { initialState, toggleFollowUserAC } from "./usersPageReducer"
 import { usersPageReducer } from "./usersPageReducer"
 

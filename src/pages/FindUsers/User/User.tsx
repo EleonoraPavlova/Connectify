@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 import { UserFoto } from "src/common/UserFoto/UserFoto";
 import { Button } from "src/common/Button/Button";
-import { usersItem } from "src/state/dataState";
+import { usersItem } from "src/state/initialState";
 
 
 type UserProps = {

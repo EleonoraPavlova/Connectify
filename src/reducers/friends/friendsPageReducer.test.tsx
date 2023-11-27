@@ -1,5 +1,5 @@
 
-import { FriendItem } from "src/state/dataState"
+import { FriendItem } from "src/state/initialState"
 import { addFriendAC, friendsPageReducer, initialState } from "./friendsPageReducer"
 
 

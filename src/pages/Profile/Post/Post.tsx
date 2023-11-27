@@ -4,9 +4,9 @@ import './index.scss';
 import { Friend } from "../../../pages/Friends/Friend/Friend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { PostItem, FriendItem } from "../../../state/dataState"
+import { PostItem, FriendItem } from "../../../state/initialState"
 import { useSelector } from "react-redux";
-import { AppRootState } from "src/state/store";
+import { AppRootStateType } from "src/state/store";
 
 
 type PostType = {
@@ -15,7 +15,7 @@ type PostType = {
 
 
 export const Post = ({ post }: PostType) => {
-  const friendsData = useSelector<AppRootState, FriendItem[]>(state => state.friendsPage)
+  const friendsData = useSelector<AppRootStateType, FriendItem[]>(state => state.friendsPage)
   let [isHighlighted, setisHighlighted] = useState<boolean>(false)
 
   const isHighlightedHandler = () => {

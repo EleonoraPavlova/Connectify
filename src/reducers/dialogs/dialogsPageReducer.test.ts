@@ -1,5 +1,5 @@
 import { addMessageAC, dialogsPageReducer, initialState } from "src/reducers/dialogs/dialogsPageReducer"
-import { DialogsPage } from "src/state/dataState"
+import { DialogsPage } from "src/state/initialState"
 
 
 test("reducer should add message", () => {

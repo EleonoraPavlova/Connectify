@@ -1,4 +1,4 @@
-import dataState, { PostItem } from "src/state/dataState"
+import dataState, { PostItem } from "src/state/initialState"
 import { v1 } from "uuid"
 
 export type AddPost = ReturnType<typeof addPostAC>

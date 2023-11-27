@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import { UserFoto } from "../../../common/UserFoto/UserFoto";
-import { FriendItem } from "../../../state/dataState";
+import { FriendItem } from "../../../state/initialState";
 
 
 type FriendProps = {
