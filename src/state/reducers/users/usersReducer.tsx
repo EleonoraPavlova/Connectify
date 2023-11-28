@@ -1,4 +1,6 @@
+import { log } from "console"
 import { Dispatch } from "redux"
+import { followApi } from "src/api/followApi"
 import { UserTypeApi, usersApi } from "src/api/usersApi"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
@@ -10,8 +12,8 @@ export const initialState: UserTypeApi[] = []
 
 export const usersReducer = (state: UserTypeApi[] = initialState, action: UsersActionsType): UserTypeApi[] => {
   switch (action.type) {
-    case "CHANGE-FOLLOWED-USERS":
-      return state
+    case "TOGGLE-FOLLOWED-USERS":
+      return state.map(u => u.id === action.id ? { ...u, followed: !action.followed } : u)
     case "SET-USERS":
       return action.users
     default:
@@ -19,10 +21,10 @@ export const usersReducer = (state: UserTypeApi[] = initialState, action: UsersA
   }
 }
 
-
+//actions
 export const toggleFollowUserAC = (id: number, followed: boolean) => {
   return {
-    type: 'CHANGE-FOLLOWED-USERS', id, followed
+    type: 'TOGGLE-FOLLOWED-USERS', id, followed
   } as const
 }
 
@@ -32,6 +34,7 @@ export const setUsersAC = (users: UserTypeApi[]) => {
   } as const
 }
 
+//thunk
 export const getUsersTC = (dispatch: Dispatch) => {
   usersApi.getUsers()
     .then((res) => {
@@ -39,9 +42,20 @@ export const getUsersTC = (dispatch: Dispatch) => {
     })
 }
 
-// export const toggleFollowUserTC = (dispatch: Dispatch) => {
-//   usersApi.getUsers()
-//     .then((res) => {
-//       dispatch(setUsersAC(res.data))
-//     })
-// }
+export const unFollowUserTC = (userId: number, followed: boolean) => {
+  return (dispatch: Dispatch) => {
+    followApi.unFollowTo(userId)
+      .then((res) => {
+        dispatch(toggleFollowUserAC(userId, followed))
+      })
+  }
+}
+
+export const toggleFollowUserTC = (userId: number, followed: boolean) => {
+  return (dispatch: Dispatch) => {
+    followApi.followTo(userId)
+      .then((res) => {
+        dispatch(toggleFollowUserAC(userId, followed))
+      })
+  }
+}

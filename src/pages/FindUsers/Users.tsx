@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './index.scss';
 import { User } from "./User/User";
 import { Button } from "src/common/Button/Button";
-import { getUsersTC, toggleFollowUserAC } from "src/state/reducers/users/usersReducer";
+import { getUsersTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
 import { UserTypeApi } from "src/api/usersApi";
 
@@ -13,12 +13,15 @@ export const Users = () => {
 
   useEffect(() => {
     dispatch(getUsersTC)
-  }, [dispatch])
+  }, [])
 
   const usersMap = users.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {
-      console.log("user")
-      // dispatch(toggleFollowUserTC(u.id, u.followed));
+      if (!u.followed) {
+        dispatch(toggleFollowUserTC(u.id, u.followed));
+      } else if (u.followed) {
+        dispatch(unFollowUserTC(u.id, u.followed))
+      }
     }
     return (
       <User key={u.id} user={u} toggleFollowUser={toggleFollowUser} btnText={u.followed ? "Unfollowed" : "Follow"} />
