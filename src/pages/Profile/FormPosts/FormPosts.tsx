@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
 import { Button } from "../../../common/Button/Button";
 import { useDispatch } from "react-redux";
-import { addPostAC } from "src/reducers/profile/profilePageReducer";
+import { addPostAC } from "src/state/reducers/profile/profilePageReducer";
 
 
 // type FormPostsType = {

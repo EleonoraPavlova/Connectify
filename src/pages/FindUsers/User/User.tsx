@@ -2,23 +2,25 @@ import React from 'react';
 import './index.scss';
 import { UserFoto } from "src/common/UserFoto/UserFoto";
 import { Button } from "src/common/Button/Button";
-import { usersItem } from "src/state/initialState";
+import { UserTypeApi } from "src/api/usersApi";
 
 
 type UserProps = {
-  user: usersItem
+  user: UserTypeApi
   toggleFollowUser: () => void
   btnText: string
 }
 
 export const User: React.FC<UserProps> = ({ user, toggleFollowUser, btnText }) => {
 
+  const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
+
   return (<div className="find-users">
     <div className="find-users__box">
-      <UserFoto link={user.src} additionalClass="find-users__image" />
+      <UserFoto link={user.photos.small ? user.photos.small : mocPhoto} additionalClass="find-users__image" />
       <div className="find-users__data">
-        <p className="find-users__data-name"> {user.firstName} {user.lastName}</p>
-        <p>{user.location.city}</p>  <p>{user.location.country}</p>
+        <p className="find-users__data-name"> {user.name}</p>
+        <p>{user.followed}</p>  <p>{user.status}</p>
       </div>
     </div>
     <Button name={btnText} additionalClass="find-users__button" callBack={toggleFollowUser} />

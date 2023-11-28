@@ -3,21 +3,27 @@
 .find-users {
   border: 1px solid $base-color;
   border-radius: 5px;
-  padding: 6px;
+  padding: 10px;
   width: 22%;
-  height: 170px;
+  height: 175px;
   &__box {
     display: flex;
+    padding: 5px;
   }
   &__data {
     margin: 10px;
+    overflow-x: scroll;
     &-name {
       font-weight: bold;
       padding-bottom: 10px;
+      cursor: pointer;
     }
   }
   &__image {
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid $color-green;
+    object-fit: cover;
     width: 70px;
     height: 70px;
   }

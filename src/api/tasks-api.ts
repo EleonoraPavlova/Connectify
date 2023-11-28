@@ -1,5 +1,5 @@
 import axios from "axios"
-import { instanse } from "./todolists-api"
+import { instanse } from "./usersApi"
 
 const settings = {
   withCredentials: true, //есть валидац токен

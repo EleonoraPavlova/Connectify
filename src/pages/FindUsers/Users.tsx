@@ -1,26 +1,24 @@
 import React, { useEffect } from 'react';
 import './index.scss';
-import { useSelector } from "react-redux";
-import { AppRootStateType } from "src/state/store";
-import { usersItem } from "src/state/initialState";
 import { User } from "./User/User";
 import { Button } from "src/common/Button/Button";
-import { useDispatch } from "react-redux";
-import { setUsersAC, toggleFollowUserAC } from "src/reducers/users/usersPageReducer";
-
+import { getUsersTC, toggleFollowUserAC } from "src/state/reducers/users/usersReducer";
+import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
+import { UserTypeApi } from "src/api/usersApi";
 
 
 export const Users = () => {
-  const users = useSelector<AppRootStateType, usersItem[]>(state => state.usersPage.usersData)
-  const dispatch = useDispatch()
+  const users = useAppSelector<UserTypeApi[]>(state => state.usersPage)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(setUsersAC())
+    dispatch(getUsersTC)
   }, [dispatch])
 
-  const usersMap = users.map((u: usersItem) => {
+  const usersMap = users.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {
-      dispatch(toggleFollowUserAC(u.id, u.followed));
+      console.log("user")
+      // dispatch(toggleFollowUserTC(u.id, u.followed));
     }
     return (
       <User key={u.id} user={u} toggleFollowUser={toggleFollowUser} btnText={u.followed ? "Unfollowed" : "Follow"} />
