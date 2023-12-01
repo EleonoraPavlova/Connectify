@@ -27,7 +27,9 @@ export const Friends = () => {
     return (
       <User key={u.id} user={u}
         toggleFollowUser={toggleFollowUser}
-        btnText={u.followed ? "Unfollowed" : "Follow"} />
+        btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
+        btnTexInfo={"Message"}
+      />
     );
   });
 

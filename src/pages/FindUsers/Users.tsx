@@ -34,7 +34,9 @@ export const Users = () => {
       <User key={u.id} user={u}
         toggleFollowUser={toggleFollowUser}
         viewFullProfile={viewFullProfile}
-        btnText={u.followed ? "Unfollowed" : "Follow"} />
+        btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
+        btnTexInfo={"Full info"}
+      />
     );
   });
 

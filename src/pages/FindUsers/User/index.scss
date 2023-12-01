@@ -3,19 +3,19 @@
 .find-users {
   border: 1px solid $base-color;
   border-radius: 5px;
-  padding: 10px;
-  width: 23%;
+  padding: 5px;
+  width: 28%;
   height: 189px;
   &__box {
     display: flex;
     padding: 5px;
   }
   &__data {
-    margin: 10px;
+    margin: 5px;
     overflow-x: scroll;
     &-name {
       font-weight: bold;
-      padding-bottom: 10px;
+      padding-bottom: 14px;
       cursor: pointer;
     }
   }
@@ -24,8 +24,8 @@
     border-radius: 50%;
     border: 1px solid $color-green;
     object-fit: cover;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
   &__buttons {
     display: flex;
