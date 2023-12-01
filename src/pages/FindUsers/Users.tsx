@@ -5,6 +5,7 @@ import { Button } from "src/common/Button/Button";
 import { getUsersTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
 import { UserTypeApi } from "src/api/usersApi";
+// import { Modal } from "src/components/Modal/Modal";
 
 
 export const Users = () => {
@@ -12,8 +13,9 @@ export const Users = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getUsersTC)
+    dispatch(getUsersTC(20, 1, false))
   }, [])
+
 
   const usersMap = users.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {
@@ -23,8 +25,16 @@ export const Users = () => {
         dispatch(unFollowUserTC(u.id, u.followed))
       }
     }
+
+    const viewFullProfile = () => {
+      console.log("viewFullProfile")
+      // return (<Modal profileId={u.id} />)
+    }
     return (
-      <User key={u.id} user={u} toggleFollowUser={toggleFollowUser} btnText={u.followed ? "Unfollowed" : "Follow"} />
+      <User key={u.id} user={u}
+        toggleFollowUser={toggleFollowUser}
+        viewFullProfile={viewFullProfile}
+        btnText={u.followed ? "Unfollowed" : "Follow"} />
     );
   });
 

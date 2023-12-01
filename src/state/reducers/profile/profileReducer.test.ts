@@ -1,16 +1,13 @@
 
 import { PostItem } from "src/state/initialState"
-import { addPostAC, initialState, profilePageReducer } from "./profilePageReducer"
+import { addPostAC, initialState, profileReducer } from "./profileReducer"
 
 
 test("reducer should add post", () => {
-  //data
   let state: PostItem[] = initialState
 
-  //action
-  let endState = profilePageReducer(state, addPostAC("This is the text for the post"))
+  let endState = profileReducer(state, addPostAC("This is the text for the post"))
 
-  // expection
   expect(state.length).toBe(7)
   expect(endState.length).toBe(8)
   expect(endState[0].title).toBe("This is a post")

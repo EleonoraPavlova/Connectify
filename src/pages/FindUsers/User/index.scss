@@ -4,8 +4,8 @@
   border: 1px solid $base-color;
   border-radius: 5px;
   padding: 10px;
-  width: 22%;
-  height: 175px;
+  width: 23%;
+  height: 189px;
   &__box {
     display: flex;
     padding: 5px;
@@ -27,9 +27,14 @@
     width: 70px;
     height: 70px;
   }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
   &__button {
     padding: 10px;
     font-size: 500;
-    width: 100%;
+    width: 40%;
   }
 }

@@ -3,14 +3,14 @@ import { v1 } from "uuid"
 
 export type AddPost = ReturnType<typeof addPostAC>
 export type UpdatePost = ReturnType<typeof UpdatePostAC>
+export type SetProfile = ReturnType<typeof SetProfileAC>
 
 
 type ActionsType = AddPost | UpdatePost
 
 export const initialState = dataState.profilePage.postsData
 
-//НЕЛЬЗЯ МЕНЯТЬ ТОТ state КОТОРЫЙ ПРИШЕЛ! РАБОТАТЬ ТОЛЬКО С КОПИЕЙ!
-export const profilePageReducer = (state: PostItem[] = initialState, action: ActionsType): PostItem[] => {
+export const profileReducer = (state: PostItem[] = initialState, action: ActionsType): PostItem[] => {
   switch (action.type) {
     case "ADD-POST":
       let newPost = {
@@ -40,5 +40,12 @@ export const addPostAC = (textValue: string) => {
 export const UpdatePostAC = (textValue: string, taskId: string) => {
   return {
     type: 'UPDATE-POST', textValue, taskId
+  } as const
+}
+
+
+export const SetProfileAC = (userId: number) => {
+  return {
+    type: 'SET-PROFILE', userId
   } as const
 }

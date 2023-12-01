@@ -1,19 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
-import { FriendItem } from "../../state/initialState"
-import { Friend } from "./Friend/Friend"
-import { useSelector } from "react-redux";
-import { AppRootStateType } from "src/state/store";
+import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
+import { UserTypeApi } from "src/api/usersApi";
+import { getUsersTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
+import { User } from "../FindUsers/User/User";
+import { Button } from "src/common/Button/Button";
 
 
 export const Friends = () => {
-  const friendsData = useSelector<AppRootStateType, FriendItem[]>(state => state.friendsPage)
+  const users = useAppSelector<UserTypeApi[]>(state => state.usersPage)
+  const dispatch = useAppDispatch()
 
-  let friend = friendsData.map((f: FriendItem) => <Friend key={f.id} friend={f} />)
+  useEffect(() => {
+    dispatch(getUsersTC(10, 1, true))
+  }, [])
+
+  const usersMap = users.map((u: UserTypeApi) => {
+    const toggleFollowUser = () => {
+      if (!u.followed) {
+        dispatch(toggleFollowUserTC(u.id, u.followed));
+      } else if (u.followed) {
+        dispatch(unFollowUserTC(u.id, u.followed))
+      }
+    }
+
+    return (
+      <User key={u.id} user={u}
+        toggleFollowUser={toggleFollowUser}
+        btnText={u.followed ? "Unfollowed" : "Follow"} />
+    );
+  });
+
+  const showMoreHandler = () => {
+    alert("Show more")
+  }
 
   return (
     <div className="friends">
-      {friend}
+      <div className="friends__list">
+        {usersMap}
+      </div>
+      <div className="users__wrap-button">
+        <Button name="Show more" additionalClass="users__button" callBack={showMoreHandler} />
+      </div>
     </div>
 
   )

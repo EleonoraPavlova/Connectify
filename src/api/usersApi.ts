@@ -12,6 +12,7 @@ export const instanse = axios.create({
   ...settings
 })
 
+
 export type UserTypeApi = {
   id: number
   name: string
@@ -33,7 +34,14 @@ export type ResponseUsersType = {
 
 
 export const usersApi = {
-  getUsers() {
-    return instanse.get<ResponseUsersType>("users")
+  getUsers(count: number, page: number, friend: boolean) {
+
+    const queryParams = {
+      friend,
+      count,
+      page
+    };
+
+    return instanse.get<ResponseUsersType>(`users`, { params: queryParams })
   }
 }

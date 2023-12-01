@@ -8,10 +8,11 @@ import { UserTypeApi } from "src/api/usersApi";
 type UserProps = {
   user: UserTypeApi
   toggleFollowUser: () => void
+  viewFullProfile?: (() => void) | undefined
   btnText: string
 }
 
-export const User: React.FC<UserProps> = ({ user, toggleFollowUser, btnText }) => {
+export const User: React.FC<UserProps> = ({ user, toggleFollowUser, viewFullProfile, btnText }) => {
 
   const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
 
@@ -23,6 +24,9 @@ export const User: React.FC<UserProps> = ({ user, toggleFollowUser, btnText }) =
         <p>{user.followed}</p>  <p>{user.status}</p>
       </div>
     </div>
-    <Button name={btnText} additionalClass="find-users__button" callBack={toggleFollowUser} />
+    <div className="find-users__buttons">
+      <Button name={btnText} additionalClass="find-users__button" callBack={toggleFollowUser} />
+      <Button name={"Full info"} additionalClass="find-users__button" callBack={viewFullProfile} />
+    </div>
   </div >)
 }

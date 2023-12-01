@@ -1,4 +1,3 @@
-import { log } from "console"
 import { Dispatch } from "redux"
 import { followApi } from "src/api/followApi"
 import { UserTypeApi, usersApi } from "src/api/usersApi"
@@ -35,11 +34,13 @@ export const setUsersAC = (users: UserTypeApi[]) => {
 }
 
 //thunk
-export const getUsersTC = (dispatch: Dispatch) => {
-  usersApi.getUsers()
-    .then((res) => {
-      dispatch(setUsersAC(res.data.items))
-    })
+export const getUsersTC = (count: number, page: number, friend: boolean) => {
+  return (dispatch: Dispatch) => {
+    usersApi.getUsers(count, page, friend)
+      .then((res) => {
+        dispatch(setUsersAC(res.data.items))
+      })
+  }
 }
 
 export const unFollowUserTC = (userId: number, followed: boolean) => {
