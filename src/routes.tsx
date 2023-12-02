@@ -8,7 +8,7 @@ import { UserDialogs } from "./pages/Dialogs/UserDialogs/UserDialogs";
 import { Users } from "./pages/FindUsers/Users";
 import { Profile } from "./pages/Profile/Profile";
 
-
+//<Profile /> презентац компонента
 export const RoutesComponents = () => {
   return (<Routes>
     <Route path="/" element={<Profile />} />

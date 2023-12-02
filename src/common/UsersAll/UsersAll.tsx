@@ -21,7 +21,6 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     dispatch(getResponseTC(pageSize, currentPage, friend))
   }, [dispatch, currentPage, friend])
 
-  // const pagesCount = Math.ceil(totalCount / 15)
 
   const usersMap = usersResponse.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {

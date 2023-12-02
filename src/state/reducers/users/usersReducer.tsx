@@ -38,7 +38,7 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       return state;
   }
 }
-// // const pagesCount = Math.ceil(totalCount / 15)
+
 //actions
 export const setResponseAC = (response: ResponseUsersType) => {
   return {
