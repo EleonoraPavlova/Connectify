@@ -5,19 +5,22 @@ import { ResponseUsersType, usersApi } from "src/api/usersApi"
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
 export type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
+export type pagesCount = ReturnType<typeof pagesCountAC>
 
 
-type UsersActionsType = FollowUsers | SetResponse | SetCurrentPage
+type UsersActionsType = FollowUsers | SetResponse | SetCurrentPage | pagesCount
 
 export type ResponseDomainType = ResponseUsersType & {
   currentPage: number
+  pagesCount: number
 }
 
 export const initialState: ResponseDomainType = {
   items: [],
   totalCount: 0,
   error: "",
-  currentPage: 1
+  currentPage: 1,
+  pagesCount: 15
 }
 
 export const usersReducer = (state: ResponseDomainType = initialState, action: UsersActionsType): ResponseDomainType => {
@@ -28,11 +31,14 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       return { ...state, ...action.response }
     case "SET-CURRENT-PAGE":
       return { ...state, currentPage: action.currentPage }
+    case "SET-PAGES-COUNT":
+      const pageSize = 15
+      return { ...state, pagesCount: Math.ceil(action.totalCount / pageSize) }
     default:
       return state;
   }
 }
-
+// // const pagesCount = Math.ceil(totalCount / 15)
 //actions
 export const setResponseAC = (response: ResponseUsersType) => {
   return {
@@ -51,6 +57,13 @@ export const setCurrentPageAC = (currentPage: number) => {
     type: 'SET-CURRENT-PAGE', currentPage
   } as const
 }
+
+export const pagesCountAC = (totalCount: number) => {
+  return {
+    type: 'SET-PAGES-COUNT', totalCount
+  } as const
+}
+
 
 //thunk
 export const getResponseTC = (count: number, page: number, friend: boolean) => {

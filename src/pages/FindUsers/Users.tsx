@@ -1,5 +1,5 @@
 import React from 'react';
-import { UsersAll } from "src/components/UsersAll/UsersAll";
+import { UsersAll } from "src/common/UsersAll/UsersAll";
 
 
 export const Users = () => {
