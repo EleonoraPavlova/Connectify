@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { followApi } from "src/api/followApi"
-import { ResponseUsersType, UserTypeApi, usersApi } from "src/api/usersApi"
+import { ResponseUsersType, usersApi } from "src/api/usersApi"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>

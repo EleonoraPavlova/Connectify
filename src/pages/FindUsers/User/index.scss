@@ -5,7 +5,10 @@
   border-radius: 5px;
   padding: 5px;
   width: 28%;
-  height: 189px;
+  height: 235px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   &__box {
     display: flex;
     padding: 5px;
