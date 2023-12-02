@@ -35,7 +35,7 @@ export type ResponseUsersType = {
 
 export const usersApi = {
   getUsers(count: number, page: number, friend: boolean) {
-
+    //count - page size
     const queryParams = {
       friend,
       count,

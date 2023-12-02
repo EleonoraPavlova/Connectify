@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import './index.scss';
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
-import { UserTypeApi } from "src/api/usersApi";
-import { getUsersTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
+import { ResponseUsersType, UserTypeApi } from "src/api/usersApi";
+import { getResponseTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
 import { User } from "../FindUsers/User/User";
-import { Button } from "src/common/Button/Button";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+// import { Button } from "src/common/Button/Button";
 
 
 export const Friends = () => {
-  const users = useAppSelector<UserTypeApi[]>(state => state.usersPage)
+  const usersResponse = useAppSelector<ResponseUsersType>(state => state.usersPage)
+  let { items, totalCount } = usersResponse
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getUsersTC(10, 1, true))
+    dispatch(getResponseTC(15, 1, true))
   }, [])
 
-  const usersMap = users.map((u: UserTypeApi) => {
+  const usersMap = items.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {
       if (!u.followed) {
         dispatch(toggleFollowUserTC(u.id, u.followed));
@@ -33,9 +36,6 @@ export const Friends = () => {
     );
   });
 
-  const showMoreHandler = () => {
-    alert("Show more")
-  }
 
   return (
     <div className="friends">
@@ -43,7 +43,9 @@ export const Friends = () => {
         {usersMap}
       </div>
       <div className="users__wrap-button">
-        <Button name="Show more" additionalClass="users__button" callBack={showMoreHandler} />
+        <Stack spacing={8}>
+          <Pagination count={10} size="small" shape="rounded" />
+        </Stack>
       </div>
     </div>
 

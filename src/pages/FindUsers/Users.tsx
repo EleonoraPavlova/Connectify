@@ -1,23 +1,26 @@
 import React, { useEffect } from 'react';
 import './index.scss';
 import { User } from "./User/User";
-import { Button } from "src/common/Button/Button";
-import { getUsersTC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
+import { getResponseTC, setCurrentPageAC, toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
-import { UserTypeApi } from "src/api/usersApi";
-// import { Modal } from "src/components/Modal/Modal";
+import { ResponseUsersType, UserTypeApi } from "src/api/usersApi";
+import { Pagination, Stack, ThemeProvider, createTheme } from "@mui/material";
 
 
 export const Users = () => {
-  const users = useAppSelector<UserTypeApi[]>(state => state.usersPage)
+  const usersResponse = useAppSelector<ResponseUsersType>(state => state.usersPage)
+  const currentPage = useAppSelector<number>(state => state.usersPage.currentPage);
+  let { items, totalCount } = usersResponse
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getUsersTC(20, 1, false))
-  }, [])
+    const pageSize = 15
+    dispatch(getResponseTC(pageSize, currentPage, false))
+  }, [currentPage])
 
+  const pagesCount = Math.ceil(totalCount / 15)
 
-  const usersMap = users.map((u: UserTypeApi) => {
+  const usersMap = items.map((u: UserTypeApi) => {
     const toggleFollowUser = () => {
       if (!u.followed) {
         dispatch(toggleFollowUserTC(u.id, u.followed));
@@ -40,15 +43,43 @@ export const Users = () => {
     );
   });
 
-  const showMoreHandler = () => {
-    alert("Show more")
+
+  const setCurrentPageHandler = (event: React.ChangeEvent<unknown>, page: number) => {
+    dispatch(setCurrentPageAC(page))
   }
 
-  return (<div className="users">
-    <div className="users__list">{usersMap}</div>
-    <div className="users__wrap-button">
-      <Button name="Show more" additionalClass="users__button" callBack={showMoreHandler} />
-    </div>
-  </div>
+  const theme = createTheme({
+    typography: {
+      fontFamily: 'Handlee, sans-serif',
+    },
+    components: {
+      MuiPaginationItem: {
+        styleOverrides: {
+          "root": {
+            "&.Mui-selected": {
+              backgroundColor: "#c2c5cc", // Цвет фона для активного элемента
+            },
+          },
+        },
+      },
+    }
+  });
+
+  return (
+    <ThemeProvider theme={theme}>
+      <div className="users">
+        <div className="users__list">{usersMap}</div>
+        <div className="users__wrap-button">
+          <Stack spacing={10} >
+            <Pagination count={pagesCount} size="small"
+              siblingCount={4}
+              shape="rounded"
+              page={currentPage}
+              onChange={setCurrentPageHandler}
+            />
+          </Stack>
+        </div>
+      </div>
+    </ThemeProvider>
   )
 }

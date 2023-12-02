@@ -22,8 +22,8 @@ export const User: React.FC<UserProps> = ({ user, btnTextToggle, btnTexInfo, tog
       <UserFoto link={user.photos.small ? user.photos.small : mocPhoto} additionalClass="find-users__image" />
       <div className="find-users__data">
         <p className="find-users__data-name"> {user.name}</p>
-        {user.followed ? <p className="find-users__data-name"> Id:  {user.id}</p> : null}
-        <p>{user.followed}</p>  <p>{user.status}</p>
+        {user.followed ? <p className="find-users__data-name"> Id: {user.id}</p> : null}
+        <p className="find-users__data-status">{user.status}</p>
       </div>
     </div>
     <div className="find-users__buttons">

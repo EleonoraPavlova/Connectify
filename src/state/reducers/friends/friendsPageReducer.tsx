@@ -7,7 +7,6 @@ export type RemoveFriend = ReturnType<typeof RemoveFriendAC>
 
 type ActionsType = AddFriend | RemoveFriend
 
-
 export const initialState = dataState.friendsPage.friendsData
 
 //НЕЛЬЗЯ МЕНЯТЬ ТОТ state КОТОРЫЙ ПРИШЕЛ! РАБОТАТЬ ТОЛЬКО С КОПИЕЙ!

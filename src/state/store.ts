@@ -5,7 +5,6 @@ import { friendsPageReducer } from "src/state/reducers/friends/friendsPageReduce
 import { usersReducer } from "src/state/reducers/users/usersReducer";
 import { profileReducer } from "src/state/reducers/profile/profileReducer";
 
-
 //обязательно Provider в App
 //одельный reducer отвечает за каждую ветку
 
@@ -17,7 +16,7 @@ const rootReducer = combineReducers({
   dialogsPage: dialogsPageReducer,
   profilePage: profileReducer,
   friendsPage: friendsPageReducer,
-  usersPage: usersReducer
+  usersPage: usersReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -26,4 +25,3 @@ export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction
 
 //@ts-ignore
 window.store = store
-
