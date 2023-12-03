@@ -29,7 +29,8 @@ test("reducer should toggle follow status", () => {
     totalCount: 30,
     error: "",
     currentPage: 1,
-    pagesCount: 15
+    pagesCount: 15,
+    isLoader: false
   }
 
 

@@ -5,14 +5,16 @@ import { ResponseUsersType, usersApi } from "src/api/usersApi"
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
 export type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
-export type pagesCount = ReturnType<typeof pagesCountAC>
+export type PagesCount = ReturnType<typeof pagesCountAC>
+export type SwitchLoader = ReturnType<typeof switchLoaderAC>
 
 
-type UsersActionsType = FollowUsers | SetResponse | SetCurrentPage | pagesCount
+type UsersActionsType = FollowUsers | SetResponse | SetCurrentPage | PagesCount | SwitchLoader
 
 export type ResponseDomainType = ResponseUsersType & {
   currentPage: number
   pagesCount: number
+  isLoader: boolean
 }
 
 export const initialState: ResponseDomainType = {
@@ -20,7 +22,8 @@ export const initialState: ResponseDomainType = {
   totalCount: 0,
   error: "",
   currentPage: 1,
-  pagesCount: 15
+  pagesCount: 15,
+  isLoader: false
 }
 
 export const usersReducer = (state: ResponseDomainType = initialState, action: UsersActionsType): ResponseDomainType => {
@@ -34,6 +37,8 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
     case "SET-PAGES-COUNT":
       const pageSize = 15
       return { ...state, pagesCount: Math.ceil(action.totalCount / pageSize) }
+    case "SWITCH-LOADER":
+      return { ...state, isLoader: action.isLoader }
     default:
       return state;
   }
@@ -64,9 +69,15 @@ export const pagesCountAC = (totalCount: number) => {
   } as const
 }
 
+export const switchLoaderAC = (isLoader: boolean) => {
+  return {
+    type: 'SWITCH-LOADER', isLoader
+  } as const
+}
+
 
 //thunk
-export const getResponseTC = (count: number, page: number, friend: boolean) => {
+export const setResponseTC = (count: number, page: number, friend: boolean) => {
   return (dispatch: Dispatch) => {
     usersApi.getUsers(count, page, friend)
       .then((res) => {
