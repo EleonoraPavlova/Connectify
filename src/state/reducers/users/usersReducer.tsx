@@ -4,16 +4,16 @@ import { ResponseUsersType, usersApi } from "src/api/usersApi"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
-export type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
-export type PagesCount = ReturnType<typeof pagesCountAC>
+// export type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
+// export type PagesCount = ReturnType<typeof pagesCountAC>
 export type SwitchLoader = ReturnType<typeof switchLoaderAC>
 
 
-type UsersActionsType = FollowUsers | SetResponse | SetCurrentPage | PagesCount | SwitchLoader
+type UsersActionsType = FollowUsers | SetResponse | SwitchLoader
 
 export type ResponseDomainType = ResponseUsersType & {
-  currentPage: number
-  pagesCount: number
+  // currentPage: number
+  // pagesCount: number
   isLoader: boolean
 }
 
@@ -21,8 +21,6 @@ export const initialState: ResponseDomainType = {
   items: [],
   totalCount: 0,
   error: "",
-  currentPage: 1,
-  pagesCount: 15,
   isLoader: false
 }
 
@@ -32,11 +30,6 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       return { ...state, items: state.items.map(u => u.id === action.id ? { ...u, followed: !action.followed } : u) }
     case "SET-RESPONSE":
       return { ...state, ...action.response }
-    case "SET-CURRENT-PAGE":
-      return { ...state, currentPage: action.currentPage }
-    case "SET-PAGES-COUNT":
-      const pageSize = 15
-      return { ...state, pagesCount: Math.ceil(action.totalCount / pageSize) }
     case "SWITCH-LOADER":
       return { ...state, isLoader: action.isLoader }
     default:
@@ -57,18 +50,6 @@ export const toggleFollowUserAC = (id: number, followed: boolean) => {
   } as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
-  return {
-    type: 'SET-CURRENT-PAGE', currentPage
-  } as const
-}
-
-export const pagesCountAC = (totalCount: number) => {
-  return {
-    type: 'SET-PAGES-COUNT', totalCount
-  } as const
-}
-
 export const switchLoaderAC = (isLoader: boolean) => {
   return {
     type: 'SWITCH-LOADER', isLoader
@@ -77,12 +58,14 @@ export const switchLoaderAC = (isLoader: boolean) => {
 
 
 //thunk
-export const setResponseTC = (count: number, page: number, friend: boolean) => {
+export const setResponseTC = (count: number, page: number, friend: boolean, isLoader: boolean = false) => {
   return (dispatch: Dispatch) => {
+    dispatch(switchLoaderAC(!isLoader))
     usersApi.getUsers(count, page, friend)
       .then((res) => {
         dispatch(setResponseAC(res.data))
       })
+      .finally(() => dispatch(switchLoaderAC(isLoader)))
   }
 }
 

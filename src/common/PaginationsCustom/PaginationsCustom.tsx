@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Pagination, Stack, ThemeProvider, createTheme } from "@mui/material";
-import { pagesCountAC, setCurrentPageAC } from "src/state/reducers/users/usersReducer";
-import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
+
 
 export type PaginationsCustomType = {
   currentPage: number
-  totalCount: number
+  setCurrentPage: (currPage: number) => void
+  pagesCount: number
 }
 
-export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ currentPage, totalCount }) => {
-  const pagesCount = useAppSelector<number>(state => state.usersPage.pagesCount);
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(pagesCountAC(totalCount))
-  }, [totalCount])
-
+export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ currentPage, pagesCount, setCurrentPage }) => {
   const theme = createTheme({
     typography: {
       fontFamily: 'Handlee, sans-serif',
@@ -34,7 +27,7 @@ export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ currentPage
   });
 
   const setCurrentPageHandler = (event: React.ChangeEvent<unknown>, page: number) => {
-    dispatch(setCurrentPageAC(page))
+    setCurrentPage(page)
   }
 
   return (

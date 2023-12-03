@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { setCurrentPageAC, setResponseTC, switchLoaderAC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
+import { setResponseTC, switchLoaderAC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors';
 import { UserTypeApi } from 'src/api/usersApi';
 import { User } from 'src/pages/FindUsers/User/User';
 import { PaginationsCustom } from '../PaginationsCustom/PaginationsCustom';
-import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Loader } from "../Loader/Loader";
 
 export type UsersType = {
   friend: boolean
@@ -14,17 +13,16 @@ export type UsersType = {
 }
 
 export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
-  const currentPage = useAppSelector<number>(state => state.usersPage.currentPage);
   const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
-  // const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
+  const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
   const pageSize = 15
+  const pagesCount = Math.ceil(totalCount / pageSize)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    // dispatch(switchLoaderAC(true))
-    dispatch(setResponseTC(pageSize, currentPage, friend))
-    // dispatch(switchLoaderAC(false))
+    dispatch(setResponseTC(pageSize, currentPage, friend));
   }, [dispatch, currentPage, friend])
 
 
@@ -46,21 +44,15 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     );
   });
 
-  console.log("totalCount", totalCount)
   return (<>
-    <div className="usersAll">
-      <div className="usersAll__list">{usersMap}</div>
-      <div className="usersAll__wrap-button">
-        <PaginationsCustom currentPage={currentPage} totalCount={totalCount} />
+    {isLoader ? <Loader /> :
+      <div className="usersAll">
+        <div className="usersAll__list">{usersMap}</div>
+        <div className="usersAll__wrap-button">
+          <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+        </div>
       </div>
-    </div>
+    }
   </>
   )
 }
-
-// {
-//   isLoader ?
-//     <Stack sx={{ color: 'grey.500' }} >
-//       <CircularProgress color="success" />
-//     </Stack>
-//     :
