@@ -7,11 +7,11 @@ type ButtonProps = {
   callBack?: (() => void) | undefined
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button: React.FC<ButtonProps> = ({ name, additionalClass, callBack }) => {
   const onClickHandler = () => {
-    if (props.callBack) props.callBack()
-  };
+    if (callBack) callBack()
+  }
   return (
-    <button className={`button ${props.additionalClass}`} type="submit" onClick={onClickHandler}>{props.name}</button>
+    <button className={`button ${additionalClass}`} type="submit" onClick={onClickHandler}>{name}</button>
   )
 }

@@ -22,7 +22,7 @@ export type ResponseProfileUserType = {
 }
 
 
-export const profileApi = {
+export const userProfileApi = {
   getProfileUser(userId: number) {
     return instanse.get<ResponseProfileUserType>(`/profile/${userId}`)
   }

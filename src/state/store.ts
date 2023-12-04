@@ -4,6 +4,7 @@ import { dialogsPageReducer } from "src/state/reducers/dialogs/dialogsPageReduce
 import { friendsPageReducer } from "src/state/reducers/friends/friendsPageReducer";
 import { usersReducer } from "src/state/reducers/users/usersReducer";
 import { profileReducer } from "src/state/reducers/profile/profileReducer";
+import { userProfileReducer } from "./reducers/userProfile/userProfileReducer";
 
 //обязательно Provider в App
 //одельный reducer отвечает за каждую ветку
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   profilePage: profileReducer,
   friendsPage: friendsPageReducer,
   usersPage: usersReducer,
+  userProfile: userProfileReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))

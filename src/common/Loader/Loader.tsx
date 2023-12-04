@@ -2,11 +2,8 @@ import React from 'react';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 
-export type LoaderType = {
-  // isLoader: boolean
-}
 
-export const Loader: React.FC<LoaderType> = ({ }) => {
+export const Loader = ({ }) => {
   return (<>
     <Stack sx={{ color: 'grey.500', marginX: 'auto', marginY: 'auto' }
     } >

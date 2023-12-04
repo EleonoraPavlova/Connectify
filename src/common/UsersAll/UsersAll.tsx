@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { setResponseTC, switchLoaderAC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
+import { setResponseTC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors';
 import { UserTypeApi } from 'src/api/usersApi';
 import { User } from 'src/pages/FindUsers/User/User';
 import { PaginationsCustom } from '../PaginationsCustom/PaginationsCustom';
 import { Loader } from "../Loader/Loader";
+import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
+import { Modal } from "src/components/Modal/Modal";
 
 export type UsersType = {
   friend: boolean
@@ -14,6 +16,7 @@ export type UsersType = {
 
 export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [activeModal, setActiveModal] = useState(false)
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
   const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
@@ -35,10 +38,16 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
       }
     }
 
+    const viewFullProfile = () => {
+      dispatch(getProfileUserTC(u.id))
+      setActiveModal(true)
+    }
+
     return (
       <User key={u.id} user={u}
         toggleFollowUser={toggleFollowUser}
         btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
+        viewFullProfile={viewFullProfile}
         btnTexInfo={btnTexInfo}
       />
     );
@@ -46,12 +55,18 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
 
   return (<>
     {isLoader ? <Loader /> :
-      <div className="usersAll">
-        <div className="usersAll__list">{usersMap}</div>
-        <div className="usersAll__wrap-button">
-          <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+      <>
+        <div className="usersAll">
+          {activeModal ? <Modal activeModal={activeModal} setActiveModal={() => setActiveModal} />
+            :
+            <div>
+              <div className="usersAll__list">{usersMap}</div>
+              <div className="usersAll__wrap-button">
+                <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+              </div>
+            </div>}
         </div>
-      </div>
+      </>
     }
   </>
   )
