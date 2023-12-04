@@ -1,10 +1,11 @@
 import { Dispatch } from "redux"
 import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from "src/api/profileApi"
 import { ResponseUsersType, UserPhotosType } from "src/api/usersApi"
+import { SwitchLoader, switchLoaderAC } from "../users/usersReducer"
 
 export type SetProfileUser = ReturnType<typeof setProfileUserAC>
 
-type UserActionsType = SetProfileUser
+type UserActionsType = SetProfileUser | SwitchLoader
 
 
 export const initialState: ResponseProfileUserType = {
@@ -34,11 +35,13 @@ export const setProfileUserAC = (response: ResponseProfileUserType) => {
 
 
 //thunk
-export const getProfileUserTC = (userId: number) => {
+export const getProfileUserTC = (userId: number, isLoader: boolean = false) => {
   return (dispatch: Dispatch) => {
+    dispatch(switchLoaderAC(!isLoader))
     userProfileApi.getProfileUser(userId)
       .then((res) => {
         dispatch(setProfileUserAC(res.data))
       })
+      .finally(() => dispatch(switchLoaderAC(isLoader)))
   }
 }

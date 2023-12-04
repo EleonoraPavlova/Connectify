@@ -3,7 +3,6 @@ import './index.scss';
 import { UserFoto } from "src/common/UserFoto/UserFoto";
 import { Button } from "src/common/Button/Button";
 import { UserTypeApi } from "src/api/usersApi";
-import { Modal } from "src/components/Modal/Modal";
 
 
 type UserProps = {
@@ -11,10 +10,10 @@ type UserProps = {
   btnTextToggle: string
   btnTexInfo: string
   toggleFollowUser: () => void
-  viewFullProfile?: (() => void) | undefined
+  callBack: () => void
 }
 
-export const User: React.FC<UserProps> = ({ user, btnTextToggle, btnTexInfo, toggleFollowUser, viewFullProfile }) => {
+export const User: React.FC<UserProps> = ({ user, btnTextToggle, btnTexInfo, toggleFollowUser, callBack }) => {
   const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
 
   return (
@@ -29,7 +28,7 @@ export const User: React.FC<UserProps> = ({ user, btnTextToggle, btnTexInfo, tog
       </div>
       <div className="find-users__buttons">
         <Button name={btnTextToggle} additionalClass="find-users__button" callBack={toggleFollowUser} />
-        <Button name={btnTexInfo} additionalClass="find-users__button" callBack={viewFullProfile} />
+        <Button name={btnTexInfo} additionalClass="find-users__button" callBack={callBack} />
       </div>
     </div >
   )

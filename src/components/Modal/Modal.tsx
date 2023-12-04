@@ -16,7 +16,7 @@ import { UserContacts } from "../UserContacts/UserContacts";
 
 type ModalProps = {
   activeModal: boolean
-  setActiveModal: () => void
+  setActiveModal: (arg: boolean) => void
 }
 
 type SocialContactsType = {
@@ -57,22 +57,28 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal }) => 
   };
 
 
-  return (<div className="modal">
-    <div className="modal__box">
-      <div className="modal__avatar">
-        <UserFoto link={profileUser.photos.large ? profileUser.photos.large : mocPhoto} additionalClass="modal__image" />
-      </div>
-      <div className="modal__mainInfo">
-        <ul className="modal__data">
-          <li className="modal__data-name"> {profileUser.fullName}</li>
-          <li>UserId: {profileUser.userId}</li>
-          <li>Looking for a job: {profileUser.lookingForAJob}</li>
-          <li>Description: {profileUser.lookingForAJobDescription}</li>
-        </ul>
-        <ul className="modal__contact">
-          {socialContactsMap()}
-        </ul>
-      </div>
+  return (
+    <div className="modal__wrap">
+      <div className={activeModal ? "modal active" : "modal"} onClick={() => setActiveModal(false)}>
+        <div className={activeModal ? "modal__content active" : "modal__content"} onClick={e => e.stopPropagation()}>
+          <div className="modal__box">
+            <div className="modal__avatar">
+              <UserFoto link={profileUser.photos.large ? profileUser.photos.large : mocPhoto} additionalClass="modal__image" />
+            </div>
+            <div className="modal__mainInfo">
+              <ul className="modal__data">
+                <li className="modal__data-name"> {profileUser.fullName}</li>
+                <li>UserId: {profileUser.userId}</li>
+                <li>Looking for a job: {profileUser.lookingForAJob}</li>
+                <li>Description: {profileUser.lookingForAJobDescription}</li>
+              </ul>
+              <ul className="modal__contact">
+                {socialContactsMap()}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div >
     </div>
-  </div >)
+  )
 }

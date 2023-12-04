@@ -4,16 +4,12 @@ import { ResponseUsersType, usersApi } from "src/api/usersApi"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
-// export type SetCurrentPage = ReturnType<typeof setCurrentPageAC>
-// export type PagesCount = ReturnType<typeof pagesCountAC>
 export type SwitchLoader = ReturnType<typeof switchLoaderAC>
 
 
 type UsersActionsType = FollowUsers | SetResponse | SwitchLoader
 
 export type ResponseDomainType = ResponseUsersType & {
-  // currentPage: number
-  // pagesCount: number
   isLoader: boolean
 }
 

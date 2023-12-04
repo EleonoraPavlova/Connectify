@@ -43,11 +43,15 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
       setActiveModal(true)
     }
 
+    const sendMessage = () => {
+      alert("Will send")
+    }
+    console.log("btnTexInfo", btnTexInfo)
     return (
       <User key={u.id} user={u}
         toggleFollowUser={toggleFollowUser}
         btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
-        viewFullProfile={viewFullProfile}
+        callBack={() => btnTexInfo === "Message" ? sendMessage() : viewFullProfile()}
         btnTexInfo={btnTexInfo}
       />
     );
@@ -57,15 +61,14 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     {isLoader ? <Loader /> :
       <>
         <div className="usersAll">
-          {activeModal ? <Modal activeModal={activeModal} setActiveModal={() => setActiveModal} />
-            :
-            <div>
-              <div className="usersAll__list">{usersMap}</div>
-              <div className="usersAll__wrap-button">
-                <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
-              </div>
-            </div>}
+          <div>
+            <div className="usersAll__list">{usersMap}</div>
+            <div className="usersAll__wrap-button">
+              <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+            </div>
+          </div>
         </div>
+        <Modal activeModal={activeModal} setActiveModal={setActiveModal} />
       </>
     }
   </>
