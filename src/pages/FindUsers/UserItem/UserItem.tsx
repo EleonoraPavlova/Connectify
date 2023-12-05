@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 import { UserFoto } from "src/common/UserFoto/UserFoto";
 import { Button } from "src/common/Button/Button";
 import { UserTypeApi } from "src/api/usersApi";
+import { NavLink } from "react-router-dom";
 
 
-type UserProps = {
+type UserItemProps = {
   user: UserTypeApi
   btnTextToggle: string
   btnTexInfo: string
@@ -13,7 +14,7 @@ type UserProps = {
   callBack: () => void
 }
 
-export const User: React.FC<UserProps> = ({ user, btnTextToggle, btnTexInfo, toggleFollowUser, callBack }) => {
+export const UserItem: React.FC<UserItemProps> = ({ user, btnTextToggle, btnTexInfo, toggleFollowUser, callBack }) => {
   const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
 
   return (

@@ -12,32 +12,39 @@ import mainLink from '../../assets/icons/link.png'
 import twitter from '../../assets/icons/twitter.png'
 import website from '../../assets/icons/website.png'
 import { UserContacts } from "../UserContacts/UserContacts";
+import { UserTypeApi } from "src/api/usersApi";
+import { useNavigate } from "react-router-dom";
 
 
 type ModalProps = {
   activeModal: boolean
+  isModalVisible: boolean
   setActiveModal: (arg: boolean) => void
+  setSearchParams: () => void
 }
 
 type SocialContactsType = {
   [key: string]: string;
 }
 
-
-export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal }) => {
+export const Modal: React.FC<ModalProps> = ({ activeModal, isModalVisible, setActiveModal, setSearchParams }) => {
+  const navigate = useNavigate();
+  const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const profileUser = useAppSelector<ResponseProfileUserType>(state => state.userProfile)
   const contacts: SocialContactsType = profileUser.contacts as SocialContactsType;
   const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
+
+  let findStatus = usersResponse.find(u => u.id === profileUser.userId)
 
   const socialContacts: SocialContactsType[] = [
     { icon: facebookIcon, key: 'facebook' },
     { icon: githubIcon, key: 'github' },
     { icon: instaIcon, key: 'instagram' },
     { icon: vkIcon, key: 'vk' },
-    { icon: mainLink, key: 'link' },
     { icon: youtubeIcon, key: 'youtube' },
     { icon: twitter, key: 'twitter' },
     { icon: website, key: 'website' },
+    { icon: mainLink, key: 'link' }
   ];
 
   const socialContactsMap = () => {
@@ -56,29 +63,33 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal }) => 
     });
   };
 
+  const closeModal = () => {
+    setActiveModal(false)
+    setSearchParams()
+    navigate('/findUsers');
+  }
 
   return (
-    <div className="modal__wrap">
-      <div className={activeModal ? "modal active" : "modal"} onClick={() => setActiveModal(false)}>
-        <div className={activeModal ? "modal__content active" : "modal__content"} onClick={e => e.stopPropagation()}>
-          <div className="modal__box">
-            <div className="modal__avatar">
-              <UserFoto link={profileUser.photos.large ? profileUser.photos.large : mocPhoto} additionalClass="modal__image" />
-            </div>
-            <div className="modal__mainInfo">
-              <ul className="modal__data">
-                <li className="modal__data-name"> {profileUser.fullName}</li>
-                <li>UserId: {profileUser.userId}</li>
-                <li>Looking for a job: {profileUser.lookingForAJob}</li>
-                <li>Description: {profileUser.lookingForAJobDescription}</li>
-              </ul>
-              <ul className="modal__contact">
-                {socialContactsMap()}
-              </ul>
-            </div>
+    <div className={activeModal ? "modal activeModal" : "modal"} onClick={closeModal}>
+      <div className={activeModal ? "modal__content modal__content-active" : "modal__content"} onClick={e => e.stopPropagation()}>
+        <div className="modal__box">
+          <div className="modal__avatar">
+            <UserFoto link={profileUser.photos.large ? profileUser.photos.large : mocPhoto} additionalClass="modal__image" />
+          </div>
+          <div className="modal__mainInfo">
+            <ul className="modal__data">
+              <li className="modal__data-name"> {profileUser.fullName}</li>
+              <li>Id: {profileUser.userId}</li>
+              <li>Looking for a job: {profileUser.lookingForAJob}</li>
+              <li>Description: {profileUser.lookingForAJobDescription}</li>
+              <li className="modal__data-status">Status: {findStatus?.status}</li>
+            </ul>
+            <ul className="modal__contact">
+              {socialContactsMap()}
+            </ul>
           </div>
         </div>
-      </div >
-    </div>
+      </div>
+    </div >
   )
 }

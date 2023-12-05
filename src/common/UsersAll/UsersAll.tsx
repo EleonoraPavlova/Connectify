@@ -3,11 +3,12 @@ import './index.scss';
 import { setResponseTC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors';
 import { UserTypeApi } from 'src/api/usersApi';
-import { User } from 'src/pages/FindUsers/User/User';
+import { UserItem } from 'src/pages/FindUsers/UserItem/UserItem';
 import { PaginationsCustom } from '../PaginationsCustom/PaginationsCustom';
 import { Loader } from "../Loader/Loader";
 import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
 import { Modal } from "src/components/Modal/Modal";
+import { useSearchParams } from "react-router-dom";
 
 export type UsersType = {
   friend: boolean
@@ -17,6 +18,7 @@ export type UsersType = {
 export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeModal, setActiveModal] = useState(false)
+  let [searchParams, setSearchParams] = useSearchParams()
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
   const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
@@ -41,14 +43,15 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     const viewFullProfile = () => {
       dispatch(getProfileUserTC(u.id))
       setActiveModal(true)
+      setSearchParams({ id: `${u.id}` })
     }
 
     const sendMessage = () => {
       alert("Will send")
     }
-    console.log("btnTexInfo", btnTexInfo)
+
     return (
-      <User key={u.id} user={u}
+      <UserItem key={u.id} user={u}
         toggleFollowUser={toggleFollowUser}
         btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
         callBack={() => btnTexInfo === "Message" ? sendMessage() : viewFullProfile()}
@@ -57,7 +60,11 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     );
   });
 
+  const isModalVisible = !!searchParams.get('id')
+  // if (!isModalVisible) return setSearchParams()
+
   return (<>
+
     {isLoader ? <Loader /> :
       <>
         <div className="usersAll">
@@ -68,7 +75,10 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
             </div>
           </div>
         </div>
-        <Modal activeModal={activeModal} setActiveModal={setActiveModal} />
+        <Modal activeModal={activeModal}
+          setActiveModal={setActiveModal}
+          isModalVisible={isModalVisible}
+          setSearchParams={setSearchParams} />
       </>
     }
   </>

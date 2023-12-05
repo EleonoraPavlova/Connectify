@@ -1,36 +1,43 @@
 @import "../../styles/variables.scss";
 
 .modal {
-  max-width: 900px;
-  border-radius: 5px;
-  border: 1px solid white;
-  background-color: rgba(194, 197, 204, 0.9);
+  // width: 650px;
+  // border-radius: 5px;
+  // border: 1px solid white;
+  // background-color: rgba(194, 197, 204, 0.9);
+  // position: fixed;
+  // top: 45%;
+  // left: 45%;
+  // transform: translate(-50%, -50%);
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // opacity: 0;
+  // transition: 0.5s;
+  // pointer-events: none;
+  height: 100vh;
+  width: 100vw;
   position: fixed;
-  top: 50%;
-  left: 45%;
-  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: 0.5s;
   pointer-events: none;
-  &__wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
   &__content {
-    width: 100%;
-    height: 100%;
+    width: 680px;
+    border-radius: 5px;
+    background-color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    transform: scale(0, 5);
-    transition: 0.4s all;
-    &.active {
+    transform: scale(0.5);
+    transition: 0.9s all;
+    width: 50vw;
+    &-active {
       transform: scale(1);
     }
   }
@@ -61,6 +68,7 @@
       gap: 10px;
     }
     &-status {
+      line-height: 25px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -74,8 +82,8 @@
     border-radius: 50%;
     border: 1px solid $color-green;
     object-fit: cover;
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
   }
   &__contact {
     display: flex;
@@ -85,7 +93,18 @@
   }
 }
 
-.active {
+.activeModal {
+  // transform: scale(1);
   opacity: 1;
-  pointer-events: auto;
+  pointer-events: all;
+  //  opacity: 1;
+  // pointer-events: auto;
+  // color: $color-green;
+  // &::before {
+  //   content: "";
+  //   margin-right: 14px;
+  //   border: 1px solid $color-green;
+  //   background-color: transparent;
+  //   border-radius: 50%;
+  // }
 }

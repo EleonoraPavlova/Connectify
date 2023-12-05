@@ -5,15 +5,16 @@ import { Link } from "react-router-dom";
 
 type NavlinkProps = {
   url: string
-  title: string
+  children: React.ReactNode
   additionalClasses: string
   additionalClassesLink: any
 }
 
 
-const Navlink = (props: NavlinkProps) => {
-  return (<li className={props.additionalClasses}><Link to={props.url} className={props.additionalClassesLink}>{props.title}</Link></li>
+export const Navlink: React.FC<NavlinkProps> = ({ url, children, additionalClasses, additionalClassesLink }) => {
+  return (<li className={additionalClasses}><Link
+    to={url}
+    className={additionalClassesLink}>{children}</Link>
+  </li>
   )
 }
-
-export default Navlink;
