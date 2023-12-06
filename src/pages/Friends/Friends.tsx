@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { UsersAll } from "src/common/UsersAll/UsersAll";
+import { UsersAll } from "src/common/UsersComponents/UsersAll/UsersAll";
 
 
 export const Friends = () => {

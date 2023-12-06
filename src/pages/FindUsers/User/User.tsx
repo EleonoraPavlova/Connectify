@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
-import { UserFoto } from "src/common/UserFoto/UserFoto";
 import { Button } from "src/common/Button/Button";
 import { UserTypeApi } from "src/api/usersApi";
+import { UserFoto } from "src/common/UsersComponents/UserFoto/UserFoto";
 
 
 type UserProps = {

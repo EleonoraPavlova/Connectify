@@ -3,11 +3,11 @@ import './index.scss';
 import { setResponseTC } from 'src/state/reducers/users/usersReducer';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors';
 import { UserTypeApi } from 'src/api/usersApi';
-import { PaginationsCustom } from '../PaginationsCustom/PaginationsCustom';
-import { Loader } from "../Loader/Loader";
+import { PaginationsCustom } from '../../PaginationsCustom/PaginationsCustom';
+import { Loader } from "../../Loader/Loader";
 import { Modal } from "src/components/Modal/Modal";
 import { useSearchParams } from "react-router-dom";
-import { UsersMap } from "src/components/UsersMap/UsersMap";
+import { UsersMap } from "src/common/UsersComponents/UsersMap/UsersMap";
 
 export type UsersType = {
   friend: boolean
@@ -33,7 +33,6 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const usersMap = usersResponse.map((u: UserTypeApi) => {
     return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
   });
-
 
   return (<>
     {isLoader ? <Loader /> :

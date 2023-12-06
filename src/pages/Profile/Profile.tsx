@@ -4,7 +4,7 @@ import Banner from "../../components/Banner/Banner";
 import { FormPosts } from "./FormPosts/FormPosts";
 import { Post } from "./Post/Post";
 import { PostItem } from "../../state/initialState"
-import { UsersInfo } from "../../components/UsersInfo/UsersInfo";
+import { UsersInfo } from "../../common/UsersComponents/UsersInfo/UsersInfo";
 import { useAppSelector } from "src/state/hooks/hooks-selectors";
 
 
