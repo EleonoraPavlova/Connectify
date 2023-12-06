@@ -5,6 +5,6 @@ import { UsersAll } from "src/common/UsersAll/UsersAll";
 
 export const Friends = () => {
   return (
-    <UsersAll friend={true} btnTexInfo="Message" />
+    <UsersAll friend={true} btnTextInfo="Message" />
   )
 }

@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { setResponseTC, toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer';
+import { setResponseTC } from 'src/state/reducers/users/usersReducer';
 import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors';
 import { UserTypeApi } from 'src/api/usersApi';
-import { UserItem } from 'src/pages/FindUsers/UserItem/UserItem';
 import { PaginationsCustom } from '../PaginationsCustom/PaginationsCustom';
 import { Loader } from "../Loader/Loader";
-import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
 import { Modal } from "src/components/Modal/Modal";
 import { useSearchParams } from "react-router-dom";
+import { UsersMap } from "src/components/UsersMap/UsersMap";
 
 export type UsersType = {
   friend: boolean
-  btnTexInfo: string
+  btnTextInfo: string
 }
 
-export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
+export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
@@ -32,37 +31,11 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
 
 
   const usersMap = usersResponse.map((u: UserTypeApi) => {
-    const toggleFollowUser = () => {
-      if (!u.followed) {
-        dispatch(toggleFollowUserTC(u.id, u.followed));
-      } else if (u.followed) {
-        dispatch(unFollowUserTC(u.id, u.followed))
-      }
-    }
-
-    const viewFullProfile = () => {
-      dispatch(getProfileUserTC(u.id))
-      setActiveModal(true)
-      setSearchParams({ id: `${u.id}` })
-    }
-
-    const sendMessage = () => {
-      alert("Will send")
-    }
-
-    return (
-      <UserItem key={u.id} user={u}
-        toggleFollowUser={toggleFollowUser}
-        btnTextToggle={u.followed ? "Unfollowed" : "Follow"}
-        callBack={() => btnTexInfo === "Message" ? sendMessage() : viewFullProfile()}
-        btnTexInfo={btnTexInfo}
-      />
-    );
+    return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
   });
 
 
   return (<>
-
     {isLoader ? <Loader /> :
       <>
         <div className="usersAll">
