@@ -60,8 +60,6 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
     );
   });
 
-  const isModalVisible = !!searchParams.get('id')
-  // if (!isModalVisible) return setSearchParams()
 
   return (<>
 
@@ -75,9 +73,8 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTexInfo }) => {
             </div>
           </div>
         </div>
-        <Modal activeModal={activeModal}
+        <Modal activeModal={!!searchParams.get('id')}
           setActiveModal={setActiveModal}
-          isModalVisible={isModalVisible}
           setSearchParams={setSearchParams} />
       </>
     }

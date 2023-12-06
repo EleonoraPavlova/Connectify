@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 type ModalProps = {
   activeModal: boolean
-  isModalVisible: boolean
   setActiveModal: (arg: boolean) => void
   setSearchParams: () => void
 }
@@ -27,7 +26,7 @@ type SocialContactsType = {
   [key: string]: string;
 }
 
-export const Modal: React.FC<ModalProps> = ({ activeModal, isModalVisible, setActiveModal, setSearchParams }) => {
+export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSearchParams }) => {
   const navigate = useNavigate();
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const profileUser = useAppSelector<ResponseProfileUserType>(state => state.userProfile)
@@ -65,7 +64,7 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, isModalVisible, setAc
 
   const closeModal = () => {
     setActiveModal(false)
-    setSearchParams()
+    setSearchParams() //clean query params
     navigate('/findUsers');
   }
 
