@@ -1,6 +1,7 @@
 import { Dispatch } from "redux"
 import { followApi } from "src/api/followApi"
 import { ResponseUsersType, usersApi } from "src/api/usersApi"
+import { setErrorAppAC, setStatusAppAC } from "../app-reducer/app-reducer"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
@@ -57,9 +58,11 @@ export const switchLoaderAC = (isLoader: boolean) => {
 export const setResponseTC = (count: number, page: number, friend: boolean, isLoader: boolean = false) => {
   return (dispatch: Dispatch) => {
     dispatch(switchLoaderAC(!isLoader))
+    dispatch(setStatusAppAC("loading"))
     usersApi.getUsers(count, page, friend)
       .then((res) => {
         dispatch(setResponseAC(res.data))
+        dispatch(setStatusAppAC("succeeded"))
       })
       .finally(() => dispatch(switchLoaderAC(isLoader)))
   }

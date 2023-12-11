@@ -1,4 +1,5 @@
 import { v1 } from "uuid";
+import { InitialStateType } from "./reducers/app-reducer/app-reducer";
 
 export type MessagesType = {
   message: string
