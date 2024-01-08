@@ -1,4 +1,4 @@
-import { UserPhotosType, instanse } from "./usersApi"
+import { UserPhotosType, instance } from "./usersApi"
 
 
 export type ProfileUserContactsType = {
@@ -24,6 +24,6 @@ export type ResponseProfileUserType = {
 
 export const userProfileApi = {
   getProfileUser(userId: number) {
-    return instanse.get<ResponseProfileUserType>(`/profile/${userId}`)
+    return instance.get<ResponseProfileUserType>(`/profile/${userId}`)
   }
 }

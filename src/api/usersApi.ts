@@ -7,7 +7,7 @@ export const settings = {
   }
 }
 
-export const instanse = axios.create({
+export const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   ...settings
 })
@@ -42,6 +42,6 @@ export const usersApi = {
       page
     };
 
-    return instanse.get<ResponseUsersType>(`users`, { params: queryParams })
+    return instance.get<ResponseUsersType>(`users`, { params: queryParams })
   }
 }

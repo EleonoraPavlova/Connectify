@@ -13,20 +13,26 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export function SnackbarComponent() {
-  //let error = useAppSelector<string | null>(state => state.app.error)
+  let error = useAppSelector<string | null>(state => state.app.error)
   let status = useAppSelector<RequestStatusType>(state => state.app.status)
+
   const dispatch = useAppDispatch()
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') return
-    // dispatch(setErrorAppAC(null))
+    dispatch(setErrorAppAC(null))
     dispatch(setStatusAppAC("idle"))
-  };
+  }
+
+  if (!error) {
+    return null
+  }
 
   return (
     <Stack sx={{ width: '100%' }}>
-      <Snackbar open={status === "succeeded"} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={"success"} sx={{ width: '100%' }}>{status}
+      <Snackbar open={!!error || !!status} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={status === "succeeded" ? "success" : "error"} sx={{ width: '100%' }}>
+          {status === "succeeded" ? status : error}
         </Alert>
       </Snackbar>
     </Stack >

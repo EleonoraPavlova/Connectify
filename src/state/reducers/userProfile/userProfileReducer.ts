@@ -2,6 +2,8 @@ import { Dispatch } from "redux"
 import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from "src/api/profileApi"
 import { ResponseUsersType, UserPhotosType } from "src/api/usersApi"
 import { SwitchLoader, switchLoaderAC } from "../users/usersReducer"
+import { AppThunk } from "src/state/store"
+import { handleServerNetworkError } from "src/utils/error-utils"
 
 export type SetProfileUser = ReturnType<typeof setProfileUserAC>
 
@@ -35,13 +37,14 @@ export const setProfileUserAC = (response: ResponseProfileUserType) => {
 
 
 //thunk
-export const getProfileUserTC = (userId: number, isLoader: boolean = false) => {
-  return (dispatch: Dispatch) => {
+export const getProfileUserTC = (userId: number, isLoader: boolean = false): AppThunk =>
+  async dispatch => {
     dispatch(switchLoaderAC(!isLoader))
-    userProfileApi.getProfileUser(userId)
-      .then((res) => {
-        dispatch(setProfileUserAC(res.data))
-      })
-      .finally(() => dispatch(switchLoaderAC(isLoader)))
+    try {
+      const res = await userProfileApi.getProfileUser(userId)
+      dispatch(setProfileUserAC(res.data))
+    } catch (err) {
+      handleServerNetworkError(err as { message: string }, dispatch)
+    }
+    dispatch(switchLoaderAC(isLoader))
   }
-}

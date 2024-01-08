@@ -19,7 +19,6 @@ type mocPhotosType = {
 }
 
 
-
 test("reducer should toggle follow status", () => {
   let state: ResponseProfileUserType = {
     userId: 0,
