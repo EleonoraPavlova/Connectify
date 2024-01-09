@@ -7,19 +7,19 @@ import { Friends } from "./pages/Friends/Friends";
 import { UserDialogs } from "./pages/Dialogs/UserDialogs/UserDialogs";
 import { Users } from "./pages/FindUsers/Users";
 import { Profile } from "./pages/Profile/Profile";
-import { Start } from "./pages/Start/Start";
+import { Login } from "./pages/Login/Login";
 
 //<Profile /> презентац компонента
 export const RoutesComponents = () => {
   return (<Routes>
-    <Route path="/" element={<Start />} />
-    <Route path="/profile" element={<Profile />} />
+    <Route path="/" element={<Profile />} />
     <Route path="/dialogs" element={<Dialogs welcome="Hi, my friends!" />} />
     <Route path="/friends" element={<Friends />} />
     <Route path="/findUsers" element={<Users />} />
     <Route path="/news" element={<News />} />
     <Route path="/music" element={<Music />} />
     <Route path="/settings" element={<Settings />} />
+    <Route path="/login" element={<Login />} />
     <Route path="/dialogs/:id" element={<UserDialogs name="Valentin" />} />
     <Route path='404' element={<h1>404: PAGE NOT FOUND</h1>} />
     <Route path='*' element={<Navigate to="/404" />} />

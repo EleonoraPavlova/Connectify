@@ -5,19 +5,26 @@ import { Nav } from "./components/Nav/Nav";
 import { Footer } from "./common/Footer/Footer";
 import RoutesComponents from "./routes";
 import { SnackbarComponent } from "./components/Snackbar/SnackbarComponent";
-import { useAppSelector } from "./state/hooks/hooks-selectors";
-import { Start } from "./pages/Start/Start";
+import { useAppDispatch, useAppSelector } from "./state/hooks/hooks-selectors";
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
+import { setInitializeAppTC } from "./state/reducers/app-reducer/app-reducer";
+import { lime } from "@mui/material/colors";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 const App = () => {
   let initialized = useAppSelector<boolean>(state => state.app.initialized)
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(setInitializeAppTC())
+  }, [dispatch])
 
   useEffect(() => {
     if (initialized) {
-      navigate('/profile')
+      navigate('/login')
     } else {
       navigate('/')
     }
@@ -25,12 +32,9 @@ const App = () => {
 
   if (!initialized) { //loader во время проверки срока куки и настроек
     return (
-      <Box sx={{
-        display: 'flex', alignItems: "center", justifyContent: 'center',
-        height: '100%', backgroundColor: 'rgba(194, 197, 204, 0.4)',
-        borderRadius: "15px", margin: "30px 0px", overflow: "none", padding: "150px 0"
-      }}>
-        <Start />
+      <Box
+        sx={{ display: 'flex', alignItems: "center", justifyContent: 'center', height: '100vh' }}>
+        <CircularProgress sx={{ color: "#008000", strokeWidth: 1 }} thickness={1} />
       </Box>
     )
   }

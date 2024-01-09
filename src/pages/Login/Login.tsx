@@ -10,8 +10,6 @@ import Button from '@mui/material/Button';
 import { useFormik } from "formik";
 import { Typography } from "@mui/material";
 import { useAppDispatch } from "../../state/hooks/hooks-selectors";
-// import { LoginTC } from "../../state/reducers/auth/auth-reducers";
-// import { handleServerNetworkError } from "../../utils/error-utils";
 import { LoginParamsType } from "src/api/authApi";
 import { handleServerNetworkError } from "src/utils/error-utils";
 import { LoginTC } from "src/state/reducers/auth/authReducer";
@@ -55,6 +53,9 @@ export const Login = () => {
     }
   })
 
+  const disabled = (formik.isSubmitting ||
+    !(formik.dirty && formik.isValid))
+
   return (
     < Grid container justifyContent={'center'} >
       <Grid item justifyContent={'center'}>
@@ -87,12 +88,14 @@ export const Login = () => {
               />
               <Button type={'submit'}
                 variant={'contained'}
-                color={'primary'}
-                sx={{ color: 'white', margin: "20px 0" }}
-                disabled={
-                  formik.isSubmitting ||
-                  !(formik.dirty && formik.isValid)
-                }
+                color={"success"}
+                sx={{
+                  color: disabled ? '#c2c5cc' : '#008000',
+                  border: disabled ? 'none' : '1px solid #008000',
+                  backgroundColor: 'transparent',
+                  margin: "20px 0"
+                }}
+                disabled={disabled}
               >Login
               </Button>
             </FormGroup>
