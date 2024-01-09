@@ -6,6 +6,7 @@ import { usersReducer } from "src/state/reducers/users/usersReducer";
 import { profileReducer } from "src/state/reducers/profile/profileReducer";
 import { userProfileReducer } from "./reducers/userProfile/userProfileReducer";
 import { appReducer } from "./reducers/app-reducer/app-reducer";
+import { authReducer } from "./reducers/auth/authReducer";
 
 //обязательно Provider в App
 //одельный reducer отвечает за каждую ветку
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   friendsPage: friendsPageReducer,
   usersPage: usersReducer,
   userProfile: userProfileReducer,
-  app: appReducer
+  app: appReducer,
+  auth: authReducer
 })
 
 export type AppThunk<ReturnType = void> = ThunkAction<

@@ -13,6 +13,8 @@ import { useAppDispatch } from "../../state/hooks/hooks-selectors";
 // import { LoginTC } from "../../state/reducers/auth/auth-reducers";
 // import { handleServerNetworkError } from "../../utils/error-utils";
 import { LoginParamsType } from "src/api/authApi";
+import { handleServerNetworkError } from "src/utils/error-utils";
+import { LoginTC } from "src/state/reducers/auth/authReducer";
 
 
 export const Login = () => {
@@ -43,12 +45,12 @@ export const Login = () => {
     },
     onSubmit: async (values, { setFieldValue, setSubmitting }) => {
       setSubmitting(true)
-      // try {
-      //   await dispatch(LoginTC(values))
-      //   setFieldValue("password", "")
-      // } catch (err) {
-      //   handleServerNetworkError(err as { message: string }, dispatch)
-      // }
+      try {
+        await dispatch(LoginTC(values))
+        setFieldValue("password", "")
+      } catch (err) {
+        handleServerNetworkError(err as { message: string }, dispatch)
+      }
       setSubmitting(false)
     }
   })

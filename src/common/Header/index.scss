@@ -6,6 +6,9 @@
   background-color: $base-color;
   text-align: left;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   &__img {
     width: 40px;
     height: 35px;
@@ -15,5 +18,16 @@
     font-family: Handlee;
     color: $color-green;
     font-size: 23px;
+  }
+  &__button {
+    padding: 5px 15px;
+    color: $color-green;
+    font-size: 15px;
+    transition: font-size 0.6s;
+    &:hover {
+      border: $color-white;
+      color: $color-white;
+      font-size: 17px;
+    }
   }
 }
