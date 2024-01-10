@@ -7,6 +7,8 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { PostItem, FriendItem } from "../../../state/initialState"
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "src/state/store";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 
 type PostType = {
@@ -30,18 +32,21 @@ export const Post = ({ post }: PostType) => {
 
   let friend = friendsData.find(f => f.id === post.authorId)
 
-  return (<div className="post" id={`${post.id}`} >
-    <div className="flex-start">
+  return (<Box className="post" id={`${post.id}`} >
+    <Box className="flex-start">
       {friend ? <Friend friend={friend} /> : null}
-      <div>
-        <h6 className="post__header">  {post.title} </h6>
-        <p> {post.post} </p>
-      </div>
-    </div>
-    <div className="post__wrap-icon">
+      <Box>
+        <Typography variant="h6"
+          sx={{ fontSize: "15px", paddingBottom: "25px", fontWeight: "bold" }}>
+          {post.title}
+        </Typography>
+        <Typography> {post.post} </Typography>
+      </Box>
+    </Box>
+    <Box className="post__wrap-icon">
       <FontAwesomeIcon icon={faHeart} className={`post__icon ${isHighlighted ? "red" : ""}`} onClick={isHighlightedHandler} />
-      <p className="post__icon-counter">{post.likeCounter}</p>
-    </div>
-  </div >
+      <Typography variant="h6" sx={{ fontSize: "12px" }}>{post.likeCounter}</Typography>
+    </Box>
+  </Box >
   )
 }

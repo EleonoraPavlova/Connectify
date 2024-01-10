@@ -62,7 +62,8 @@ export const Login = () => {
         <form onSubmit={formik.handleSubmit}>
           <FormControl>
             <FormLabel>
-              <Typography variant="body1" fontWeight="bold" sx={{ paddingTop: "15px" }}>To log in get registered</Typography>
+              <Typography variant="body1" fontWeight="bold"
+                sx={{ paddingTop: "15px" }}>To log in get registered</Typography>
             </FormLabel>
             <FormGroup>
               <TextField label="Email"

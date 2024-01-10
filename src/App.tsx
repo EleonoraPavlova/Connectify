@@ -9,12 +9,12 @@ import { useAppDispatch, useAppSelector } from "./state/hooks/hooks-selectors";
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 import { setInitializeAppTC } from "./state/reducers/app-reducer/app-reducer";
-import { lime } from "@mui/material/colors";
 import CircularProgress from "@mui/material/CircularProgress";
 
 
 const App = () => {
   let initialized = useAppSelector<boolean>(state => state.app.initialized)
+  let isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
 
@@ -23,12 +23,12 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (initialized) {
+    if (!isLoggedIn && initialized) {
       navigate('/login')
     } else {
       navigate('/')
     }
-  }, [initialized, navigate])
+  }, [isLoggedIn, initialized, navigate])
 
   if (!initialized) { //loader во время проверки срока куки и настроек
     return (

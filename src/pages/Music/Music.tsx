@@ -1,8 +1,10 @@
 import React from 'react';
 import './index.scss';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export const Music = () => {
-  return (<div className="music">
-    <p>music</p>
-  </div>)
+  return (<Box className="music">
+    <Typography variant="h6" >music</Typography>
+  </Box>)
 }

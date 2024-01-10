@@ -7,10 +7,6 @@
   margin: 0 0 15px 25px;
   display: flex;
   justify-content: space-between;
-  &__header {
-    font-size: 15px;
-    padding-bottom: 25px;
-  }
   &__wrap-icon {
     display: flex;
     align-items: center;
@@ -21,9 +17,6 @@
     opacity: 0.9;
     font-size: 18px;
     margin-bottom: 5px;
-    &-counter {
-      font-size: 12px;
-    }
   }
 }
 
