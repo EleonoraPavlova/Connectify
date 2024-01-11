@@ -7,9 +7,7 @@ import { profileReducer } from "src/state/reducers/profile/profileReducer";
 import { userProfileReducer } from "./reducers/userProfile/userProfileReducer";
 import { appReducer } from "./reducers/app-reducer/app-reducer";
 import { authReducer } from "./reducers/auth/authReducer";
-
-//обязательно Provider в App
-//одельный reducer отвечает за каждую ветку
+import { saveState, loadState } from "src/utils/localStorage-utils";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
@@ -21,7 +19,7 @@ const rootReducer = combineReducers({
   userProfile: userProfileReducer,
   app: appReducer,
   auth: authReducer
-})
+});
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -29,7 +27,14 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
+export const store = legacy_createStore(rootReducer, loadState(), applyMiddleware(thunk))
+
+store.subscribe(() => {
+  saveState({
+    usersPage: store.getState().usersPage
+  })
+})
+
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, Action>
 
 

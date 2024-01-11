@@ -9,13 +9,15 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useFormik } from "formik";
 import { Typography } from "@mui/material";
-import { useAppDispatch } from "../../state/hooks/hooks-selectors";
+import { useAppDispatch, useAppSelector } from "../../state/hooks/hooks-selectors";
 import { LoginParamsType } from "src/api/authApi";
 import { handleServerNetworkError } from "src/utils/error-utils";
 import { LoginTC } from "src/state/reducers/auth/authReducer";
+import { Navigate } from "react-router-dom";
 
 
 export const Login = () => {
+  let isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({
@@ -55,6 +57,10 @@ export const Login = () => {
 
   const disabled = (formik.isSubmitting ||
     !(formik.dirty && formik.isValid))
+
+  if (isLoggedIn) {
+    return <Navigate to={"/"} />
+  }
 
   return (
     < Grid container justifyContent={'center'} >

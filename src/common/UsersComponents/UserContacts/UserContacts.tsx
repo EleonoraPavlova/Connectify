@@ -1,4 +1,6 @@
+import ListItem from "@mui/material/ListItem";
 import React from 'react';
+import { NavLink } from "react-router-dom";
 
 type UserContactsType = {
   icon: string
@@ -7,10 +9,10 @@ type UserContactsType = {
 
 export const UserContacts: React.FC<UserContactsType> = ({ icon, href }) => {
   return (
-    <li className={"modal__data-contacts"} >
-      <a href={href} rel="noreferrer" target="_blank">
+    <ListItem className={"modal__data-contacts"} >
+      <NavLink to={href} rel="noreferrer" target="_blank">
         <img src={icon} className="modal__data-icon" alt={icon} />
-      </a>
-    </li>
+      </NavLink>
+    </ListItem>
   )
 }

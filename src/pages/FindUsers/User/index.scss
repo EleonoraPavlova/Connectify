@@ -5,7 +5,7 @@
   border-radius: 5px;
   padding: 5px;
   width: 28%;
-  height: 235px;
+  height: 255px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,8 +17,8 @@
     margin: 5px;
     overflow-x: scroll;
     &-name {
-      font-weight: bold;
-      padding-bottom: 14px;
+      font-weight: bold !important;
+      padding-bottom: 4px;
       cursor: pointer;
     }
     &-status {

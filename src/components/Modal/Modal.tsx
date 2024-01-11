@@ -14,6 +14,10 @@ import { UserContacts } from "../../common/UsersComponents/UserContacts/UserCont
 import { UserTypeApi } from "src/api/usersApi";
 import { useNavigate } from "react-router-dom";
 import { UserFoto } from "src/common/UsersComponents/UserFoto/UserFoto";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
 
 
 type ModalProps = {
@@ -30,6 +34,9 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSe
   const navigate = useNavigate();
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const profileUser = useAppSelector<ResponseProfileUserType>(state => state.userProfile)
+  let profileUserUpper = profileUser && profileUser.fullName
+    ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1)
+    : '';
   const contacts: SocialContactsType = profileUser.contacts as SocialContactsType;
   const mocPhoto = "https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg"
 
@@ -69,26 +76,26 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSe
   }
 
   return (
-    <div className={activeModal ? "modal activeModal" : "modal"} onClick={closeModal}>
-      <div className={activeModal ? "modal__content modal__content-active" : "modal__content"} onClick={e => e.stopPropagation()}>
-        <div className="modal__box">
-          <div className="modal__avatar">
+    <Box className={activeModal ? "modal activeModal" : "modal"} onClick={closeModal}>
+      <Box className={activeModal ? "modal__content modal__content-active" : "modal__content"} onClick={e => e.stopPropagation()}>
+        <Box className="modal__box">
+          <Box className="modal__avatar">
             <UserFoto link={profileUser.photos.large ? profileUser.photos.large : mocPhoto} additionalClass="modal__image" />
-          </div>
-          <div className="modal__mainInfo">
-            <ul className="modal__data">
-              <li className="modal__data-name"> {profileUser.fullName}</li>
-              <li>Id: {profileUser.userId}</li>
-              <li>Looking for a job: {profileUser.lookingForAJob}</li>
-              <li>Description: {profileUser.lookingForAJobDescription}</li>
-              <li className="modal__data-status">Status: {findStatus?.status}</li>
-            </ul>
-            <ul className="modal__contact">
+          </Box>
+          <Box className="modal__mainInfo">
+            <List className="modal__data">
+              <ListItem className="modal__data-name"><Typography sx={{ fontWeigth: "bold" }}> {profileUserUpper}</Typography> </ListItem>
+              <ListItem><Typography > Id: {profileUser.userId} </Typography></ListItem>
+              <ListItem><Typography > Looking for a job: {profileUser.lookingForAJob}</Typography></ListItem>
+              <ListItem><Typography > Description: {profileUser.lookingForAJobDescription}</Typography></ListItem>
+              <ListItem className="modal__data-status"><Typography >Status: {findStatus?.status}</Typography></ListItem>
+            </List>
+            <List className="modal__contact">
               {socialContactsMap()}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div >
+            </List>
+          </Box>
+        </Box>
+      </Box>
+    </Box >
   )
 }

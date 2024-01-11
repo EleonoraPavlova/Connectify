@@ -8,6 +8,7 @@ import { UserDialogs } from "./pages/Dialogs/UserDialogs/UserDialogs";
 import { Users } from "./pages/FindUsers/Users";
 import { Profile } from "./pages/Profile/Profile";
 import { Login } from "./pages/Login/Login";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 //<Profile /> презентац компонента
 export const RoutesComponents = () => {
@@ -21,7 +22,7 @@ export const RoutesComponents = () => {
     <Route path="/settings" element={<Settings />} />
     <Route path="/login" element={<Login />} />
     <Route path="/dialogs/:id" element={<UserDialogs name="Valentin" />} />
-    <Route path='404' element={<h1>404: PAGE NOT FOUND</h1>} />
+    <Route path='404' element={<NotFound />} />
     <Route path='*' element={<Navigate to="/404" />} />
   </Routes>)
 

@@ -6,7 +6,7 @@ import { UserTypeApi } from 'src/api/usersApi';
 import { PaginationsCustom } from '../../PaginationsCustom/PaginationsCustom';
 import { Loader } from "../../Loader/Loader";
 import { Modal } from "src/components/Modal/Modal";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { UsersMap } from "src/common/UsersComponents/UsersMap/UsersMap";
 
 export type UsersType = {
@@ -21,13 +21,17 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
   const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
   const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
+  let isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const pageSize = 15
   const pagesCount = Math.ceil(totalCount / pageSize)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(setResponseTC(pageSize, currentPage, friend));
-  }, [dispatch, currentPage, friend])
+    if (isLoggedIn) {
+      dispatch(setResponseTC(pageSize, currentPage, friend));
+    }
+  }, [dispatch, currentPage, friend, isLoggedIn])
 
 
   const usersMap = usersResponse.map((u: UserTypeApi) => {

@@ -3,22 +3,30 @@ import { handleServerAppError, handleServerNetworkError } from "../../../utils/e
 // import { SetTodoListTC, clearTodoListAC } from "../todolists/todolists-reducer";
 import { setStatusAppAC, setSuccessAppAC } from "../app-reducer/app-reducer";
 import { LoginParamsType, authApi } from "src/api/authApi";
-import { ResultCode } from "../users/usersReducer";
+import { ResultCode, clearResponseAC, setResponseAC } from "../users/usersReducer";
 
-export type AuthActionType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setLogginParamsAC>
 
 export type initialParamsAuthType = {
+  email: string,
+  password: string,
+  rememberMe: boolean,
   isLoggedIn: boolean
 }
 
 const initialParamsAuth: initialParamsAuthType = {
+  email: '',
+  password: '',
+  rememberMe: false,
   isLoggedIn: false //залогин пользователь или нет
 }
 
 export const authReducer = (state = initialParamsAuth, action: AuthActionType): initialParamsAuthType => {
   switch (action.type) {
-    case "LOGIN/IS-LOGIN-IN":
+    case "LOGIN/SET-IS-LOGGED-IN":
       return { ...state, isLoggedIn: action.isLoggedIn }
+    case "LOGIN/SET-LOGIN-PARAMS":
+      return { ...state, ...action.params }
     default:
       return state
   }
@@ -27,7 +35,13 @@ export const authReducer = (state = initialParamsAuth, action: AuthActionType): 
 //action creator
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
   return {
-    type: "LOGIN/IS-LOGIN-IN", isLoggedIn
+    type: "LOGIN/SET-IS-LOGGED-IN", isLoggedIn
+  } as const
+}
+
+export const setLogginParamsAC = (params: LoginParamsType) => {
+  return {
+    type: "LOGIN/SET-LOGIN-PARAMS", params
   } as const
 }
 
@@ -40,7 +54,8 @@ export const LoginTC = (params: LoginParamsType): AppThunk =>
       const res = await authApi.login(params)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(setIsLoggedInAC(true))
-        // dispatch(SetTodoListTC())
+        dispatch(setLogginParamsAC(params))
+        // dispatch(setResponseAC(res.data.))
         dispatch(setSuccessAppAC("you have successfully logged in"))
         dispatch(setStatusAppAC("succeeded"))
       } else {
@@ -61,7 +76,7 @@ export const LogOutTC = (): AppThunk =>
         dispatch(setIsLoggedInAC(false))
         dispatch(setSuccessAppAC("you have successfully logged out"))
         dispatch(setStatusAppAC("succeeded"))
-        // dispatch(clearTodoListAC())
+        dispatch(clearResponseAC())
       } else {
         handleServerAppError(res.data, dispatch)
       }

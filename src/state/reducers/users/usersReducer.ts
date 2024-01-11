@@ -7,9 +7,10 @@ import { handleServerAppError, handleServerNetworkError } from "src/utils/error-
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
 export type SwitchLoader = ReturnType<typeof switchLoaderAC>
+export type ClearResponse = ReturnType<typeof clearResponseAC>
 
 
-type UsersActionsType = FollowUsers | SetResponse | SwitchLoader
+type UsersActionsType = FollowUsers | SetResponse | SwitchLoader | ClearResponse
 
 export type ResponseDomainType = ResponseUsersType & {
   isLoader: boolean
@@ -36,6 +37,8 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       return { ...state, ...action.response }
     case "SWITCH-LOADER":
       return { ...state, isLoader: action.isLoader }
+    case "CLEAR-RESPONSE":
+      return initialState
     default:
       return state;
   }
@@ -60,6 +63,11 @@ export const switchLoaderAC = (isLoader: boolean) => {
   } as const
 }
 
+export const clearResponseAC = () => {
+  return {
+    type: 'CLEAR-RESPONSE',
+  } as const
+}
 
 //thunk
 export const setResponseTC = (count: number, page: number, friend: boolean, isLoader: boolean = false): AppThunk =>

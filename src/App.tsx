@@ -25,8 +25,6 @@ const App = () => {
   useEffect(() => {
     if (!isLoggedIn && initialized) {
       navigate('/login')
-    } else {
-      navigate('/')
     }
   }, [isLoggedIn, initialized, navigate])
 
