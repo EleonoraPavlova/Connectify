@@ -1,5 +1,5 @@
 import { followApi } from "src/api/followApi"
-import { ResponseUsersType, usersApi } from "src/api/usersApi"
+import { ResponseUsersType, UserStatuses, usersApi } from "src/api/usersApi"
 import { setErrorAppAC, setStatusAppAC } from "../app-reducer/app-reducer"
 import { AppThunk } from "src/state/store"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
@@ -8,9 +8,10 @@ export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
 export type SwitchLoader = ReturnType<typeof switchLoaderAC>
 export type ClearResponse = ReturnType<typeof clearResponseAC>
+export type SetStatusUser = ReturnType<typeof setStatusUserAC>
 
 
-type UsersActionsType = FollowUsers | SetResponse | SwitchLoader | ClearResponse
+type UsersActionsType = FollowUsers | SetResponse | SwitchLoader | ClearResponse | SetStatusUser
 
 export type ResponseDomainType = ResponseUsersType & {
   isLoader: boolean
@@ -37,6 +38,8 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       return { ...state, ...action.response }
     case "SWITCH-LOADER":
       return { ...state, isLoader: action.isLoader }
+    case "SET-USERS-STATUS":
+      return { ...state, items: state.items.map(u => u.id === action.userId ? { ...u, statusUser: action.statusUser } : u) }
     case "CLEAR-RESPONSE":
       return initialState
     default:
@@ -60,6 +63,12 @@ export const toggleFollowUserAC = (id: number, followed: boolean) => {
 export const switchLoaderAC = (isLoader: boolean) => {
   return {
     type: 'SWITCH-LOADER', isLoader
+  } as const
+}
+
+export const setStatusUserAC = (statusUser: UserStatuses, userId: number) => {
+  return {
+    type: 'SET-USERS-STATUS', statusUser, userId
   } as const
 }
 
@@ -93,21 +102,37 @@ export const setResponseTC = (count: number, page: number, friend: boolean, isLo
 
 export const unFollowUserTC = (userId: number, followed: boolean): AppThunk =>
   async dispatch => {
+    dispatch(setStatusUserAC("loading", userId))
     try {
-      await followApi.unFollowTo(userId)
-      dispatch(toggleFollowUserAC(userId, followed))
+      const res = await followApi.unFollowTo(userId)
+      if (res.data.resultCode === ResultCode.SUCCEEDED) {
+        dispatch(toggleFollowUserAC(userId, followed))
+        dispatch(setStatusUserAC("succeeded", userId))
+      } else {
+        handleServerAppError(res.data, dispatch)
+        dispatch(setStatusUserAC("failed", userId))
+      }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
+      dispatch(setStatusUserAC("failed", userId))
     }
   }
 
 
 export const toggleFollowUserTC = (userId: number, followed: boolean): AppThunk =>
   async dispatch => {
+    dispatch(setStatusUserAC("loading", userId))
     try {
-      followApi.followTo(userId)
-      dispatch(toggleFollowUserAC(userId, followed))
+      const res = await followApi.followTo(userId)
+      if (res.data.resultCode === ResultCode.SUCCEEDED) {
+        dispatch(toggleFollowUserAC(userId, followed))
+        dispatch(setStatusUserAC("succeeded", userId))
+      } else {
+        handleServerAppError(res.data, dispatch)
+        dispatch(setStatusUserAC("failed", userId))
+      }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
+      dispatch(setStatusUserAC("failed", userId))
     }
   }

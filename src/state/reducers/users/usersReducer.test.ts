@@ -13,6 +13,7 @@ test("reducer should toggle follow status", () => {
           "large": ""
         },
         "status": "",
+        statusUser: "idle",
         "followed": false
       },
       {
@@ -23,13 +24,12 @@ test("reducer should toggle follow status", () => {
           "large": ""
         },
         "status": "",
+        statusUser: "loading",
         "followed": false
       }
     ],
     totalCount: 30,
     error: "",
-    // currentPage: 1,
-    // pagesCount: 15,
     isLoader: false
   }
 
@@ -38,4 +38,6 @@ test("reducer should toggle follow status", () => {
 
   expect(state.items[0].id).toBe(1)
   expect(endState.items[0].followed).toBe(true)
+  expect(endState.items[0].statusUser).toBe("idle")
+  expect(endState.items[1].statusUser).toBe("loading")
 })

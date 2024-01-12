@@ -14,10 +14,10 @@ export const followApi = {
   },
 
   followTo(userId: number) {  //Follow requested user
-    return instance.post<ResponseType>(`/follow/${userId}`)
+    return instance.post<ResponseFollowType>(`/follow/${userId}`)
   },
 
   unFollowTo(userId: number) {
-    return instance.delete<ResponseType>(`/follow/${userId}`)
+    return instance.delete<ResponseFollowType>(`/follow/${userId}`)
   }
 }

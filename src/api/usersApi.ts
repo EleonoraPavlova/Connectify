@@ -1,25 +1,25 @@
 import axios from "axios"
 
-export const settings = {
+
+export const instance = axios.create({
+  baseURL: "https://social-network.samuraijs.com/api/1.0/",
   withCredentials: true,
   headers: {
     "API-KEY": "6a891b51-a742-4c47-8da1-58a8df99feb7"
   }
-}
-
-export const instance = axios.create({
-  baseURL: "https://social-network.samuraijs.com/api/1.0/",
-  ...settings
 })
 
 
-export type UserTypeApi = {
+export type UserApiType = {
   id: number
   name: string
   status: string
   photos: UserPhotosType
   followed: boolean
+  statusUser: UserStatuses
 }
+
+export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 export type UserPhotosType = {
   small: string
@@ -27,7 +27,7 @@ export type UserPhotosType = {
 }
 
 export type ResponseUsersType = {
-  items: UserTypeApi[]
+  items: UserApiType[]
   totalCount: number
   error: string
 }

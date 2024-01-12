@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
-import { UserTypeApi } from "src/api/usersApi";
+import { UserApiType } from "src/api/usersApi";
 import { User } from "src/pages/FindUsers/User/User";
 import { useAppDispatch } from "src/state/hooks/hooks-selectors";
 import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
@@ -8,28 +8,30 @@ import { toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/use
 
 export type UsersMapType = {
   btnTextInfo: string
-  user: UserTypeApi
+  user: UserApiType
 }
 
 export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
+  console.log("user.statusUser", user.statusUser)
+
   const dispatch = useAppDispatch()
 
 
-  const toggleFollowUser = () => {
+  const toggleFollowUser = useCallback(() => {
     if (!user.followed) {
       dispatch(toggleFollowUserTC(user.id, user.followed));
     } else if (user.followed) {
       dispatch(unFollowUserTC(user.id, user.followed))
     }
-  }
+  }, [user.followed, dispatch])
 
-  const viewFullProfile = () => {
+  const viewFullProfile = useCallback(() => {
     dispatch(getProfileUserTC(user.id))
     setActiveModal(true)
     setSearchParams({ id: `${user.id}` })
-  }
+  }, [dispatch, setActiveModal, setSearchParams])
 
   const sendMessage = () => {
     alert("Will send")
@@ -39,6 +41,7 @@ export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
     <User key={user.id} user={user}
       toggleFollowUser={toggleFollowUser}
       btnTextToggle={user.followed ? "Unfollowed" : "Follow"}
+      disabled={user.statusUser === "loading"}
       callBack={() => btnTextInfo === "Message" ? sendMessage() : viewFullProfile()}
       btnTexInfo={btnTextInfo}
     />

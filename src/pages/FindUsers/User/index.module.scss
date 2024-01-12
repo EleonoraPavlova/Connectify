@@ -1,6 +1,6 @@
 @import "../../../styles/variables.scss";
 
-.find-users {
+.user {
   border: 1px solid $base-color;
   border-radius: 5px;
   padding: 5px;
@@ -16,18 +16,18 @@
   &__data {
     margin: 5px;
     overflow-x: scroll;
-    &-name {
-      font-weight: bold !important;
-      padding-bottom: 4px;
-      cursor: pointer;
-    }
-    &-status {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-    }
+  }
+  &__name {
+    font-weight: bold !important;
+    padding-bottom: 4px;
+    cursor: pointer;
+  }
+  &__status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
 
   &__image {
@@ -44,8 +44,14 @@
     justify-content: space-around;
   }
   &__button {
-    padding: 10px;
-    font-size: 500;
+    padding: 10px !important;
+    text-transform: none !important;
+    font-size: 13px;
     width: 40%;
+    &:hover {
+      transform: scale(1.1);
+      background-color: transparent !important;
+      border: transparent !important;
+    }
   }
 }

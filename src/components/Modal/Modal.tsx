@@ -11,7 +11,7 @@ import mainLink from '../../assets/icons/link.png'
 import twitter from '../../assets/icons/twitter.png'
 import website from '../../assets/icons/website.png'
 import { UserContacts } from "../../common/UsersComponents/UserContacts/UserContacts";
-import { UserTypeApi } from "src/api/usersApi";
+import { UserApiType } from "src/api/usersApi";
 import { useNavigate } from "react-router-dom";
 import { UserFoto } from "src/common/UsersComponents/UserFoto/UserFoto";
 import Box from "@mui/material/Box";
@@ -32,7 +32,7 @@ type SocialContactsType = {
 
 export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSearchParams }) => {
   const navigate = useNavigate();
-  const usersResponse = useAppSelector<UserTypeApi[]>(state => state.usersPage.items)
+  const usersResponse = useAppSelector<UserApiType[]>(state => state.usersPage.items)
   const profileUser = useAppSelector<ResponseProfileUserType>(state => state.userProfile)
   let profileUserUpper = profileUser && profileUser.fullName
     ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1)
