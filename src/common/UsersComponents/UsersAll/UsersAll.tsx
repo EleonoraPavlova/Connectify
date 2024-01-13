@@ -21,7 +21,7 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const usersResponse = useAppSelector<UserApiType[]>(state => state.usersPage.items)
   const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
   const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
-  let isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+  const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
   const pageSize = 15
   const pagesCount = Math.ceil(totalCount / pageSize)
   const dispatch = useAppDispatch()

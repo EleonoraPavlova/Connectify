@@ -15,7 +15,7 @@ export const authApi = {
     return instance.post<ResponseFollowType<{ userId: number }>>("/auth/login", params)
   },
 
-  authMe() { //проверрочный запрос на cookie при инициализации app
+  authMe() { //проверочный запрос на cookie при инициализации app
     return instance.get<ResponseFollowType<{ id: number, email: string, login: string }>>("/auth/me")
   },
 

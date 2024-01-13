@@ -14,10 +14,8 @@ export type UsersMapType = {
 export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
-  console.log("user.statusUser", user.statusUser)
 
   const dispatch = useAppDispatch()
-
 
   const toggleFollowUser = useCallback(() => {
     if (!user.followed) {
@@ -41,7 +39,7 @@ export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
     <User key={user.id} user={user}
       toggleFollowUser={toggleFollowUser}
       btnTextToggle={user.followed ? "Unfollowed" : "Follow"}
-      disabled={user.statusUser === "loading"}
+      disabled={user.followingInProgress === "loading"}
       callBack={() => btnTextInfo === "Message" ? sendMessage() : viewFullProfile()}
       btnTexInfo={btnTextInfo}
     />

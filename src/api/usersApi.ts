@@ -16,7 +16,8 @@ export type UserApiType = {
   status: string
   photos: UserPhotosType
   followed: boolean
-  statusUser: UserStatuses
+  followingInProgress: UserStatuses
+  likeCounter: number
 }
 
 export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'

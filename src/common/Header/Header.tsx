@@ -8,7 +8,7 @@ import { LogOutTC } from "src/state/reducers/auth/authReducer";
 
 export const Header = () => {
   let isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
-  let email = useAppSelector<string>(state => state.auth.email)
+
   const dispatch = useAppDispatch()
 
   const logOutHandler = useCallback(() => {
@@ -18,7 +18,7 @@ export const Header = () => {
   return (<header className="header">
     <Logo img="header__img" additionalClass="header__text" />
     {isLoggedIn &&
-      <Typography variant="h6" sx={{ fontSize: "15px", fontWeight: "bold" }}> {email} </Typography>
+      <Typography variant="h6" sx={{ fontSize: "15px", fontWeight: "bold" }}> {"Hi, name}"} </Typography>
       && <Button name={"Log Out"} additionalClass="header__button" callBack={logOutHandler} />}
   </header >)
 }

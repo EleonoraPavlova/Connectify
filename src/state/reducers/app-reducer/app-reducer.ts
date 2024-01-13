@@ -1,6 +1,6 @@
 import { authApi } from "src/api/authApi"
 import { AppThunk } from "src/state/store"
-import { ResultCode, setResponseTC } from "../users/usersReducer"
+import { ResultCode } from "../users/usersReducer"
 import { setIsLoggedInAC } from "../auth/authReducer"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
 
@@ -82,7 +82,6 @@ export const setInitializeAppTC = (): AppThunk =>
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(setIsLoggedInAC(true))
         dispatch(setStatusAppAC("succeeded"))
-        // dispatch(setResponseTC())
       } else {
         handleServerAppError(res.data, dispatch)
       }

@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from "src/api/profileApi"
-import { ResponseUsersType, UserPhotosType } from "src/api/usersApi"
+import { UserPhotosType } from "src/api/usersApi"
 import { SwitchLoader, switchLoaderAC } from "../users/usersReducer"
 import { AppThunk } from "src/state/store"
 import { handleServerNetworkError } from "src/utils/error-utils"

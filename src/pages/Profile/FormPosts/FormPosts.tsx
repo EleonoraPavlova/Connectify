@@ -3,6 +3,7 @@ import './index.scss';
 import { Button } from "../../../common/Button/Button";
 import { useAppDispatch } from "src/state/hooks/hooks-selectors";
 import { addPostAC } from "src/state/reducers/profile/profileReducer";
+import Box from "@mui/material/Box";
 
 
 export const FormPosts = () => {
@@ -19,7 +20,7 @@ export const FormPosts = () => {
   }
 
   return (
-    <div className="form-posts">
+    <Box className="form-posts">
       <label htmlFor="posts" className="form-posts__label">My posts</label>
       <textarea minLength={10} className="form-posts__texarea"
         placeholder="My news...." id="posts" name="posts" value={textValue}
@@ -27,5 +28,5 @@ export const FormPosts = () => {
       <div className="flex-end">
         <Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="form-posts__button" />
       </div>
-    </div>)
+    </Box>)
 }
