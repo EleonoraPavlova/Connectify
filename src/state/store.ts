@@ -8,6 +8,7 @@ import { userProfileReducer } from "./reducers/userProfile/userProfileReducer";
 import { appReducer } from "./reducers/app-reducer/app-reducer";
 import { authReducer } from "./reducers/auth/authReducer";
 import { saveState, loadState } from "src/utils/localStorage-utils";
+import { paginationReducer } from "./reducers/pagination/paginationReducer";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 

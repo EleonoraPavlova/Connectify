@@ -18,10 +18,10 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
-  const usersResponse = useAppSelector<UserApiType[]>(state => state.usersPage.items)
-  const totalCount = useAppSelector<number>(state => state.usersPage.totalCount);
-  const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader);
+  const isLoader = useAppSelector<boolean>(state => state.usersPage.isLoader)
   const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+  const usersResponse = useAppSelector<UserApiType[]>(state => state.usersPage.items)
+  const totalCount = useAppSelector<number>(state => state.usersPage.totalCount)
   const pageSize = 15
   const pagesCount = Math.ceil(totalCount / pageSize)
   const dispatch = useAppDispatch()
@@ -37,6 +37,8 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
     return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
   });
 
+  console.log("usersResponse", usersResponse)
+
   return (<>
     {isLoader ? <Loader /> :
       <>
@@ -44,7 +46,7 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
           <div>
             <div className="usersAll__list">{usersMap}</div>
             <div className="usersAll__wrap-button">
-              <PaginationsCustom currentPage={currentPage} pagesCount={pagesCount} setCurrentPage={setCurrentPage} />
+              <PaginationsCustom pagesCount={pagesCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
           </div>
         </div>
