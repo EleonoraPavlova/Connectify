@@ -2,10 +2,6 @@
 
 .user {
   padding: 30px 0 50px 0;
-  &__name {
-    padding-bottom: 15px;
-    font-size: 24px;
-  }
   &__item {
     padding-bottom: 10px;
   }
@@ -13,5 +9,11 @@
     &:hover {
       color: $color-green;
     }
+  }
+  &__contact {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    gap: 15px;
   }
 }

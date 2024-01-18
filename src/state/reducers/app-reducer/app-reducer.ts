@@ -3,6 +3,7 @@ import { AppThunk } from "src/state/store"
 import { ResultCode } from "../users/usersReducer"
 import { setIsLoggedInAC } from "../auth/authReducer"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
+import { getProfileUserTC } from "../userProfile/userProfileReducer"
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'//server interaction status
 
@@ -10,22 +11,27 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'//ser
 export type InitialStateType = {
   status: RequestStatusType,
   error: string | null,
-  success: string | null
-  initialized: boolean
+  success: string | null,
+  initialized: boolean,
+  meId: number | null
 }
 
 export type SetErrorApp = ReturnType<typeof setErrorAppAC>
 export type SetStatusApp = ReturnType<typeof setStatusAppAC>
 export type SetSuccessApp = ReturnType<typeof setSuccessAppAC>
 export type SetInitializeApp = ReturnType<typeof setInitializeAppAC>
+export type SetMeIdAC = ReturnType<typeof setMeIdAC>
 
-export type ActionAppType = SetErrorApp | SetStatusApp | SetSuccessApp | SetInitializeApp
+export type ActionAppType = SetErrorApp | SetStatusApp | SetSuccessApp
+  | SetInitializeApp
+  | SetMeIdAC
 
 export const appInitialStatusState: InitialStateType = {
   status: 'idle',
   error: null,
   success: null,
-  initialized: false //(проверка куки, настроек пользователя)
+  initialized: false, //(проверка куки, настроек пользователя)
+  meId: null
 }
 
 
@@ -39,6 +45,8 @@ export const appReducer = (state: InitialStateType = appInitialStatusState, acti
       return { ...state, success: action.success }
     case "SET-APP-INITIALIZE":
       return { ...state, initialized: action.initialized }
+    case "SET-ME-ID":
+      return { ...state, meId: action.meId }
     default: return { ...state }
   }
 }
@@ -72,6 +80,13 @@ export const setInitializeAppAC = (initialized: boolean) => {
   } as const
 }
 
+export const setMeIdAC = (meId: number) => {
+  return {
+    type: "SET-ME-ID",
+    meId
+  } as const
+}
+
 
 export const setInitializeAppTC = (): AppThunk =>
   async dispatch => {
@@ -81,6 +96,7 @@ export const setInitializeAppTC = (): AppThunk =>
       // анонимный пользователь или авториз
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(setIsLoggedInAC(true))
+        dispatch(setMeIdAC(res.data.data.id))
         dispatch(setStatusAppAC("succeeded"))
       } else {
         handleServerAppError(res.data, dispatch)

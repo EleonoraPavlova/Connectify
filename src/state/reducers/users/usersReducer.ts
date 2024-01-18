@@ -1,8 +1,9 @@
 import { followApi } from "src/api/followApi"
 import { ResponseUsersType, UserStatuses, usersApi } from "src/api/usersApi"
-import { setStatusAppAC } from "../app-reducer/app-reducer"
-import { AppThunk } from "src/state/store"
+import { setMeIdAC, setStatusAppAC } from "../app-reducer/app-reducer"
+import { AppRootStateType, AppThunk } from "src/state/store"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
+import { getProfileUserTC } from "../userProfile/userProfileReducer"
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
@@ -11,12 +12,14 @@ export type ClearResponse = ReturnType<typeof clearResponseAC>
 export type SetfollowingInProgress = ReturnType<typeof setFollowingInProgressAC>
 export type IncreaseLikeCounter = ReturnType<typeof increaseLikeCounterAC>
 export type DecreaseLikeCounter = ReturnType<typeof decreaseLikeCounterAC>
+export type SetUserStatus = ReturnType<typeof setUserStatusAC>
 
 
 type UsersActionsType = FollowUsers | SetResponse | SwitchLoader | ClearResponse
   | SetfollowingInProgress
   | IncreaseLikeCounter
   | DecreaseLikeCounter
+  | SetUserStatus
 
 export type ResponseDomainType = ResponseUsersType & {
   isLoader: boolean
@@ -46,7 +49,7 @@ export const usersReducer = (state: ResponseDomainType = initialState, action: U
       }
     case "SWITCH-LOADER":
       return { ...state, isLoader: action.isLoader }
-    case "SET-USER-STATUS":
+    case "SET-USER-FOLLOWING-IN-PROGRESS":
       return { ...state, items: state.items.map(u => u.id === action.userId ? { ...u, followingInProgress: action.followingInProgress } : u) }
     case "INCREASE-LIKE-COUNTER":
       return {
@@ -84,7 +87,7 @@ export const switchLoaderAC = (isLoader: boolean) => {
 
 export const setFollowingInProgressAC = (followingInProgress: UserStatuses, userId: number) => {
   return {
-    type: 'SET-USER-STATUS', followingInProgress, userId
+    type: 'SET-USER-FOLLOWING-IN-PROGRESS', followingInProgress, userId
   } as const
 }
 
@@ -100,6 +103,11 @@ export const decreaseLikeCounterAC = (userId: number) => {
   } as const
 }
 
+export const setUserStatusAC = (status: ResponseUsersType) => {
+  return {
+    type: 'SET-STATUS', status
+  } as const
+}
 
 export const clearResponseAC = () => {
   return {
@@ -108,12 +116,12 @@ export const clearResponseAC = () => {
 }
 
 //thunk
-export const setResponseTC = (count: number, page: number, friend: boolean, isLoader: boolean = false): AppThunk =>
+export const setResponseTC = (pageSize: number, currentPage: number, friend: boolean = false, isLoader: boolean = false): AppThunk =>
   async dispatch => {
     dispatch(switchLoaderAC(!isLoader))
     dispatch(setStatusAppAC("loading"))
     try {
-      const res = await usersApi.getUsers(count, page, friend)
+      const res = await usersApi.getUsers(pageSize, currentPage, friend)
       dispatch(setResponseAC(res.data))
       if (res.data.items.length) {
         dispatch(setStatusAppAC("succeeded"))

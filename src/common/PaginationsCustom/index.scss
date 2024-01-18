@@ -1,4 +1,6 @@
 .pagination {
   grid-area: pagination;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

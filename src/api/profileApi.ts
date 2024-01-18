@@ -25,5 +25,9 @@ export type ResponseProfileUserType = {
 export const userProfileApi = {
   getProfileUser(userId: number) {
     return instance.get<ResponseProfileUserType>(`/profile/${userId}`)
-  }
+  },
+
+  updateProfileUserStatus(status: string) {
+    return instance.put<ResponseProfileUserType>('/profile/status', status)
+  },
 }

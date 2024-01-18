@@ -28,7 +28,7 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(setResponseTC(pageSize, currentPage, friend));
+      dispatch(setResponseTC(pageSize, currentPage, friend))
     }
   }, [dispatch, currentPage, friend, isLoggedIn])
 
@@ -37,7 +37,6 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
     return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
   });
 
-  console.log("usersResponse", usersResponse)
 
   return (<>
     {isLoader ? <Loader /> :

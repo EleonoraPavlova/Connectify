@@ -1,4 +1,5 @@
 import React from 'react';
+import "./index.scss"
 import { Box, Pagination, Stack, ThemeProvider, createTheme } from "@mui/material";
 
 

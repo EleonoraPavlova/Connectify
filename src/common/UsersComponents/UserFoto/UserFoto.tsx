@@ -3,7 +3,7 @@ import './index.scss';
 
 type UserFotoProps = {
   link: string
-  additionalClass: string
+  additionalClass?: string
 }
 
 export const UserFoto = (props: UserFotoProps) => {

@@ -9,11 +9,11 @@ import Button from "@mui/material/Button";
 
 type UserProps = {
   user: UserApiType
-  btnTextToggle: string
-  btnTexInfo: string
-  disabled: boolean
-  toggleFollowUser: () => void
-  callBack: () => void
+  btnTextToggle?: string
+  btnTexInfo?: string
+  disabled?: boolean
+  toggleFollowUser?: () => void
+  callBack?: () => void
 }
 
 export const User: React.FC<UserProps> = memo(({ user, btnTextToggle, btnTexInfo, disabled, toggleFollowUser, callBack }) => {
