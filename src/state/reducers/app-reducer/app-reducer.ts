@@ -3,7 +3,6 @@ import { AppThunk } from "src/state/store"
 import { ResultCode } from "../users/usersReducer"
 import { setIsLoggedInAC } from "../auth/authReducer"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
-import { getProfileUserTC } from "../userProfile/userProfileReducer"
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'//server interaction status
 

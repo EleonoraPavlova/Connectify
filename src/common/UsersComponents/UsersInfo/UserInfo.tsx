@@ -1,5 +1,5 @@
 import { Box, List, ListItem, Typography } from "@mui/material";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import s from "./index.module.scss";
 import { UserFoto } from "../UserFoto/UserFoto";
 import { ResponseProfileUserType } from "src/api/profileApi";

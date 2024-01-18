@@ -8,6 +8,7 @@ import { Loader } from "../../Loader/Loader";
 import { Modal } from "src/components/Modal/Modal";
 import { useSearchParams } from "react-router-dom";
 import { UsersMap } from "src/common/UsersComponents/UsersMap/UsersMap";
+import Box from "@mui/material/Box";
 
 export type UsersType = {
   friend: boolean
@@ -41,14 +42,14 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   return (<>
     {isLoader ? <Loader /> :
       <>
-        <div className="usersAll">
-          <div>
-            <div className="usersAll__list">{usersMap}</div>
-            <div className="usersAll__wrap-button">
+        <Box className="usersAll">
+          <Box>
+            <Box className="usersAll__list">{usersMap}</Box>
+            <Box className="usersAll__wrap-button">
               <PaginationsCustom pagesCount={pagesCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
         <Modal activeModal={!!searchParams.get('id')}
           setActiveModal={setActiveModal}
           setSearchParams={setSearchParams} />
