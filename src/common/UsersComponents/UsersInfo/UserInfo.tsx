@@ -2,23 +2,20 @@ import { Box, List, ListItem, Typography } from "@mui/material";
 import React, { useEffect } from 'react';
 import s from "./index.module.scss";
 import { UserFoto } from "../UserFoto/UserFoto";
-import { ResponseProfileUserType } from "src/api/profileApi";
 import { SocialContactsMap } from "src/common/SocialContactsMap/SocialContactsMap";
-import { UserApiType } from "src/api/usersApi";
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
 import { EditableSpan } from "src/common/EditableSpan/EditableSpan";
-import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
+import { ExtendedInitialStateType, getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
 
 
 export const UserInfo = () => {
-  const itemsData = useAppSelector<UserApiType[]>(state => state.usersPage.items)
-  const profileUser = useAppSelector<ResponseProfileUserType>(state => state.userProfile)
+  const profileUser = useAppSelector<ExtendedInitialStateType>(state => state.userProfile)
   let meId = useAppSelector<number | null>(state => state.app.meId)
   let profileUserUpper = profileUser && profileUser.fullName
     ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1)
     : '';
 
-  let findStatus = itemsData.find(u => u.id === meId)
+  // let findStatus = itemsData.find(u => u.id === meId)
   const mocPhoto = "https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg"
   const dispatch = useAppDispatch()
 
@@ -45,7 +42,7 @@ export const UserInfo = () => {
             }}> {profileUserUpper}</Typography>
           </ListItem>
           <ListItem className={s.user__item}>
-            <Typography >Status: </Typography><EditableSpan title={findStatus?.status} changeTitle={changeTitle} />
+            <Typography >Status: </Typography><EditableSpan title={profileUser.status} changeTitle={changeTitle} />
           </ListItem>
           <ListItem className={s.user__item}>
             <Typography sx={{ paddingRight: "8px" }}>

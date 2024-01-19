@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { UserApiType } from "src/api/usersApi";
 import { User } from "src/pages/FindUsers/User/User";
-import { useAppDispatch } from "src/state/hooks/hooks-selectors";
+import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
 import { getProfileUserTC } from "src/state/reducers/userProfile/userProfileReducer";
 import { toggleFollowUserTC, unFollowUserTC } from "src/state/reducers/users/usersReducer";
 
@@ -12,6 +12,7 @@ export type UsersMapType = {
 }
 
 export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
+  const profileUserStatus = useAppSelector<string>(state => state.userProfile.status)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
 

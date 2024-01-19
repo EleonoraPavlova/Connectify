@@ -8,7 +8,7 @@ import { SnackbarComponent } from "./components/Snackbar/SnackbarComponent";
 import { useAppDispatch, useAppSelector } from "./state/hooks/hooks-selectors";
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
-import { setInitializeAppTC } from "./state/reducers/app-reducer/app-reducer";
+import { setInitializeAppTC } from "./state/reducers/app-reducer/appReducer";
 import CircularProgress from "@mui/material/CircularProgress";
 
 

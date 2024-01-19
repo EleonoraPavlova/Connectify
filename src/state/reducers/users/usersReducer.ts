@@ -1,6 +1,6 @@
 import { followApi } from "src/api/followApi"
 import { ResponseUsersType, UserStatuses, usersApi } from "src/api/usersApi"
-import { setStatusAppAC } from "../app-reducer/app-reducer"
+import { setStatusAppAC } from "../app-reducer/appReducer"
 import { AppThunk } from "src/state/store"
 import { handleServerAppError, handleServerNetworkError } from "src/utils/error-utils"
 
@@ -121,8 +121,8 @@ export const setResponseTC = (pageSize: number, currentPage: number, friend: boo
     dispatch(setStatusAppAC("loading"))
     try {
       const res = await usersApi.getUsers(pageSize, currentPage, friend)
-      dispatch(setResponseAC(res.data))
       if (res.data.items.length) {
+        dispatch(setResponseAC(res.data))
         dispatch(setStatusAppAC("succeeded"))
       } else {
         dispatch(setStatusAppAC("failed"))

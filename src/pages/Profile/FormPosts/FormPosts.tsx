@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import './index.scss';
 import { Button } from "../../../common/Button/Button";
 import { useAppDispatch } from "src/state/hooks/hooks-selectors";
-import { addPostAC } from "src/state/reducers/profile/profileReducer";
+// import { addPostAC } from "src/state/reducers/profile/profileReducer";
 import Box from "@mui/material/Box";
 
 
@@ -11,7 +11,7 @@ export const FormPosts = () => {
   const dispatch = useAppDispatch()
 
   const addPostHandler = (textValue: string) => {
-    dispatch(addPostAC(textValue))
+    // dispatch(addPostAC(textValue))
     setTextValue("")
   }
 

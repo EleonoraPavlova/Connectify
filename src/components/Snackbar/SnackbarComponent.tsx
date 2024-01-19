@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { useAppDispatch, useAppSelector } from "../../state/hooks/hooks-selectors";
-import { RequestStatusType, setErrorAppAC, setStatusAppAC } from "src/state/reducers/app-reducer/app-reducer";
+import { RequestStatusType, setErrorAppAC, setStatusAppAC } from "src/state/reducers/app-reducer/appReducer";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -14,7 +14,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export function SnackbarComponent() {
   let error = useAppSelector<string | null>(state => state.app.error)
-  let status = useAppSelector<RequestStatusType>(state => state.app.status)
+  let statusApp = useAppSelector<RequestStatusType>(state => state.app.statusApp)
 
   const dispatch = useAppDispatch()
 
@@ -30,9 +30,9 @@ export function SnackbarComponent() {
 
   return (
     <Stack sx={{ width: '100%' }}>
-      <Snackbar open={!!error || !!status} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={status === "succeeded" ? "success" : "error"} sx={{ width: '100%' }}>
-          {status === "succeeded" ? status : error}
+      <Snackbar open={!!error || !!statusApp} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={statusApp === "succeeded" ? "success" : "error"} sx={{ width: '100%' }}>
+          {statusApp === "succeeded" ? statusApp : error}
         </Alert>
       </Snackbar>
     </Stack >

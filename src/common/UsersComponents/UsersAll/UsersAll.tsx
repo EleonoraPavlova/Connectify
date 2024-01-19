@@ -16,6 +16,7 @@ export type UsersType = {
 }
 
 export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
+  console.log("UsersAll")
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()

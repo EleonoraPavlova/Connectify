@@ -8,7 +8,7 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'//ser
 
 
 export type InitialStateType = {
-  status: RequestStatusType,
+  statusApp: RequestStatusType,
   error: string | null,
   success: string | null,
   initialized: boolean,
@@ -19,14 +19,14 @@ export type SetErrorApp = ReturnType<typeof setErrorAppAC>
 export type SetStatusApp = ReturnType<typeof setStatusAppAC>
 export type SetSuccessApp = ReturnType<typeof setSuccessAppAC>
 export type SetInitializeApp = ReturnType<typeof setInitializeAppAC>
-export type SetMeIdAC = ReturnType<typeof setMeIdAC>
+export type SetMeId = ReturnType<typeof setMeIdAC>
 
 export type ActionAppType = SetErrorApp | SetStatusApp | SetSuccessApp
   | SetInitializeApp
-  | SetMeIdAC
+  | SetMeId
 
 export const appInitialStatusState: InitialStateType = {
-  status: 'idle',
+  statusApp: 'idle',
   error: null,
   success: null,
   initialized: false, //(проверка куки, настроек пользователя)
@@ -39,7 +39,7 @@ export const appReducer = (state: InitialStateType = appInitialStatusState, acti
     case "SET-APP-ERROR":
       return { ...state, error: action.error }
     case "SET-APP-STATUS":
-      return { ...state, status: action.status }
+      return { ...state, statusApp: action.statusApp }
     case "SET-APP-SUCCESS":
       return { ...state, success: action.success }
     case "SET-APP-INITIALIZE":
@@ -58,10 +58,10 @@ export const setErrorAppAC = (error: string | null) => {
   } as const
 }
 
-export const setStatusAppAC = (status: RequestStatusType) => {
+export const setStatusAppAC = (statusApp: RequestStatusType) => {
   return {
     type: "SET-APP-STATUS",
-    status
+    statusApp
   } as const
 }
 
@@ -79,7 +79,7 @@ export const setInitializeAppAC = (initialized: boolean) => {
   } as const
 }
 
-export const setMeIdAC = (meId: number) => {
+export const setMeIdAC = (meId: number | null) => {
   return {
     type: "SET-ME-ID",
     meId

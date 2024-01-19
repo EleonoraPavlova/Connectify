@@ -2,14 +2,15 @@ import React from 'react';
 import './index.scss';
 import { UsersAll } from "src/common/UsersComponents/UsersAll/UsersAll";
 import { useAppSelector } from "src/state/hooks/hooks-selectors";
-import { RequestStatusType } from "src/state/reducers/app-reducer/app-reducer";
+import { RequestStatusType } from "src/state/reducers/app-reducer/appReducer";
 import Typography from "@mui/material/Typography";
 
 
 export const Friends = () => {
-  let status = useAppSelector<RequestStatusType>(state => state.app.status)
+  console.log("Friends")
+  let statusApp = useAppSelector<RequestStatusType>(state => state.app.statusApp)
 
-  if (status === "failed") {
+  if (statusApp === "failed") {
     return (<Typography variant="h3" sx={{
       display: 'flex',
       alignItems: 'center',

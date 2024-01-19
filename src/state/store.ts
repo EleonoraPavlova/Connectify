@@ -3,18 +3,15 @@ import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { dialogsPageReducer } from "src/state/reducers/dialogs/dialogsPageReducer";
 import { friendsPageReducer } from "src/state/reducers/friends/friendsPageReducer";
 import { usersReducer } from "src/state/reducers/users/usersReducer";
-import { profileReducer } from "src/state/reducers/profile/profileReducer";
 import { userProfileReducer } from "./reducers/userProfile/userProfileReducer";
-import { appReducer } from "./reducers/app-reducer/app-reducer";
+import { appReducer } from "./reducers/app-reducer/appReducer";
 import { authReducer } from "./reducers/auth/authReducer";
 import { saveState, loadState } from "src/utils/localStorage-utils";
-import { paginationReducer } from "./reducers/pagination/paginationReducer";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
   dialogsPage: dialogsPageReducer,
-  profilePage: profileReducer,
   friendsPage: friendsPageReducer,
   usersPage: usersReducer,
   userProfile: userProfileReducer,

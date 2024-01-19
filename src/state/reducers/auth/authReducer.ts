@@ -1,9 +1,8 @@
 import { AppThunk } from '../../store';
 import { handleServerAppError, handleServerNetworkError } from "../../../utils/error-utils";
-// import { SetTodoListTC, clearTodoListAC } from "../todolists/todolists-reducer";
-import { setStatusAppAC, setSuccessAppAC } from "../app-reducer/app-reducer";
+import { setStatusAppAC, setSuccessAppAC } from "../app-reducer/appReducer";
 import { LoginParamsType, authApi } from "src/api/authApi";
-import { ResultCode, clearResponseAC, setResponseAC, setResponseTC } from "../users/usersReducer";
+import { ResultCode, clearResponseAC } from "../users/usersReducer";
 
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setLogginParamsAC>
 
@@ -57,7 +56,6 @@ export const LoginTC = (params: LoginParamsType): AppThunk =>
         dispatch(setLogginParamsAC(params))
         // dispatch(setResponseTC(count, page, friend)); //
         dispatch(setSuccessAppAC("you have successfully logged in"))
-        dispatch(setStatusAppAC("succeeded"))
       } else {
         handleServerAppError(res.data, dispatch)
       }

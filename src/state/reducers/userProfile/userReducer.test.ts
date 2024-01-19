@@ -1,26 +1,8 @@
-import { ResponseProfileUserType } from "src/api/profileApi"
-import { setProfileUserAC, userProfileReducer } from "./userProfileReducer"
-
-
-type mocContctsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-}
-
-type mocPhotosType = {
-  small: string;
-  large: string;
-}
+import { ExtendedInitialStateType, setProfileUserAC, userProfileReducer } from "./userProfileReducer"
 
 
 test("reducer should toggle follow status", () => {
-  let state: ResponseProfileUserType = {
+  let state: ExtendedInitialStateType = {
     userId: 0,
     lookingForAJob: false,
     lookingForAJobDescription: "",
@@ -38,7 +20,8 @@ test("reducer should toggle follow status", () => {
     photos: {
       small: "",
       large: "",
-    }
+    },
+    status: " "
   };
 
 
@@ -61,8 +44,8 @@ test("reducer should toggle follow status", () => {
       photos: {
         small: "smallPhoto",
         large: "largePhoto",
-      }
-    }
+      },
+    },
   ))
 
   expect(state.userId).toBe(0)
