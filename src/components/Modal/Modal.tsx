@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './index.scss';
-import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
+import { useAppSelector } from "src/state/hooks/hooks-selectors";
 import { useNavigate } from "react-router-dom";
 import { UserFoto } from "src/common/UsersComponents/UserFoto/UserFoto";
 import Box from "@mui/material/Box";
@@ -8,7 +8,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 import { SocialContactsMap } from "src/common/SocialContactsMap/SocialContactsMap";
-import { ExtendedInitialStateType, getProfileUserStatusTC } from "src/state/reducers/userProfile/userProfileReducer";
+import { ExtendedInitialStateType } from "src/state/reducers/userProfile/userProfileReducer";
 
 
 type ModalProps = {
@@ -25,12 +25,6 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSe
     ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1)
     : '';
 
-  // const dispatch = useAppDispatch()
-
-  // // useEffect(() => {
-  // //   dispatch(getProfileUserStatusTC(profileUser.userId))
-  // // }, [dispatch])
-
   const closeModal = () => {
     setActiveModal(false)
     setSearchParams() //clean query params
@@ -46,11 +40,14 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSe
           </Box>
           <Box className="modal__mainInfo">
             <List className="modal__data">
-              <ListItem className="modal__data-name"><Typography sx={{ fontWeigth: "bold" }}> {profileUserUpper}</Typography> </ListItem>
-              <ListItem><Typography > Id: {profileUser.userId} </Typography></ListItem>
-              <ListItem><Typography > Looking for a job: {profileUser.lookingForAJob}</Typography></ListItem>
-              <ListItem><Typography > Description: {profileUser.lookingForAJobDescription}</Typography></ListItem>
-              <ListItem className="modal__data-status"><Typography >Status: {profileUser.status}</Typography></ListItem>
+              <ListItem className="modal__data-name">
+                <Typography sx={{ fontWeigth: "bold" }}> {profileUserUpper}</Typography>
+              </ListItem>
+              <ListItem><Typography ><span className="modal__data-span"> Id: </span> {profileUser.userId} </Typography></ListItem>
+              <ListItem><Typography ><span className="modal__data-span"> Looking for a job: </span>  {profileUser.lookingForAJob}</Typography></ListItem>
+              <ListItem><Typography ><span className="modal__data-span">Description: </span>  {profileUser.lookingForAJobDescription}</Typography></ListItem>
+              <ListItem className="modal__data-status">
+                <Typography ><span className="modal__data-span">Status: </span>{profileUser.status}</Typography></ListItem>
             </List>
             <List className="modal__contact">
               {<SocialContactsMap />}

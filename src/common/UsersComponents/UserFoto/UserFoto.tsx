@@ -6,8 +6,8 @@ type UserFotoProps = {
   additionalClass?: string
 }
 
-export const UserFoto = (props: UserFotoProps) => {
-  return (<div>
-    <img src={props.link} alt="avatar" className={`avatar ${props.additionalClass}`} />
-  </div>)
+export const UserFoto: React.FC<UserFotoProps> = ({ link, additionalClass }) => {
+  return (
+    <img src={link} alt="avatar" className={`avatar ${additionalClass}`} />
+  )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponseProfileUserType } from "src/api/profileApi";
+import { ProfileUserContactsType, ResponseProfileUserType } from "src/api/profileApi";
 import { useAppSelector } from "src/state/hooks/hooks-selectors";
 import instaIcon from '../../assets/icons/insta.png'
 import facebookIcon from '../../assets/icons/facebook.png'
@@ -30,7 +30,6 @@ export const SocialContactsMap = () => {
     { icon: website, key: 'website' },
     { icon: mainLink, key: 'link' }
   ];
-
 
   return (
     <>

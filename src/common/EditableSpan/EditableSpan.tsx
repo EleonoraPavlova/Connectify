@@ -1,55 +1,59 @@
 import { TextField, Typography } from "@mui/material";
-import React, { ChangeEvent, useState, KeyboardEvent, memo } from 'react';
+import React, { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react';
 
 
 type EditableSpanProps = {
-  title: string | undefined;
+  title: string | undefined
+  label: string
+  error?: boolean | undefined
+  helperText?: string
+  additionalClass?: string
   isDone?: boolean | undefined
-  changeTitle: (title: string) => void
+  editMode: boolean
+  setEditMode: (arg: boolean) => void
+  onChange: (title: string) => void
 }
 
 export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
-  const [editMode, setEditMode] = useState<boolean>(false)
-  let [title, setTitle] = useState<string>("")
+  let [title, setTitle] = useState<string | undefined>(props.title)
 
-  const onEditMode = () => {
-    if (!props.isDone) {
-      setEditMode(true)
-      if (props.title) setTitle(props.title)
-    }
-  }
+  useEffect(() => {
+    setTitle(props.title)
+  }, [props.title, props.editMode])
 
   const offEditMode = () => {
-    setEditMode(false)
-    props.changeTitle(title)
+    props.setEditMode(false)
+    if (title) props.onChange(title)
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    // console.log("e.currentTarget.value + ", e.currentTarget.value)
     setTitle(e.currentTarget.value)
   }
-
 
   const onKeyDownEditHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       offEditMode();
     }
   }
-
+  // debugger
   return (
-    editMode ?
+    props.editMode ?
       <TextField
         value={title}
+        type="text"
+        label={props.label}
+        autoComplete={props.label}
+        error={props.error}
+        helperText={props.helperText}
         onChange={onChangeHandler}
-        onBlur={offEditMode}
-        variant="standard"
+        // onBlur={offEditMode}
+        variant="outlined"
         onKeyDown={onKeyDownEditHandler}
-        autoFocus />
+        className={props.additionalClass}
+        autoFocus
+      />
       :
-      <Typography onDoubleClick={onEditMode} sx={{ paddingRight: "8px" }} > {props.title} </Typography>
+      <Typography sx={{ paddingRight: "8px" }} variant="h6" > {props.title} </Typography>
   )
 })
-
-// const StyledEditableSpan = styled.span`
-//   overflow: auto;
-// `;
+//onDoubleClick = { onEditMode }

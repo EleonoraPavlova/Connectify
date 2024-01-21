@@ -51,5 +51,5 @@ test("reducer should toggle follow status", () => {
   expect(state.userId).toBe(0)
   expect(endState.userId).toBe(2)
   expect(endState.fullName).toBe("Eleonora")
-  expect(endState.photos.small).toBe("smallPhoto")
+  expect(endState.photos ? endState.photos : null).toBe("smallPhoto")
 })

@@ -3,7 +3,12 @@
 .user {
   padding: 30px 0 50px 0;
   &__item {
-    padding-bottom: 10px;
+    gap: 50px;
+  }
+  &__name {
+    .MuiTypography-root {
+      font-weight: bold !important;
+    }
   }
   &__link {
     &:hover {

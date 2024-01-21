@@ -32,7 +32,11 @@ export const userProfileApi = {
     return instance.get<string>(`/profile/status/${userId}`)
   },
 
-  updateProfileUserStatus(status: string) {
-    return instance.put<ResponseFollowType>('/profile/status', status)
+  updateProfileUser(params: ResponseProfileUserType) {
+    return instance.put<ResponseFollowType>('/profile', params)
   },
+
+  updateProfileUserStatus(status: string) {
+    return instance.put<ResponseFollowType>('/profile/status', { status })
+  }
 }
