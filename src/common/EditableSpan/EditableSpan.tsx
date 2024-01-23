@@ -34,7 +34,6 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
     }
   }
 
-
   return (
     props.editMode ?
       <TextField

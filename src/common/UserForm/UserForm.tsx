@@ -1,6 +1,6 @@
 import { Box, IconButton, List, ListItem, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import s from "./index.module.scss";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { SocialContactsMap } from "src/common/SocialContactsMap/SocialContactsMap";
@@ -10,16 +10,17 @@ import {
 } from "src/state/reducers/userProfile/userProfileReducer";
 import { UserFoto } from "../UsersComponents/UserFoto/UserFoto";
 import { useAppSelector } from "src/state/hooks/hooks-selectors";
+import { log } from "console";
 
 type UserFormProps = {
   profileUserState: ExtendedInitialStateType,
-  editMode: boolean,
   setProfileUserState: (arg: any) => void
-  setEditMode: (arg: boolean) => void,
-  saveForm: () => void
+  updateProfileUser: () => void,
+  updateProfileUserStatus: () => void
 }
 
-export const UserForm: React.FC<UserFormProps> = ({ editMode, profileUserState, setProfileUserState, setEditMode, saveForm }) => {
+export const UserForm: React.FC<UserFormProps> = ({ profileUserState, setProfileUserState, updateProfileUser, updateProfileUserStatus }) => {
+  const [editMode, setEditMode] = useState<boolean>(false)
   const meId = useAppSelector<number | null>(state => state.app.meId)
 
   let profileUserUpperFullName = profileUserState && profileUserState.fullName
@@ -43,11 +44,48 @@ export const UserForm: React.FC<UserFormProps> = ({ editMode, profileUserState, 
     }))
   }
 
+  const formRef = useRef(null)
+  const handleContainerClick = (e: Event) => {
+    e.preventDefault()
+    const currentElement = e.target
+
+    console.log(currentElement);
+    if (formRef.current) {
+      // @ts-ignore
+      const isContain = formRef.current.contains(currentElement)
+
+      if (!isContain) {
+        setEditMode(false)
+        const body = document.querySelector('body')
+        body?.removeEventListener('click', handleContainerClick)
+      }
+    }
+  }
+
+  useEffect(() => {
+    const body = document.querySelector('body')
+    if (editMode) {
+      body?.addEventListener('click', handleContainerClick)
+    }
+  }, [editMode])
+
+  const saveForm = useCallback(() => {
+    setProfileUserState(profileUserState)
+    if (!editMode) {
+      setEditMode(true)
+    } else {
+      updateProfileUser()
+      updateProfileUserStatus()
+      setEditMode(false)
+    }
+  }, [editMode, profileUserState])
+
+
 
   return (
-    <Box className={`${s.user} flex-start`}>
+    <Box className={`${s.user} flex-start`} tabIndex={0}  >
       <UserFoto link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto} />
-      <Box>
+      <Box ref={formRef} >
         <List>
           <ListItem className={s.user__item}>
             <EditableSpan title={profileUserUpperFullName} label={"Name"} error={false}
@@ -104,7 +142,10 @@ export const UserForm: React.FC<UserFormProps> = ({ editMode, profileUserState, 
       }}>
         <IconButton color={"success"}
           aria-label="change text"
-          onClick={saveForm}>
+          onClick={(event) => {
+            event.stopPropagation()
+            saveForm()
+          }}>
           <ModeEditOutlineOutlinedIcon fontSize={"small"} />
         </IconButton>
       </Box>

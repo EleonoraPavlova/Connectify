@@ -8,7 +8,6 @@ import { UserForm } from "src/common/UserForm/UserForm";
 
 
 export const UserInfo = () => {
-  const [editMode, setEditMode] = useState<boolean>(false)
   const profileUser = useAppSelector<ExtendedInitialStateType>(state => state.userProfile)
   const [profileUserState, setProfileUserState] = useState<ExtendedInitialStateType>(profileUser)
 
@@ -30,23 +29,12 @@ export const UserInfo = () => {
     dispatch(UpdateProfileUserTC(profileUserState))
   }
 
-  const UpdateProfileUserStatus = () => {
+  const updateProfileUserStatus = () => {
     dispatch(UpdateProfileUserStatusTC(profileUserState.status))
   }
 
-  const onEditMode = useCallback(() => {
-    setProfileUserState(profileUserState)
-    if (!editMode) {
-      setEditMode(true)
-    } else {
-      updateProfileUser()
-      UpdateProfileUserStatus()
-      setEditMode(false)
-    }
-  }, [editMode, profileUserState])
-
   return (
     <UserForm profileUserState={profileUserState} setProfileUserState={setProfileUserState}
-      saveForm={onEditMode} editMode={editMode} setEditMode={setEditMode} />
+      updateProfileUser={updateProfileUser} updateProfileUserStatus={updateProfileUserStatus} />
   )
 }
