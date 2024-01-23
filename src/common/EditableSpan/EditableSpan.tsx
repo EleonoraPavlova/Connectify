@@ -10,6 +10,7 @@ type EditableSpanProps = {
   additionalClass?: string
   isDone?: boolean | undefined
   editMode: boolean
+  saveForm: () => void
   setEditMode: (arg: boolean) => void
   onChange: (title: string) => void
 }
@@ -21,21 +22,19 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
     setTitle(props.title)
   }, [props.title, props.editMode])
 
-  const offEditMode = () => {
-    props.setEditMode(false)
-    if (title) props.onChange(title)
-  }
-
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
+    const value = e.currentTarget.value
+    setTitle(value)
+    props.onChange(value)
   }
 
   const onKeyDownEditHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      offEditMode();
+      props.saveForm()
     }
   }
-  // debugger
+
+
   return (
     props.editMode ?
       <TextField
@@ -46,14 +45,11 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
         error={props.error}
         helperText={props.helperText}
         onChange={onChangeHandler}
-        // onBlur={offEditMode}
         variant="outlined"
         onKeyDown={onKeyDownEditHandler}
         className={props.additionalClass}
-        autoFocus
       />
       :
       <Typography sx={{ paddingRight: "8px" }} variant="h6" > {props.title} </Typography>
   )
 })
-//onDoubleClick = { onEditMode }

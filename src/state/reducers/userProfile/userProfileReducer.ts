@@ -14,7 +14,7 @@ type UserActionsType = SetProfileUser | SetProfileUserStatus
   | UpdateProfileUser
   | UpdateProfileUserStatus
 
-export type ExtendedInitialStateType = ResponseProfileUserType & { status: string }
+export type ExtendedInitialStateType = ResponseProfileUserType & { status: string, aboutMe: string | null }
 
 export const initialState: ExtendedInitialStateType = {
   userId: 0,
@@ -23,7 +23,8 @@ export const initialState: ExtendedInitialStateType = {
   fullName: "",
   contacts: {} as ProfileUserContactsType,
   photos: {} as UserPhotosType,
-  status: ""
+  status: "",
+  aboutMe: "About me",
 };
 
 export const userProfileReducer = (state: ExtendedInitialStateType = initialState, action: UserActionsType): ExtendedInitialStateType => {
@@ -115,18 +116,18 @@ export const getProfileUserStatusTC = (userId: number, isLoader: boolean = false
   }
 
 
-export const UpdateProfileUserTC = (updatedField: string, newValue: string, isLoader: boolean = false): AppThunk =>
+export const UpdateProfileUserTC = (params: ResponseProfileUserType, isLoader: boolean = false): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
+    const state = getState()
+    const meId = state.app.meId
+    if (!meId) return
+
     dispatch(switchLoaderAC(!isLoader))
     dispatch(setStatusAppAC("loading"))
 
-    const state = getState()
-    const profile = state.userProfile
-
     const apiModel: ResponseProfileUserType = {
-      ...profile,
-      userId: profile.userId,
-      [updatedField]: newValue
+      ...params,
+      userId: meId
     }
 
     try {

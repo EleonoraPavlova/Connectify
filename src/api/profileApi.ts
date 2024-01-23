@@ -20,6 +20,7 @@ export type ResponseProfileUserType = {
   fullName: string
   contacts: ProfileUserContactsType
   photos: UserPhotosType
+  aboutMe: string
 }
 
 

@@ -1,4 +1,4 @@
-import { Action, applyMiddleware, combineReducers, legacy_createStore } from "redux";
+import { Action, applyMiddleware, combineReducers, compose, legacy_createStore } from "redux";
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { dialogsPageReducer } from "src/state/reducers/dialogs/dialogsPageReducer";
 import { friendsPageReducer } from "src/state/reducers/friends/friendsPageReducer";
@@ -9,6 +9,9 @@ import { authReducer } from "./reducers/auth/authReducer";
 import { saveState, loadState } from "src/utils/localStorage-utils";
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
+
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)
 
 const rootReducer = combineReducers({
   dialogsPage: dialogsPageReducer,
@@ -25,7 +28,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
-export const store = legacy_createStore(rootReducer, loadState(), applyMiddleware(thunk))
+export const store = legacy_createStore(rootReducer, loadState(), composeEnhancers(applyMiddleware(thunk)))
 
 store.subscribe(() => {
   saveState({

@@ -1,9 +1,9 @@
 import { ExtendedInitialStateType, setProfileUserAC, userProfileReducer } from "./userProfileReducer"
 
-
 test("reducer should toggle follow status", () => {
   let state: ExtendedInitialStateType = {
     userId: 0,
+    aboutMe: "",
     lookingForAJob: false,
     lookingForAJobDescription: "",
     fullName: "",
@@ -28,6 +28,7 @@ test("reducer should toggle follow status", () => {
   let endState = userProfileReducer(state, setProfileUserAC(
     {
       userId: 1,
+      aboutMe: "",
       lookingForAJob: true,
       lookingForAJobDescription: "wow",
       fullName: "Eleonora",
