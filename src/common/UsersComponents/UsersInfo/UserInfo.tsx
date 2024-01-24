@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "src/state/hooks/hooks-selectors";
 import {
   ExtendedInitialStateType, UpdateProfileUserStatusTC,
   UpdateProfileUserTC, getProfileUserTC
 } from "src/state/reducers/userProfile/userProfileReducer";
-import { UserForm } from "src/common/UserForm/UserForm";
+import { UserForm } from "src/common/UsersComponents/UserForm/UserForm";
 
 
 export const UserInfo = () => {
