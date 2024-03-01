@@ -1,12 +1,11 @@
 import React from 'react'
 import './index.scss'
-import { UsersAll } from 'src/common/UsersComponents/UsersAll/UsersAll'
-import { useAppSelector } from 'src/state/hooks/hooks-selectors'
-import { RequestStatusType } from 'src/state/reducers/app-reducer/appReducer'
 import Typography from '@mui/material/Typography'
+import { RequestStatusType } from 'state/reducers/app-reducer/appReducer'
+import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { UsersAll } from 'common/UsersComponents/UsersAll/UsersAll'
 
 export const Friends = () => {
-  console.log('Friends')
   let statusApp = useAppSelector<RequestStatusType>((state) => state.app.statusApp)
 
   if (statusApp === 'failed') {

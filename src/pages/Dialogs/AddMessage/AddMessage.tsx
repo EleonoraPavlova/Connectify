@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState, KeyboardEvent } from 'react'
 import './index.scss'
 import { Button } from '../../../common/Button/Button'
 import { useDispatch } from 'react-redux'
-import { addMessageAC } from 'src/state/reducers/dialogs/dialogsPageReducer'
+import { addMessageAC } from 'state/reducers/dialogs/dialogsPageReducer'
 
 export const AddMessages = () => {
   let [textValue, setTextValue] = useState<string>('')
@@ -11,9 +11,7 @@ export const AddMessages = () => {
   const dispatch = useDispatch()
 
   const addMessageHandler = (textValue: string) => {
-    if (textValue) {
-      dispatch(addMessageAC(textValue))
-    }
+    if (textValue) dispatch(addMessageAC(textValue))
     setTexts([textValue, ...texts])
     setTextValue('')
   }
@@ -23,9 +21,7 @@ export const AddMessages = () => {
   }
 
   const onKeyDownHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter') {
-      addMessageHandler(e.currentTarget.value)
-    }
+    if (e.key === 'Enter') addMessageHandler(e.currentTarget.value)
   }
 
   function mappedList() {

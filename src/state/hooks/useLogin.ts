@@ -1,8 +1,8 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './hooks-selectors'
-import { LoginParamsType } from 'src/api/authApi'
 import { LoginTC } from '../reducers/auth/authReducer'
-import { handleServerNetworkError } from 'src/utils/error-utils'
+import { LoginParamsType } from 'api/authApi'
+import { handleServerNetworkError } from 'utils/error-utils'
 
 export function useLogin() {
   const dispatch = useAppDispatch()

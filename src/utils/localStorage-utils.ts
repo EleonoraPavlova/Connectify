@@ -1,4 +1,4 @@
-import { AppRootStateType } from 'src/state/store'
+import { AppRootStateType } from 'state/store'
 
 //loads the state from localStorage
 export const loadState = () => {

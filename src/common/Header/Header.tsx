@@ -2,9 +2,9 @@ import React, { useCallback } from 'react'
 import './index.scss'
 import { Logo } from '../Logo/Logo'
 import { Button } from '../Button/Button'
-import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors'
 import Typography from '@mui/material/Typography'
-import { LogOutTC } from 'src/state/reducers/auth/authReducer'
+import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
+import { LogOutTC } from 'state/reducers/auth/authReducer'
 
 export const Header = () => {
   let isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)

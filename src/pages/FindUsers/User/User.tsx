@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 import s from './index.module.scss'
-import { UserApiType } from 'src/api/usersApi'
-import { UserFoto } from 'src/common/UsersComponents/UserFoto/UserFoto'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import { UserApiType } from 'api/usersApi'
+import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 
 type UserProps = {
   user: UserApiType

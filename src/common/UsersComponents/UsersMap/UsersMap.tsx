@@ -1,10 +1,10 @@
+import { UserApiType } from 'api/usersApi'
+import { User } from 'pages/FindUsers/User/User'
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { UserApiType } from 'src/api/usersApi'
-import { User } from 'src/pages/FindUsers/User/User'
-import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors'
-import { getProfileUserTC } from 'src/state/reducers/userProfile/userProfileReducer'
-import { toggleFollowUserTC, unFollowUserTC } from 'src/state/reducers/users/usersReducer'
+import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
+import { getProfileUserTC } from 'state/reducers/userProfile/userProfileReducer'
+import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/users/usersReducer'
 
 export type UsersMapType = {
   btnTextInfo: string

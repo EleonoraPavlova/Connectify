@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
-import { setResponseTC } from 'src/state/reducers/users/usersReducer'
-import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors'
-import { UserApiType } from 'src/api/usersApi'
 import { PaginationsCustom } from '../../PaginationsCustom/PaginationsCustom'
 import { Loader } from '../../Loader/Loader'
-import { Modal } from 'src/components/Modal/Modal'
 import { useSearchParams } from 'react-router-dom'
-import { UsersMap } from 'src/common/UsersComponents/UsersMap/UsersMap'
 import Box from '@mui/material/Box'
+import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
+import { UserApiType } from 'api/usersApi'
+import { setResponseTC } from 'state/reducers/users/usersReducer'
+import { UsersMap } from '../UsersMap/UsersMap'
+import { Modal } from 'components/Modal/Modal'
 
 export type UsersType = {
   friend: boolean
@@ -29,9 +29,7 @@ export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(setResponseTC(pageSize, currentPage, friend))
-    }
+    if (isLoggedIn) dispatch(setResponseTC(pageSize, currentPage, friend))
   }, [dispatch, currentPage, friend, isLoggedIn])
 
   const usersMap = usersResponse.map((u: UserApiType) => {

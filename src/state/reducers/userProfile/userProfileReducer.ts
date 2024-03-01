@@ -1,9 +1,9 @@
-import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from 'src/api/profileApi'
-import { UserPhotosType } from 'src/api/usersApi'
 import { ResultCode, switchLoaderAC } from '../users/usersReducer'
-import { AppRootStateType, AppThunk } from 'src/state/store'
-import { handleServerAppError, handleServerNetworkError } from 'src/utils/error-utils'
 import { setStatusAppAC, setSuccessAppAC } from '../app-reducer/appReducer'
+import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from 'api/profileApi'
+import { UserPhotosType } from 'api/usersApi'
+import { AppRootStateType, AppThunk } from 'state/store'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 
 export type SetProfileUser = ReturnType<typeof setProfileUserAC>
 export type SetProfileUserStatus = ReturnType<typeof setProfileUserStatusAC>

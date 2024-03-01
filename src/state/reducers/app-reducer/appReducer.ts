@@ -1,8 +1,8 @@
-import { authApi } from 'src/api/authApi'
-import { AppThunk } from 'src/state/store'
 import { ResultCode } from '../users/usersReducer'
 import { setIsLoggedInAC } from '../auth/authReducer'
-import { handleServerAppError, handleServerNetworkError } from 'src/utils/error-utils'
+import { AppThunk } from 'state/store'
+import { authApi } from 'api/authApi'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 

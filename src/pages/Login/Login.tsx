@@ -10,7 +10,7 @@ import Button from '@mui/material/Button'
 import { Typography } from '@mui/material'
 import { useAppSelector } from '../../state/hooks/hooks-selectors'
 import { Navigate } from 'react-router-dom'
-import { useLogin } from 'src/state/hooks/useLogin'
+import { useLogin } from 'state/hooks/useLogin'
 
 export const Login = () => {
   let isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)

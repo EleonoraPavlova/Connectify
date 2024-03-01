@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.scss'
-import { UserFoto } from 'src/common/UsersComponents/UserFoto/UserFoto'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApiType } from 'src/api/usersApi'
+import { UserApiType } from 'api/usersApi'
+import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 
 type FriendProps = {
   friend: UserApiType

@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useState } from 'react'
 import './index.scss'
 import { Button } from '../../../common/Button/Button'
-import { useAppDispatch } from 'src/state/hooks/hooks-selectors'
 // import { addPostAC } from "src/state/reducers/profile/profileReducer";
 import Box from '@mui/material/Box'
+import { useAppDispatch } from 'state/hooks/hooks-selectors'
 
 export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>('')
-  const dispatch = useAppDispatch()
 
   const addPostHandler = (textValue: string) => {
     // dispatch(addPostAC(textValue))

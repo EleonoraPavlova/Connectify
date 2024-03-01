@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApiType } from 'src/api/usersApi'
-import { useAppDispatch } from 'src/state/hooks/hooks-selectors'
-import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'src/state/reducers/users/usersReducer'
+import { UserApiType } from 'api/usersApi'
+import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'state/reducers/users/usersReducer'
+import { useAppDispatch } from 'state/hooks/hooks-selectors'
 
 type PostUserStatusType = {
   item: UserApiType

@@ -1,4 +1,4 @@
-import { FriendItem } from 'src/state/initialState'
+import { FriendItem } from 'state/initialState'
 import { addFriendAC, friendsPageReducer, initialState } from './friendsPageReducer'
 
 test('reducer should add new friend', () => {

@@ -1,15 +1,15 @@
 import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React from 'react'
 import s from './index.module.scss'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
-import { SocialContactsMap } from 'src/common/SocialContactsMap/SocialContactsMap'
-import { EditableSpan } from 'src/common/EditableSpan/EditableSpan'
-import { ExtendedInitialStateType } from 'src/state/reducers/userProfile/userProfileReducer'
 import { UserFoto } from '../UserFoto/UserFoto'
-import { useAppSelector } from 'src/state/hooks/hooks-selectors'
 import { SaveAsOutlined } from '@mui/icons-material'
-import { useUserForm } from 'src/state/hooks/useUserForm'
+import { ExtendedInitialStateType } from 'state/reducers/userProfile/userProfileReducer'
+import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { EditableSpan } from 'common/EditableSpan/EditableSpan'
+import { useUserForm } from 'state/hooks/useUserForm'
+import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
 
 type UserFormProps = {
   profileUserState: ExtendedInitialStateType

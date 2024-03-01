@@ -1,14 +1,14 @@
 import React from 'react'
 import './index.scss'
-import { useAppSelector } from 'src/state/hooks/hooks-selectors'
 import { useNavigate } from 'react-router-dom'
-import { UserFoto } from 'src/common/UsersComponents/UserFoto/UserFoto'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
-import { SocialContactsMap } from 'src/common/SocialContactsMap/SocialContactsMap'
-import { ExtendedInitialStateType } from 'src/state/reducers/userProfile/userProfileReducer'
+import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { ExtendedInitialStateType } from 'state/reducers/userProfile/userProfileReducer'
+import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
+import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
 
 type ModalProps = {
   activeModal: boolean

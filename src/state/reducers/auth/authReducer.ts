@@ -1,8 +1,8 @@
 import { AppThunk } from '../../store'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
 import { setStatusAppAC, setSuccessAppAC } from '../app-reducer/appReducer'
-import { LoginParamsType, authApi } from 'src/api/authApi'
 import { ResultCode, clearResponseAC } from '../users/usersReducer'
+import { LoginParamsType, authApi } from 'api/authApi'
 
 export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setLogginParamsAC>
 

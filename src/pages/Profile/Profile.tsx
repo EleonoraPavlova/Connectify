@@ -3,11 +3,11 @@ import './index.scss'
 import Banner from '../../components/Banner/Banner'
 import { FormPosts } from './FormPosts/FormPosts'
 import { PostUserStatus } from './Post/PostUserStatus'
-import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors'
-import { UserApiType } from 'src/api/usersApi'
-import { PaginationsCustom } from 'src/common/PaginationsCustom/PaginationsCustom'
-import { setResponseTC } from 'src/state/reducers/users/usersReducer'
-import { UserInfo } from 'src/common/UsersComponents/UsersInfo/UserInfo'
+import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
+import { UserApiType } from 'api/usersApi'
+import { setResponseTC } from 'state/reducers/users/usersReducer'
+import { UserInfo } from 'common/UsersComponents/UsersInfo/UserInfo'
+import { PaginationsCustom } from 'common/PaginationsCustom/PaginationsCustom'
 
 export const Profile = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)

@@ -1,7 +1,7 @@
+import { ResponseFollowType } from 'api/followApi'
+import { ResponseUsersType } from 'api/usersApi'
 import { Dispatch } from 'redux'
-import { ResponseFollowType } from 'src/api/followApi'
-import { ResponseUsersType } from 'src/api/usersApi'
-import { setErrorAppAC, setStatusAppAC } from 'src/state/reducers/app-reducer/appReducer'
+import { setErrorAppAC, setStatusAppAC } from 'state/reducers/app-reducer/appReducer'
 
 export const handleServerAppError = (
   data: ResponseUsersType | ResponseFollowType<{ userId: number } | {}>,

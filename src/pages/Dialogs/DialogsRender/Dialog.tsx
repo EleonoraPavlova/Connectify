@@ -2,7 +2,7 @@ import React from 'react'
 import DialogItem from '../DialogItem/DialogItem'
 import { DialogsType } from '../../../state/initialState'
 import { useSelector } from 'react-redux'
-import { AppRootStateType } from 'src/state/store'
+import { AppRootStateType } from 'state/store'
 
 export const Dialog = () => {
   const dialogs = useSelector<AppRootStateType, DialogsType[]>((state) => state.dialogsPage.dialogsData)

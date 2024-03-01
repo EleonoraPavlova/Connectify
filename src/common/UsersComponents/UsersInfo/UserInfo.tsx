@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from 'src/state/hooks/hooks-selectors'
+import { UserForm } from '../UserForm/UserForm'
+import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
 import {
   ExtendedInitialStateType,
   UpdateProfileUserStatusTC,
   UpdateProfileUserTC,
   getProfileUserTC,
-} from 'src/state/reducers/userProfile/userProfileReducer'
-import { UserForm } from 'src/common/UsersComponents/UserForm/UserForm'
+} from 'state/reducers/userProfile/userProfileReducer'
 
 export const UserInfo = () => {
   const profileUser = useAppSelector<ExtendedInitialStateType>((state) => state.userProfile)

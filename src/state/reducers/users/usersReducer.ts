@@ -1,8 +1,8 @@
-import { followApi } from 'src/api/followApi'
-import { ResponseUsersType, UserStatuses, usersApi } from 'src/api/usersApi'
+import { ResponseUsersType, UserStatuses, usersApi } from 'api/usersApi'
 import { setStatusAppAC } from '../app-reducer/appReducer'
-import { AppThunk } from 'src/state/store'
-import { handleServerAppError, handleServerNetworkError } from 'src/utils/error-utils'
+import { AppThunk } from 'state/store'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
+import { followApi } from 'api/followApi'
 
 export type FollowUsers = ReturnType<typeof toggleFollowUserAC>
 export type SetResponse = ReturnType<typeof setResponseAC>
