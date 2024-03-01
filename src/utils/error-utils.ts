@@ -1,7 +1,7 @@
 import { ResponseFollowType } from 'api/followApi'
 import { ResponseUsersType } from 'api/usersApi'
 import { Dispatch } from 'redux'
-import { setErrorAppAC, setStatusAppAC } from 'state/reducers/app-reducer/appReducer'
+import { setErrorAppAC, setAppStatusAC } from 'state/reducers/appSlice/appSlice'
 
 export const handleServerAppError = (
   data: ResponseUsersType | ResponseFollowType<{ userId: number } | {}>,
@@ -12,10 +12,10 @@ export const handleServerAppError = (
   } else {
     dispatch(setErrorAppAC('Some error occurred')) //если ошибка с сервера не пришла
   }
-  dispatch(setStatusAppAC('failed'))
+  dispatch(setAppStatusAC('failed'))
 }
 
 export const handleServerNetworkError = (err: { message: string }, dispatch: Dispatch) => {
   dispatch(setErrorAppAC(err.message ? err.message : 'Some error occurred')) //вывод серверной ошибки
-  dispatch(setStatusAppAC('failed'))
+  dispatch(setAppStatusAC('failed'))
 }

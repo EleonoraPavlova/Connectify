@@ -1,4 +1,4 @@
-import { AppRootStateType } from 'state/store'
+import { AppRootState } from 'state/store'
 
 //loads the state from localStorage
 export const loadState = () => {
@@ -14,7 +14,7 @@ export const loadState = () => {
 }
 
 //saves the state to localStorage
-export const saveState = (state: Partial<AppRootStateType>) => {
+export const saveState = (state: Partial<AppRootState>) => {
   try {
     const currentState = loadState()
     const updatedState = { ...currentState, ...state }

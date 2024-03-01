@@ -1,8 +1,8 @@
 import { ResultCode, switchLoaderAC } from '../users/usersReducer'
-import { setStatusAppAC, setSuccessAppAC } from '../app-reducer/appReducer'
+import { setAppStatusAC, setSuccessAppAC } from '../appSlice/appSlice'
 import { ProfileUserContactsType, ResponseProfileUserType, userProfileApi } from 'api/profileApi'
 import { UserPhotosType } from 'api/usersApi'
-import { AppRootStateType, AppThunk } from 'state/store'
+import { AppRootState, AppThunk } from 'state/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 
 export type SetProfileUser = ReturnType<typeof setProfileUserAC>
@@ -91,12 +91,12 @@ export const getProfileUserTC =
   (userId: number, isLoader: boolean = false): AppThunk =>
   async (dispatch) => {
     dispatch(switchLoaderAC(!isLoader))
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     try {
       const res = await userProfileApi.getProfileUser(userId)
       dispatch(setProfileUserAC(res.data))
       dispatch(getProfileUserStatusTC(userId))
-      dispatch(setStatusAppAC('succeeded'))
+      dispatch(setAppStatusAC('succeeded'))
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
     }
@@ -107,11 +107,11 @@ export const getProfileUserStatusTC =
   (userId: number, isLoader: boolean = false): AppThunk =>
   async (dispatch) => {
     dispatch(switchLoaderAC(!isLoader))
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     try {
       const res = await userProfileApi.getProfileUserStatus(userId)
       dispatch(setProfileUserStatusAC(res.data))
-      dispatch(setStatusAppAC('succeeded'))
+      dispatch(setAppStatusAC('succeeded'))
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
     }
@@ -120,13 +120,13 @@ export const getProfileUserStatusTC =
 
 export const UpdateProfileUserTC =
   (params: ResponseProfileUserType, isLoader: boolean = false): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState: () => AppRootState) => {
     const state = getState()
     const meId = state.app.meId
     if (!meId) return
 
     dispatch(switchLoaderAC(!isLoader))
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
 
     const apiModel: ResponseProfileUserType = {
       ...params,
@@ -138,7 +138,7 @@ export const UpdateProfileUserTC =
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(updateProfileUserAC(apiModel))
         dispatch(setSuccessAppAC('your profile was successfully updated'))
-        dispatch(setStatusAppAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'))
       } else {
         handleServerAppError(res.data, dispatch)
       }
@@ -152,12 +152,12 @@ export const UpdateProfileUserStatusTC =
   (status: string, isLoader: boolean = false): AppThunk =>
   async (dispatch) => {
     dispatch(switchLoaderAC(!isLoader))
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     try {
       const res = await userProfileApi.updateProfileUserStatus(status)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(updateProfileUserStatusAC(status))
-        dispatch(setStatusAppAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'))
       } else {
         handleServerAppError(res.data, dispatch)
       }

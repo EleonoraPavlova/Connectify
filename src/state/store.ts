@@ -1,29 +1,28 @@
-import { Action, applyMiddleware, combineReducers, compose, legacy_createStore } from 'redux'
-import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { Action } from 'redux'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { userProfileReducer } from './reducers/userProfile/userProfileReducer'
-import { appReducer } from './reducers/app-reducer/appReducer'
+import { appReducer } from './reducers/appSlice/appSlice'
 import { authReducer } from './reducers/auth/authReducer'
 import { dialogsPageReducer } from './reducers/dialogs/dialogsPageReducer'
 import { friendsPageReducer } from './reducers/friends/friendsPageReducer'
 import { usersReducer } from './reducers/users/usersReducer'
-import { loadState, saveState } from 'utils/localStorage-utils'
+import { saveState } from 'utils/localStorage-utils'
+import { configureStore } from '@reduxjs/toolkit'
 
-export type AppRootStateType = ReturnType<typeof rootReducer>
-
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)
-
-const rootReducer = combineReducers({
-  dialogsPage: dialogsPageReducer,
-  friendsPage: friendsPageReducer,
-  usersPage: usersReducer,
-  userProfile: userProfileReducer,
-  app: appReducer,
-  auth: authReducer,
+export const store = configureStore({
+  reducer: {
+    dialogsPage: dialogsPageReducer,
+    friendsPage: friendsPageReducer,
+    usersPage: usersReducer,
+    userProfile: userProfileReducer,
+    app: appReducer,
+    auth: authReducer,
+  },
 })
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, Action<string>>
-export const store = legacy_createStore(rootReducer, loadState(), composeEnhancers(applyMiddleware(thunk)))
+export type AppRootState = ReturnType<typeof store.getState>
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, Action<string>>
 
 store.subscribe(() => {
   saveState({
@@ -31,7 +30,7 @@ store.subscribe(() => {
   })
 })
 
-export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, Action>
+export type AppDispatch = ThunkDispatch<AppRootState, unknown, Action>
 
 //@ts-ignore
 window.store = store

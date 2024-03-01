@@ -1,4 +1,4 @@
-import { appInitialStatusState, appReducer, setErrorAppAC, setStatusAppAC } from './appReducer'
+import { appInitialStatusState, appReducer, setErrorAppAC, setAppStatusAC } from './appSlice'
 
 test('correct error message should be set', () => {
   const endState = appReducer(appInitialStatusState, setErrorAppAC('New error'))
@@ -8,7 +8,7 @@ test('correct error message should be set', () => {
 })
 
 test('correct status should be set', () => {
-  const endState = appReducer(appInitialStatusState, setStatusAppAC('succeeded'))
+  const endState = appReducer(appInitialStatusState, setAppStatusAC('succeeded'))
 
   expect(endState.statusApp).toBe('succeeded')
   expect(appInitialStatusState.statusApp).toBe('idle')

@@ -1,5 +1,5 @@
 import { ResponseUsersType, UserStatuses, usersApi } from 'api/usersApi'
-import { setStatusAppAC } from '../app-reducer/appReducer'
+import { setAppStatusAC } from '../appSlice/appSlice'
 import { AppThunk } from 'state/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { followApi } from 'api/followApi'
@@ -145,14 +145,14 @@ export const setResponseTC =
   (pageSize: number, currentPage: number, friend: boolean = false, isLoader: boolean = false): AppThunk =>
   async (dispatch) => {
     dispatch(switchLoaderAC(!isLoader))
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     try {
       const res = await usersApi.getUsers(pageSize, currentPage, friend)
       if (res.data.items.length) {
         dispatch(setResponseAC(res.data))
-        dispatch(setStatusAppAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'))
       } else {
-        dispatch(setStatusAppAC('failed'))
+        dispatch(setAppStatusAC('failed'))
         handleServerAppError(res.data, dispatch)
       }
     } catch (err) {

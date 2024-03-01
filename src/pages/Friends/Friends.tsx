@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.scss'
 import Typography from '@mui/material/Typography'
-import { RequestStatusType } from 'state/reducers/app-reducer/appReducer'
+import { RequestStatusType } from 'state/reducers/appSlice/appSlice'
 import { useAppSelector } from 'state/hooks/hooks-selectors'
 import { UsersAll } from 'common/UsersComponents/UsersAll/UsersAll'
 

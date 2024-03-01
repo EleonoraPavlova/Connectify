@@ -1,6 +1,6 @@
 import { AppThunk } from '../../store'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
-import { setStatusAppAC, setSuccessAppAC } from '../app-reducer/appReducer'
+import { setAppStatusAC, setSuccessAppAC } from '../appSlice/appSlice'
 import { ResultCode, clearResponseAC } from '../users/usersReducer'
 import { LoginParamsType, authApi } from 'api/authApi'
 
@@ -50,7 +50,7 @@ export const setLogginParamsAC = (params: LoginParamsType) => {
 export const LoginTC =
   (params: LoginParamsType): AppThunk =>
   async (dispatch) => {
-    dispatch(setStatusAppAC('loading'))
+    dispatch(setAppStatusAC('loading'))
     try {
       const res = await authApi.login(params)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
@@ -67,13 +67,13 @@ export const LoginTC =
   }
 
 export const LogOutTC = (): AppThunk => async (dispatch) => {
-  dispatch(setStatusAppAC('loading'))
+  dispatch(setAppStatusAC('loading'))
   try {
     const res = await authApi.logOut()
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       dispatch(setIsLoggedInAC(false))
       dispatch(setSuccessAppAC('you have successfully logged out'))
-      dispatch(setStatusAppAC('succeeded'))
+      dispatch(setAppStatusAC('succeeded'))
       dispatch(clearResponseAC())
     } else {
       handleServerAppError(res.data, dispatch)
