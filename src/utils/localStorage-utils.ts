@@ -1,27 +1,26 @@
-import { AppRootStateType } from "src/state/store";
+import { AppRootStateType } from 'src/state/store'
 
 //loads the state from localStorage
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('app-state');
+    const serializedState = localStorage.getItem('app-state')
     if (serializedState === null) {
-      return undefined;
+      return undefined
     }
-    return JSON.parse(serializedState);
+    return JSON.parse(serializedState)
   } catch (err) {
-    return undefined;
+    return undefined
   }
 }
-
 
 //saves the state to localStorage
 export const saveState = (state: Partial<AppRootStateType>) => {
   try {
-    const currentState = loadState();
-    const updatedState = { ...currentState, ...state };
-    const serializedState = JSON.stringify(updatedState);
-    localStorage.setItem('app-state', serializedState);
+    const currentState = loadState()
+    const updatedState = { ...currentState, ...state }
+    const serializedState = JSON.stringify(updatedState)
+    localStorage.setItem('app-state', serializedState)
   } catch {
-    console.warn("Something went wrong")
+    console.warn('Something went wrong')
   }
-};
+}

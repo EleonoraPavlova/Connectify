@@ -1,6 +1,5 @@
-import { ResponseFollowType } from "./followApi"
-import { UserPhotosType, instance } from "./usersApi"
-
+import { ResponseFollowType } from './followApi'
+import { UserPhotosType, instance } from './usersApi'
 
 export type ProfileUserContactsType = {
   github: string
@@ -23,7 +22,6 @@ export type ResponseProfileUserType = {
   aboutMe: string
 }
 
-
 export const userProfileApi = {
   getProfileUser(userId: number) {
     return instance.get<ResponseProfileUserType>(`/profile/${userId}`)
@@ -39,5 +37,5 @@ export const userProfileApi = {
 
   updateProfileUserStatus(status: string) {
     return instance.put<ResponseFollowType>('/profile/status', { status })
-  }
+  },
 }

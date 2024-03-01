@@ -1,6 +1,5 @@
-import { TextField, Typography } from "@mui/material";
-import React, { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react';
-
+import { TextField, Typography } from '@mui/material'
+import React, { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react'
 
 type EditableSpanProps = {
   title: string | undefined
@@ -29,26 +28,28 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
   }
 
   const onKeyDownEditHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       props.saveForm()
     }
   }
 
-  return (
-    props.editMode ?
-      <TextField
-        value={title}
-        type="text"
-        label={props.label}
-        autoComplete={props.label}
-        error={props.error}
-        helperText={props.helperText}
-        onChange={onChangeHandler}
-        variant="outlined"
-        onKeyDown={onKeyDownEditHandler}
-        className={props.additionalClass}
-      />
-      :
-      <Typography sx={{ paddingRight: "8px" }} variant="h6" > {props.title} </Typography>
+  return props.editMode ? (
+    <TextField
+      value={title}
+      type="text"
+      label={props.label}
+      autoComplete={props.label}
+      error={props.error}
+      helperText={props.helperText}
+      onChange={onChangeHandler}
+      variant="outlined"
+      onKeyDown={onKeyDownEditHandler}
+      className={props.additionalClass}
+    />
+  ) : (
+    <Typography sx={{ paddingRight: '8px' }} variant="h6">
+      {' '}
+      {props.title}{' '}
+    </Typography>
   )
 })

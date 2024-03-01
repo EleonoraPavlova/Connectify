@@ -1,5 +1,5 @@
-import React from 'react';
-import './index.scss';
+import React from 'react'
+import './index.scss'
 
 type UserFotoProps = {
   link: string
@@ -7,7 +7,5 @@ type UserFotoProps = {
 }
 
 export const UserFoto: React.FC<UserFotoProps> = ({ link, additionalClass }) => {
-  return (
-    <img src={link} alt="avatar" className={`avatar ${additionalClass}`} />
-  )
+  return <img src={link} alt="avatar" className={`avatar ${additionalClass}`} />
 }

@@ -1,23 +1,22 @@
-import { initialPaginationType, paginationReducer, setPaginationParamsAC } from "./paginationReducer";
+import { initialPaginationType, paginationReducer, setPaginationParamsAC } from './paginationReducer'
 
-
-test("reducer should set pagination params", () => {
+test('reducer should set pagination params', () => {
   const initialState: initialPaginationType = {
     count: 1,
     page: 1,
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   }
 
-
-  let endState = paginationReducer(initialState, setPaginationParamsAC(
-    {
+  let endState = paginationReducer(
+    initialState,
+    setPaginationParamsAC({
       count: 3,
       page: 10,
       pageSize: 6,
-      currentPage: 2
-    }
-  ))
+      currentPage: 2,
+    })
+  )
 
   expect(initialState.count).toBe(1)
   expect(endState.count).toBe(3)

@@ -1,16 +1,15 @@
-import { addMessageAC, dialogsPageReducer, initialState } from "src/state/reducers/dialogs/dialogsPageReducer"
-import { DialogsPage } from "src/state/initialState"
+import { addMessageAC, dialogsPageReducer, initialState } from 'src/state/reducers/dialogs/dialogsPageReducer'
+import { DialogsPage } from 'src/state/initialState'
 
-
-test("reducer should add message", () => {
+test('reducer should add message', () => {
   //data
   let state: DialogsPage = initialState
 
   //action
-  let endState = dialogsPageReducer(state, addMessageAC("This is a new message"))
+  let endState = dialogsPageReducer(state, addMessageAC('This is a new message'))
 
   // expection
   expect(state.messagesData.length).toBe(7)
   expect(endState.messagesData.length).toBe(8)
-  expect(endState.messagesData[endState.messagesData.length - 1].message).toBe("This is a new message")
+  expect(endState.messagesData[endState.messagesData.length - 1].message).toBe('This is a new message')
 })

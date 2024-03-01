@@ -1,7 +1,6 @@
-import React from 'react';
-import "./index.scss"
-import { Box, Pagination, Stack, ThemeProvider, createTheme } from "@mui/material";
-
+import React from 'react'
+import './index.scss'
+import { Box, Pagination, Stack, ThemeProvider, createTheme } from '@mui/material'
 
 export type PaginationsCustomType = {
   currentPage: number
@@ -10,7 +9,6 @@ export type PaginationsCustomType = {
 }
 
 export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ pagesCount, currentPage, setCurrentPage }) => {
-
   const theme = createTheme({
     typography: {
       fontFamily: 'Handlee, sans-serif',
@@ -18,15 +16,15 @@ export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ pagesCount,
     components: {
       MuiPaginationItem: {
         styleOverrides: {
-          "root": {
-            "&.Mui-selected": {
-              backgroundColor: "#c2c5cc",
+          root: {
+            '&.Mui-selected': {
+              backgroundColor: '#c2c5cc',
             },
           },
         },
       },
-    }
-  });
+    },
+  })
 
   const setCurrentPageHandler = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page)
@@ -35,15 +33,17 @@ export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ pagesCount,
   return (
     <Box className="pagination">
       <ThemeProvider theme={theme}>
-        <Stack spacing={10} >
-          <Pagination count={pagesCount} size="small"
+        <Stack spacing={10}>
+          <Pagination
+            count={pagesCount}
+            size="small"
             siblingCount={4}
             shape="rounded"
             page={currentPage}
             onChange={setCurrentPageHandler}
           />
         </Stack>
-      </ThemeProvider >
+      </ThemeProvider>
     </Box>
   )
 }

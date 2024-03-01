@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@import '../../styles/variables.scss';
 
 .nav {
   grid-area: nav;
@@ -23,7 +23,7 @@
 .active {
   color: $color-green;
   &::before {
-    content: "";
+    content: '';
     margin-right: 14px;
     margin-left: -17px;
     border: 1px solid $color-green;

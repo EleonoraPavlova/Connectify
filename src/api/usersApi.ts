@@ -1,11 +1,11 @@
-import axios from "axios"
+import axios from 'axios'
 
 export const instance = axios.create({
-  baseURL: "https://social-network.samuraijs.com/api/1.0/",
+  baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   withCredentials: true,
   headers: {
-    "API-KEY": "df372eaa-0071-4b5c-8575-6663c6218407"
-  }
+    'API-KEY': 'df372eaa-0071-4b5c-8575-6663c6218407',
+  },
 })
 
 export type UserApiType = {
@@ -31,16 +31,15 @@ export type ResponseUsersType = {
   error: string
 }
 
-
 export const usersApi = {
   getUsers(count: number, page: number, friend: boolean) {
     //count - page size
     const queryParams = {
       friend,
       count,
-      page
-    };
+      page,
+    }
 
     return instance.get<ResponseUsersType>(`users`, { params: queryParams })
-  }
+  },
 }

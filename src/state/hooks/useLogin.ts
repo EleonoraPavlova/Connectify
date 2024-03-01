@@ -1,8 +1,8 @@
-import { useFormik } from "formik"
-import { useAppDispatch } from "./hooks-selectors"
-import { LoginParamsType } from "src/api/authApi"
-import { LoginTC } from "../reducers/auth/authReducer"
-import { handleServerNetworkError } from "src/utils/error-utils"
+import { useFormik } from 'formik'
+import { useAppDispatch } from './hooks-selectors'
+import { LoginParamsType } from 'src/api/authApi'
+import { LoginTC } from '../reducers/auth/authReducer'
+import { handleServerNetworkError } from 'src/utils/error-utils'
 
 export function useLogin() {
   const dispatch = useAppDispatch()
@@ -17,9 +17,9 @@ export function useLogin() {
       }
 
       if (!values.password) {
-        errors.password = 'Required';
+        errors.password = 'Required'
       } else if (values.password.length < 5) {
-        errors.password = 'Must be more 5 symbols';
+        errors.password = 'Must be more 5 symbols'
       }
 
       return errors
@@ -33,18 +33,18 @@ export function useLogin() {
       setSubmitting(true)
       try {
         await dispatch(LoginTC(values))
-        setFieldValue("password", "")
+        setFieldValue('password', '')
       } catch (err) {
         handleServerNetworkError(err as { message: string }, dispatch)
       }
       setSubmitting(false)
-    }
+    },
   })
 
-  const disabled = (formik.isSubmitting ||
-    !(formik.dirty && formik.isValid))
+  const disabled = formik.isSubmitting || !(formik.dirty && formik.isValid)
 
   return {
-    formik, disabled
+    formik,
+    disabled,
   }
 }

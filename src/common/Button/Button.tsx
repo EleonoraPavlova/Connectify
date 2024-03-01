@@ -1,5 +1,5 @@
-import React from 'react';
-import './index.scss';
+import React from 'react'
+import './index.scss'
 
 type ButtonProps = {
   name: string
@@ -14,9 +14,8 @@ export const Button: React.FC<ButtonProps> = ({ name, additionalClass, disabled,
   }
 
   return (
-    <button className={`button ${additionalClass}`}
-      type="submit" onClick={onClickHandler}
-      disabled={disabled}
-    >{name}</button>
+    <button className={`button ${additionalClass}`} type="submit" onClick={onClickHandler} disabled={disabled}>
+      {name}
+    </button>
   )
 }
