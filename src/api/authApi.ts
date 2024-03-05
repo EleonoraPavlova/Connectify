@@ -1,7 +1,7 @@
-import { ResponseFollowType } from './followApi'
+import { ResponseFollow } from './followApi'
 import { instance } from './usersApi'
 
-export type LoginParamsType = {
+export type LoginParams = {
   email: string
   password: string
   rememberMe: boolean
@@ -9,16 +9,16 @@ export type LoginParamsType = {
 }
 
 export const authApi = {
-  login(params: LoginParamsType) {
-    return instance.post<ResponseFollowType<{ userId: number }>>('/auth/login', params)
+  login(params: LoginParams) {
+    return instance.post<ResponseFollow<{ userId: number }>>('/auth/login', params)
   },
 
   authMe() {
     //проверочный запрос на cookie при инициализации app
-    return instance.get<ResponseFollowType<{ id: number; email: string; login: string }>>('/auth/me')
+    return instance.get<ResponseFollow<{ id: number; email: string; login: string }>>('/auth/me')
   },
 
   logOut() {
-    return instance.delete<ResponseFollowType>('/auth/login')
+    return instance.delete<ResponseFollow>('/auth/login')
   },
 }

@@ -87,7 +87,7 @@ export const UserForm: React.FC<UserFormProps> = ({
           </ListItem>
           <ListItem className={s.user__item}>
             <Typography sx={{ paddingRight: '8px' }}>
-              <span style={{ fontWeight: 'bold' }}>Id: </span> {meId}{' '}
+              <span style={{ fontWeight: 'bold' }}>Id: </span> {meId}
             </Typography>
           </ListItem>
           <ListItem className={s.user__item}>

@@ -25,7 +25,6 @@ export const User: React.FC<UserProps> = memo(
           <UserFoto link={user.photos.small ? user.photos.small : mocPhoto} additionalClass={s.user__image} />
           <Box className={s.user__data}>
             <Typography variant="h6" className={s.user__name}>
-              {' '}
               {user.name}
             </Typography>
             {user.followed ? <Typography> Id: {user.id}</Typography> : null}

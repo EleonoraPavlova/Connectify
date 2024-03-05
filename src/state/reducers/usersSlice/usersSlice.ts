@@ -2,9 +2,10 @@ import { ResponseUsers, UserStatuses, usersApi } from 'api/usersApi'
 import { setAppStatusAC } from '../appSlice/appSlice'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { followApi } from 'api/followApi'
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
+import { clearUsers } from 'actions/actions'
 
 export type ResponseDomain = ResponseUsers & {
   isLoader: boolean
@@ -110,9 +111,6 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: initialStateUsers,
   reducers: {
-    // setResponseAC(state, action: PayloadAction<{ response: ResponseUsers }>) {
-    //   action.payload.response.items.map((user) => ({ ...user, likeCounter: 0 }))
-    // },
     switchLoaderAC(state, action: PayloadAction<{ isLoader: boolean }>) {
       state.isLoader = action.payload.isLoader
     },
@@ -122,23 +120,21 @@ const usersSlice = createSlice({
     },
     increaseLikeCounterAC(state, action: PayloadAction<{ userId: number }>) {
       const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
-      if (userToUpdate) userToUpdate.likeCounter = userToUpdate.likeCounter + 1
+      if (userToUpdate) userToUpdate.likeCounter += 1
     },
     decreaseLikeCounterAC(state, action: PayloadAction<{ userId: number }>) {
       const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
-      if (userToUpdate) userToUpdate.likeCounter = userToUpdate.likeCounter + 1
-    },
-    clearResponseAC() {
-      return initialStateUsers
+      if (userToUpdate) userToUpdate.likeCounter -= 1
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(setResponseTC.fulfilled, (state, action) => {
+        const updatedItems = action.payload.response.items.map((user) => ({ ...user, likeCounter: 0 }))
         return {
           ...state,
           ...action.payload.response,
-          ...action.payload.response.items.map((user) => ({ ...user, likeCounter: 0 })),
+          items: updatedItems,
         }
       })
       .addCase(unFollowUserTC.fulfilled, (state, action) => {
@@ -149,6 +145,10 @@ const usersSlice = createSlice({
         const userToUpdate = state.items.find((u) => u.id === action.payload?.id)
         if (userToUpdate) userToUpdate.followed = !action.payload?.followed
       })
+      .addCase(clearUsers, (state, action) => {
+        console.log('state/clearUsers', current(state))
+        return initialStateUsers
+      })
   },
   selectors: {
     selectUsersIsLoader: (sliceState) => sliceState.isLoader,
@@ -158,13 +158,8 @@ const usersSlice = createSlice({
 })
 
 export const usersReducer = usersSlice.reducer
-export const {
-  switchLoaderAC,
-  setFollowingInProgressAC,
-  increaseLikeCounterAC,
-  decreaseLikeCounterAC,
-  clearResponseAC,
-} = usersSlice.actions
+export const { switchLoaderAC, setFollowingInProgressAC, increaseLikeCounterAC, decreaseLikeCounterAC } =
+  usersSlice.actions
 export const { selectUsersIsLoader, selectUsersItems, selectUsersTotalCount } = usersSlice.getSelectors(
   (rootState: AppRootState) => rootState.users
 )

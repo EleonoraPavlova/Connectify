@@ -2,13 +2,13 @@ import React from 'react'
 import './index.scss'
 import { Box, Pagination, Stack, ThemeProvider, createTheme } from '@mui/material'
 
-export type PaginationsCustomType = {
+export type PaginationsCustom = {
   currentPage: number
   pagesCount: number
   setCurrentPage: (currPage: number) => void
 }
 
-export const PaginationsCustom: React.FC<PaginationsCustomType> = ({ pagesCount, currentPage, setCurrentPage }) => {
+export const PaginationsCustom: React.FC<PaginationsCustom> = ({ pagesCount, currentPage, setCurrentPage }) => {
   const theme = createTheme({
     typography: {
       fontFamily: 'Handlee, sans-serif',

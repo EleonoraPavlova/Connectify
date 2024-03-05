@@ -24,11 +24,17 @@ export const Login = () => {
   return (
     <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
+        <Typography variant="body1" fontWeight="bold" sx={{ paddingTop: '15px', color: 'green' }}>
+          Free accesss
+        </Typography>
         <form onSubmit={formik.handleSubmit}>
           <FormControl>
             <FormLabel>
               <Typography variant="body1" fontWeight="bold" sx={{ paddingTop: '15px' }}>
-                To log in get registered
+                Email: free@samuraijs.com
+              </Typography>
+              <Typography variant="body1" fontWeight="bold" sx={{ paddingTop: '5px' }}>
+                Password: free
               </Typography>
             </FormLabel>
             <FormGroup>

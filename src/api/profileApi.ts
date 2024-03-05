@@ -1,4 +1,4 @@
-import { ResponseFollowType } from './followApi'
+import { ResponseFollow } from './followApi'
 import { UserPhotos, instance } from './usersApi'
 
 export type ProfileUserContacts = {
@@ -32,10 +32,10 @@ export const userProfileApi = {
   },
 
   updateProfileUser(params: ResponseProfileUser) {
-    return instance.put<ResponseFollowType>('/profile', params)
+    return instance.put<ResponseFollow>('/profile', params)
   },
 
   updateProfileUserStatus(status: string) {
-    return instance.put<ResponseFollowType>('/profile/status', { status })
+    return instance.put<ResponseFollow>('/profile/status', { status })
   },
 }

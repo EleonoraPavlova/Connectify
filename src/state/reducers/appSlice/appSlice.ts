@@ -1,10 +1,11 @@
 import { ResultCode } from '../usersSlice/usersSlice'
 import { authApi } from 'api/authApi'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
 import { setIsLoggedInAC } from '../authSlice/authSlice'
+import { clearMeId } from 'actions/actions'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 
@@ -61,13 +62,18 @@ const appSlice = createSlice({
       state.success = action.payload.success
     },
     setMeIdAC(state, action: PayloadAction<{ meId: number | null }>) {
+      console.log('meId', current(state))
       state.meId = action.payload.meId
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(setAppInitializeTC.fulfilled, (state) => {
-      state.initialized = true
-    })
+    builder
+      .addCase(setAppInitializeTC.fulfilled, (state) => {
+        state.initialized = true
+      })
+      .addCase(clearMeId, () => {
+        return appInitialStatusState
+      })
   },
   selectors: {
     selectAppStatus: (sliceState) => sliceState.statusApp,

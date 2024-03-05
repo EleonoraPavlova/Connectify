@@ -1,14 +1,14 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './hooks-selectors'
 import { loginTC } from '../reducers/authSlice/authSlice'
-import { LoginParamsType } from 'api/authApi'
+import { LoginParams } from 'api/authApi'
 import { handleServerNetworkError } from 'utils/error-utils'
 
 export function useLogin() {
   const dispatch = useAppDispatch()
   const formik = useFormik({
     validate: (values) => {
-      const errors: Partial<LoginParamsType> = {}
+      const errors: Partial<LoginParams> = {}
 
       if (!values.email) {
         errors.email = 'Required'
@@ -18,8 +18,8 @@ export function useLogin() {
 
       if (!values.password) {
         errors.password = 'Required'
-      } else if (values.password.length < 5) {
-        errors.password = 'Must be more 5 symbols'
+      } else if (values.password.length < 4) {
+        errors.password = 'Must be more 4 symbols'
       }
 
       return errors

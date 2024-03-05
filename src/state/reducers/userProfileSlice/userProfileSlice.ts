@@ -4,8 +4,8 @@ import { ProfileUserContacts, ResponseProfileUser, userProfileApi } from 'api/pr
 import { UserPhotos } from 'api/usersApi'
 import { AppRootState } from 'state/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { produce } from 'immer'
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { clearUsers } from 'actions/actions'
 
 export type ExtendedInitialState = ResponseProfileUser & { status: string; aboutMe: string | null }
 
@@ -153,21 +153,6 @@ const userSlice = createSlice({
     builder
       .addCase(getProfileUserTC.fulfilled, (state, action) => {
         return { status: state.status, ...action.payload.response }
-        // return {
-        //   ...state,
-        //   ...action.payload.response,
-        //   contacts: {
-        //     ...action.payload.response.contacts,
-        //     facebook: action.payload.response.contacts?.facebook || 'https://www.facebook.com',
-        //     github: action.payload.response.contacts?.github || 'https://github.com',
-        //     instagram: action.payload.response.contacts?.instagram || 'https://www.instagram.com',
-        //     vk: action.payload.response.contacts?.vk || 'https://vk.com',
-        //     youtube: action.payload.response.contacts?.youtube || 'https://www.youtube.com',
-        //     twitter: action.payload.response.contacts?.twitter || 'https://twitter.com',
-        //     website: action.payload.response.contacts?.website || 'https://www.asos.com/',
-        //     mainLink: action.payload.response.contacts?.mainLink || 'https://fontawesome.com',
-        //   },
-        // }
       })
       .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
         state.status = action.payload.status
@@ -177,6 +162,10 @@ const userSlice = createSlice({
       })
       .addCase(updateProfileUserStatusTC.fulfilled, (state, action) => {
         state.status = action.payload.status
+      })
+      .addCase(clearUsers, (state, action) => {
+        console.log('state/clearUsers', current(state))
+        return initialStateUser
       })
   },
   selectors: {

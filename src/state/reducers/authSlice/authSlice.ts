@@ -1,10 +1,11 @@
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
-import { setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
-import { ResultCode, clearResponseAC } from '../usersSlice/usersSlice'
-import { LoginParamsType, authApi } from 'api/authApi'
-import { PayloadAction, createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
+import { setAppInitializeTC, setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
+import { ResultCode } from '../usersSlice/usersSlice'
+import { LoginParams, authApi } from 'api/authApi'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
+import { clearMeId, clearUsers } from 'actions/actions'
 
 export type initialParamsAuth = {
   email: string
@@ -13,29 +14,26 @@ export type initialParamsAuth = {
   isLoggedIn: boolean
 }
 
-export const loginTC = createAsyncThunk(
-  'auth/login',
-  async (params: LoginParamsType, { dispatch, rejectWithValue }) => {
-    dispatch(setAppStatusAC({ statusApp: 'loading' }))
-    try {
-      const res = await authApi.login(params)
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-        // dispatch(setLoginParamsAC({ params }))
-        // dispatch(setResponseTC(count, page, friend)); //
-        dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
-        return { isLoggedIn: true }
-      } else {
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue('Mistake')
-      }
-    } catch (err: unknown) {
-      const error: AxiosError = err as AxiosError
-      handleServerNetworkError(err as { message: string }, dispatch)
-      return rejectWithValue(error.message)
+export const loginTC = createAsyncThunk('auth/login', async (params: LoginParams, { dispatch, rejectWithValue }) => {
+  dispatch(setAppStatusAC({ statusApp: 'loading' }))
+  try {
+    const res = await authApi.login(params)
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+      // dispatch(setLoginParamsAC({ params }))
+      dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
+      dispatch(setAppInitializeTC())
+      return { isLoggedIn: true }
+    } else {
+      handleServerAppError(res.data, dispatch)
+      return rejectWithValue('Mistake')
     }
+  } catch (err: unknown) {
+    const error: AxiosError = err as AxiosError
+    handleServerNetworkError(err as { message: string }, dispatch)
+    return rejectWithValue(error.message)
   }
-)
+})
 
 export const logOutTC = createAsyncThunk('auth/logOut', async (params, { dispatch, rejectWithValue }) => {
   dispatch(setAppStatusAC({ statusApp: 'loading' }))
@@ -45,7 +43,8 @@ export const logOutTC = createAsyncThunk('auth/logOut', async (params, { dispatc
       // dispatch(setIsLoggedInAC({ isLoggedIn: false }))
       dispatch(setAppSuccessAC({ success: 'you have successfully logged out' }))
       dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
-      dispatch(clearResponseAC())
+      dispatch(clearUsers())
+      dispatch(clearMeId())
       return { isLoggedIn: false }
     } else {
       handleServerAppError(res.data, dispatch)
@@ -70,7 +69,7 @@ const authSlice = createSlice({
     setIsLoggedInAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
       state.isLoggedIn = action.payload.isLoggedIn
     },
-    // setLoginParamsAC(state, action: PayloadAction<{ params: LoginParamsType }>) {
+    // setLoginParamsAC(state, action: PayloadAction<{ params: LoginParams }>) {
     //   const { email, password, rememberMe } = action.payload.params
     //   state.email = email
     //   state.password = password
@@ -96,27 +95,9 @@ export const authReducer = authSlice.reducer
 export const { setIsLoggedInAC } = authSlice.actions
 export const { selectIsLoggedIn } = authSlice.getSelectors((rootState: AppRootState) => rootState.auth)
 
-// export const authReducer = (state = initialParamsAuth, action: AuthActionType): initialParamsAuthType => {
-//   switch (action.type) {
-//     case 'LOGIN/SET-IS-LOGGED-IN':
-//       return { ...state, isLoggedIn: action.isLoggedIn }
-//     case 'LOGIN/SET-LOGIN-PARAMS':
-//       return { ...state, ...action.params }
-//     default:
-//       return state
-//   }
-// }
-
-// export const setLoginParamsAC = (params: LoginParamsType) => {
-//   return {
-//     type: 'LOGIN/SET-LOGIN-PARAMS',
-//     params,
-//   } as const
-// }
-
 //thunks
 // export const loginTC =
-//   (params: LoginParamsType): AppThunk =>
+//   (params: LoginParams): AppThunk =>
 //   async (dispatch) => {
 //     dispatch(setAppStatusAC({ statusApp: 'loading' }))
 //     try {

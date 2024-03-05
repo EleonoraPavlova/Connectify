@@ -1,10 +1,10 @@
-import { ResponseFollowType } from 'api/followApi'
+import { ResponseFollow } from 'api/followApi'
 import { ResponseUsers } from 'api/usersApi'
 import { Dispatch } from 'redux'
 import { setAppErrorAC, setAppStatusAC } from 'state/reducers/appSlice/appSlice'
 
 export const handleServerAppError = (
-  data: ResponseUsers | ResponseFollowType<{ userId: number } | {}>,
+  data: ResponseUsers | ResponseFollow<{ userId: number } | {}>,
   dispatch: Dispatch
 ) => {
   if ('items' in data && data.items.length) {

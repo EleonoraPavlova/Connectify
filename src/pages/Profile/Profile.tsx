@@ -19,7 +19,7 @@ export const Profile = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(setResponseTC({ pageSize, currentPage, isLoader: true }))
+    dispatch(setResponseTC({ pageSize, currentPage, friend: true, isLoader: true }))
   }, [dispatch, pagesCount, currentPage])
 
   let status = items.map((i: UserApi) => <PostUserStatus key={i.id} item={i} />)

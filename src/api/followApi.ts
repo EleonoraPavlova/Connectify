@@ -1,6 +1,6 @@
 import { instance } from './usersApi'
 
-export type ResponseFollowType<Data = {}> = {
+export type ResponseFollow<Data = {}> = {
   resultCode: number
   messages: string[]
   data: Data
@@ -14,10 +14,10 @@ export const followApi = {
 
   followTo(userId: number) {
     //Follow requested user
-    return instance.post<ResponseFollowType>(`/follow/${userId}`)
+    return instance.post<ResponseFollow>(`/follow/${userId}`)
   },
 
   unFollowTo(userId: number) {
-    return instance.delete<ResponseFollowType>(`/follow/${userId}`)
+    return instance.delete<ResponseFollow>(`/follow/${userId}`)
   },
 }
