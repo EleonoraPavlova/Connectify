@@ -9,6 +9,9 @@ import { selectUsersItems, selectUsersTotalCount, setResponseTC } from 'state/re
 import { UserInfo } from 'common/UsersComponents/UsersInfo/UserInfo'
 import { PaginationsCustom } from 'common/PaginationsCustom/PaginationsCustom'
 import { useSelector } from 'react-redux'
+import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
+import { useNavigate } from 'react-router-dom'
+import { selectAppInitialized } from 'state/reducers/appSlice/appSlice'
 
 export const Profile = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -16,7 +19,14 @@ export const Profile = () => {
   const totalCount = useSelector(selectUsersTotalCount)
   const pagesCount = Math.ceil(totalCount / pageSize)
   const items = useSelector(selectUsersItems)
+  let isLoggedIn = useSelector(selectIsLoggedIn)
+  let initialized = useSelector(selectAppInitialized)
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (!isLoggedIn && initialized) navigate('/login')
+  }, [isLoggedIn, initialized, navigate])
 
   useEffect(() => {
     dispatch(setResponseTC({ pageSize, currentPage, friend: true, isLoader: true }))
