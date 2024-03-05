@@ -8,26 +8,26 @@ import mainLink from '../../assets/icons/link.png'
 import twitter from '../../assets/icons/twitter.png'
 import website from '../../assets/icons/website.png'
 import { UserContacts } from '../../common/UsersComponents/UserContacts/UserContacts'
-import { ResponseProfileUserType } from 'api/profileApi'
-import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { useSelector } from 'react-redux'
+import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 
-export type SocialContactsType = {
+export type SocialContacts = {
   [key: string]: string
 }
 
 export const SocialContactsMap = () => {
-  const profileUser = useAppSelector<ResponseProfileUserType>((state) => state.userProfile)
-  const contacts: SocialContactsType = profileUser.contacts as SocialContactsType
+  const profileUser = useSelector(selectUserProfile)
+  const contacts: SocialContacts = profileUser.contacts as SocialContacts
 
-  const socialContacts: SocialContactsType[] = [
-    { icon: facebookIcon, key: 'facebook' },
-    { icon: githubIcon, key: 'github' },
-    { icon: instaIcon, key: 'instagram' },
-    { icon: vkIcon, key: 'vk' },
-    { icon: youtubeIcon, key: 'youtube' },
-    { icon: twitter, key: 'twitter' },
-    { icon: website, key: 'website' },
-    { icon: mainLink, key: 'link' },
+  const socialContacts: SocialContacts[] = [
+    { icon: facebookIcon, key: 'facebook', link: 'https://www.facebook.com' },
+    { icon: githubIcon, key: 'github', link: 'https://github.com' },
+    { icon: instaIcon, key: 'instagram', link: 'https://www.instagram.com' },
+    { icon: vkIcon, key: 'vk', link: 'https://vk.com' },
+    { icon: youtubeIcon, key: 'youtube', link: 'https://www.youtube.com' },
+    { icon: twitter, key: 'twitter', link: 'https://twitter.com' },
+    { icon: website, key: 'website', link: 'https://www.asos.com/' },
+    { icon: mainLink, key: 'link', link: 'https://fontawesome.com' },
   ]
 
   return (
@@ -44,3 +44,5 @@ export const SocialContactsMap = () => {
     </>
   )
 }
+
+// href={`https://${contact.key}.com/${contactValue}`}

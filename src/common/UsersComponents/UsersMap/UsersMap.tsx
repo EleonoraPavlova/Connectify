@@ -1,18 +1,20 @@
-import { UserApiType } from 'api/usersApi'
+import { UserApi } from 'api/usersApi'
 import { User } from 'pages/FindUsers/User/User'
 import React, { useCallback, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
-import { getProfileUserTC } from 'state/reducers/userProfile/userProfileReducer'
-import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/users/usersReducer'
+import { useAppDispatch } from 'state/hooks/hooks-selectors'
+import { getProfileUserTC, selectUserProfileStatus } from 'state/reducers/userProfileSlice/userProfileSlice'
+import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/usersSlice/usersSlice'
 
 export type UsersMapType = {
   btnTextInfo: string
-  user: UserApiType
+  user: UserApi
 }
 
 export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
-  const profileUserStatus = useAppSelector<string>((state) => state.userProfile.status)
+  const { id, followed } = user
+  const profileUserStatus = useSelector(selectUserProfileStatus)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
 
@@ -20,16 +22,16 @@ export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
 
   const toggleFollowUser = useCallback(() => {
     if (!user.followed) {
-      dispatch(toggleFollowUserTC(user.id, user.followed))
+      dispatch(toggleFollowUserTC({ userId: id, followed }))
     } else if (user.followed) {
-      dispatch(unFollowUserTC(user.id, user.followed))
+      dispatch(unFollowUserTC({ userId: id, followed }))
     }
   }, [user.followed, dispatch])
 
   const viewFullProfile = useCallback(() => {
-    dispatch(getProfileUserTC(user.id))
+    dispatch(getProfileUserTC({ userId: id }))
     setActiveModal(true)
-    setSearchParams({ id: `${user.id}` })
+    setSearchParams({ id: `${id}` })
   }, [dispatch, setActiveModal, setSearchParams])
 
   const sendMessage = () => {

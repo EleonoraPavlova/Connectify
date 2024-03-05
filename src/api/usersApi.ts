@@ -8,11 +8,11 @@ export const instance = axios.create({
   },
 })
 
-export type UserApiType = {
+export type UserApi = {
   id: number
   name: string
   status: string
-  photos: UserPhotosType
+  photos: UserPhotos
   followed: boolean
   followingInProgress: UserStatuses
   likeCounter: number
@@ -20,13 +20,13 @@ export type UserApiType = {
 
 export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export type UserPhotosType = {
+export type UserPhotos = {
   small: string
   large: string
 }
 
-export type ResponseUsersType = {
-  items: UserApiType[]
+export type ResponseUsers = {
+  items: UserApi[]
   totalCount: number
   error: string
 }
@@ -40,6 +40,6 @@ export const usersApi = {
       page,
     }
 
-    return instance.get<ResponseUsersType>(`users`, { params: queryParams })
+    return instance.get<ResponseUsers>(`users`, { params: queryParams })
   },
 }

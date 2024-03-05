@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './hooks-selectors'
-import { LoginTC } from '../reducers/auth/authReducer'
+import { loginTC } from '../reducers/authSlice/authSlice'
 import { LoginParamsType } from 'api/authApi'
 import { handleServerNetworkError } from 'utils/error-utils'
 
@@ -32,7 +32,7 @@ export function useLogin() {
     onSubmit: async (values, { setFieldValue, setSubmitting }) => {
       setSubmitting(true)
       try {
-        await dispatch(LoginTC(values))
+        await dispatch(loginTC(values))
         setFieldValue('password', '')
       } catch (err) {
         handleServerNetworkError(err as { message: string }, dispatch)

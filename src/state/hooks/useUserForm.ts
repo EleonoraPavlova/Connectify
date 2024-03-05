@@ -1,8 +1,8 @@
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
-import { ExtendedInitialStateType } from '../reducers/userProfile/userProfileReducer'
+import { ExtendedInitialState } from '../reducers/userProfileSlice/userProfileSlice'
 
 export function useUserForm(
-  profileUserState: ExtendedInitialStateType,
+  profileUserState: ExtendedInitialState,
   setProfileUserState: (arg: any) => void,
   updateProfileUser: () => void,
   updateProfileUserStatus: () => void
@@ -10,14 +10,14 @@ export function useUserForm(
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const collectionOfForm = (key: string, title: string) => {
-    setProfileUserState((prevState: ExtendedInitialStateType) => ({
+    setProfileUserState((prevState: ExtendedInitialState) => ({
       ...prevState,
       [key]: title,
     }))
   }
 
   const collectionOfFormCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
-    setProfileUserState((prevState: ExtendedInitialStateType) => ({
+    setProfileUserState((prevState: ExtendedInitialState) => ({
       ...prevState,
       lookingForAJob: e.currentTarget.checked,
     }))

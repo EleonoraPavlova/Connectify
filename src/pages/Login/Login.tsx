@@ -8,13 +8,13 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { Typography } from '@mui/material'
-import { useAppSelector } from '../../state/hooks/hooks-selectors'
 import { Navigate } from 'react-router-dom'
 import { useLogin } from 'state/hooks/useLogin'
+import { useSelector } from 'react-redux'
+import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
 
 export const Login = () => {
-  let isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
-
+  let isLoggedIn = useSelector(selectIsLoggedIn)
   const { formik, disabled } = useLogin()
 
   if (isLoggedIn) {

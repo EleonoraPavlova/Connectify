@@ -2,11 +2,11 @@ import React from 'react'
 import './index.scss'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApiType } from 'api/usersApi'
+import { UserApi } from 'api/usersApi'
 import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 
 type FriendProps = {
-  friend: UserApiType
+  friend: UserApi
 }
 
 export const Friend = ({ friend }: FriendProps) => {

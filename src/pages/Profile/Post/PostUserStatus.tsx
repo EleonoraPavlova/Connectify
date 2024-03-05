@@ -5,30 +5,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApiType } from 'api/usersApi'
-import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'state/reducers/users/usersReducer'
+import { UserApi } from 'api/usersApi'
+import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'state/reducers/usersSlice/usersSlice'
 import { useAppDispatch } from 'state/hooks/hooks-selectors'
 
 type PostUserStatusType = {
-  item: UserApiType
+  item: UserApi
 }
 
 export const PostUserStatus: React.FC<PostUserStatusType> = ({ item }) => {
+  const { id, followed, likeCounter } = item
   let [isHighlighted, setisHighlighted] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
   const isHighlightedHandler = () => {
     if (!isHighlighted) {
-      dispatch(increaseLikeCounterAC(item.id))
+      dispatch(increaseLikeCounterAC({ userId: id }))
       return setisHighlighted(true)
     } else {
-      dispatch(decreaseLikeCounterAC(item.id))
+      dispatch(decreaseLikeCounterAC({ userId: id }))
       return setisHighlighted(false)
     }
   }
 
-  return item.followed ? (
-    <Box className="post" id={`${item.id}`}>
+  return followed ? (
+    <Box className="post" id={`${id}`}>
       <Box className="flex-start">
         <Friend friend={item} />
       </Box>
@@ -39,7 +40,7 @@ export const PostUserStatus: React.FC<PostUserStatusType> = ({ item }) => {
           onClick={isHighlightedHandler}
         />
         <Typography variant="h6" sx={{ fontSize: '12px' }}>
-          {item.likeCounter}
+          {likeCounter}
         </Typography>
       </Box>
     </Box>

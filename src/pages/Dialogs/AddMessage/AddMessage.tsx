@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState, KeyboardEvent } from 'react'
 import './index.scss'
 import { Button } from '../../../common/Button/Button'
 import { useDispatch } from 'react-redux'
-import { addMessageAC } from 'state/reducers/dialogs/dialogsPageReducer'
+import { addMessageAC } from 'state/reducers/dialogs/dialogsSlice'
 
 export const AddMessages = () => {
   let [textValue, setTextValue] = useState<string>('')
@@ -10,8 +10,8 @@ export const AddMessages = () => {
 
   const dispatch = useDispatch()
 
-  const addMessageHandler = (textValue: string) => {
-    if (textValue) dispatch(addMessageAC(textValue))
+  const addMessageHandler = (text: string) => {
+    if (textValue) dispatch(addMessageAC({ text }))
     setTexts([textValue, ...texts])
     setTextValue('')
   }

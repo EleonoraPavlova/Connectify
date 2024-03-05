@@ -1,7 +1,7 @@
 import { ResponseFollowType } from './followApi'
-import { UserPhotosType, instance } from './usersApi'
+import { UserPhotos, instance } from './usersApi'
 
-export type ProfileUserContactsType = {
+export type ProfileUserContacts = {
   github: string
   vk: string
   facebook: string
@@ -12,26 +12,26 @@ export type ProfileUserContactsType = {
   mainLink: string
 }
 
-export type ResponseProfileUserType = {
+export type ResponseProfileUser = {
   userId: number
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
-  contacts: ProfileUserContactsType
-  photos: UserPhotosType
+  contacts: ProfileUserContacts
+  photos: UserPhotos
   aboutMe: string
 }
 
 export const userProfileApi = {
   getProfileUser(userId: number) {
-    return instance.get<ResponseProfileUserType>(`/profile/${userId}`)
+    return instance.get<ResponseProfileUser>(`/profile/${userId}`)
   },
 
   getProfileUserStatus(userId: number) {
     return instance.get<string>(`/profile/status/${userId}`)
   },
 
-  updateProfileUser(params: ResponseProfileUserType) {
+  updateProfileUser(params: ResponseProfileUser) {
     return instance.put<ResponseFollowType>('/profile', params)
   },
 

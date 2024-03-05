@@ -4,11 +4,18 @@ import { PaginationsCustom } from '../../PaginationsCustom/PaginationsCustom'
 import { Loader } from '../../Loader/Loader'
 import { useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
-import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
-import { UserApiType } from 'api/usersApi'
-import { setResponseTC } from 'state/reducers/users/usersReducer'
+import { useAppDispatch } from 'state/hooks/hooks-selectors'
+import { UserApi } from 'api/usersApi'
+import {
+  selectUsersIsLoader,
+  selectUsersItems,
+  selectUsersTotalCount,
+  setResponseTC,
+} from 'state/reducers/usersSlice/usersSlice'
 import { UsersMap } from '../UsersMap/UsersMap'
 import { Modal } from 'components/Modal/Modal'
+import { useSelector } from 'react-redux'
+import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
 
 export type UsersType = {
   friend: boolean
@@ -16,23 +23,22 @@ export type UsersType = {
 }
 
 export const UsersAll: React.FC<UsersType> = ({ friend, btnTextInfo }) => {
-  console.log('UsersAll')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
-  const isLoader = useAppSelector<boolean>((state) => state.usersPage.isLoader)
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
-  const usersResponse = useAppSelector<UserApiType[]>((state) => state.usersPage.items)
-  const totalCount = useAppSelector<number>((state) => state.usersPage.totalCount)
+  const isLoader = useSelector(selectUsersIsLoader)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+  const usersResponse = useSelector(selectUsersItems)
+  const totalCount = useSelector(selectUsersTotalCount)
   const pageSize = 15
   const pagesCount = Math.ceil(totalCount / pageSize)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (isLoggedIn) dispatch(setResponseTC(pageSize, currentPage, friend))
+    if (isLoggedIn) dispatch(setResponseTC({ pageSize, currentPage, friend }))
   }, [dispatch, currentPage, friend, isLoggedIn])
 
-  const usersMap = usersResponse.map((u: UserApiType) => {
+  const usersMap = usersResponse.map((u: UserApi) => {
     return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
   })
 

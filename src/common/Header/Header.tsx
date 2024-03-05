@@ -3,16 +3,17 @@ import './index.scss'
 import { Logo } from '../Logo/Logo'
 import { Button } from '../Button/Button'
 import Typography from '@mui/material/Typography'
-import { useAppDispatch, useAppSelector } from 'state/hooks/hooks-selectors'
-import { LogOutTC } from 'state/reducers/auth/authReducer'
+import { useAppDispatch } from 'state/hooks/hooks-selectors'
+import { logOutTC, selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
+import { useSelector } from 'react-redux'
 
 export const Header = () => {
-  let isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
+  let isLoggedIn = useSelector(selectIsLoggedIn)
 
   const dispatch = useAppDispatch()
 
   const logOutHandler = useCallback(() => {
-    dispatch(LogOutTC())
+    dispatch(logOutTC())
   }, [isLoggedIn])
 
   return (

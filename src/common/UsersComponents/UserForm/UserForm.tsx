@@ -5,14 +5,15 @@ import s from './index.module.scss'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
 import { UserFoto } from '../UserFoto/UserFoto'
 import { SaveAsOutlined } from '@mui/icons-material'
-import { ExtendedInitialStateType } from 'state/reducers/userProfile/userProfileReducer'
-import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { ExtendedInitialState } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { EditableSpan } from 'common/EditableSpan/EditableSpan'
 import { useUserForm } from 'state/hooks/useUserForm'
 import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
+import { useSelector } from 'react-redux'
+import { selectAppMeId } from 'state/reducers/appSlice/appSlice'
 
 type UserFormProps = {
-  profileUserState: ExtendedInitialStateType
+  profileUserState: ExtendedInitialState
   setProfileUserState: (arg: any) => void
   updateProfileUser: () => void
   updateProfileUserStatus: () => void
@@ -24,7 +25,7 @@ export const UserForm: React.FC<UserFormProps> = ({
   updateProfileUser,
   updateProfileUserStatus,
 }) => {
-  const meId = useAppSelector<number | null>((state) => state.app.meId)
+  const meId = useSelector(selectAppMeId)
 
   let profileUserUpperFullName =
     profileUserState && profileUserState.fullName

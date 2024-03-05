@@ -3,11 +3,11 @@ import s from './index.module.scss'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import { UserApiType } from 'api/usersApi'
+import { UserApi } from 'api/usersApi'
 import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 
 type UserProps = {
-  user: UserApiType
+  user: UserApi
   btnTextToggle?: string
   btnTexInfo?: string
   disabled?: boolean

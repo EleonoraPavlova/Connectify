@@ -5,10 +5,10 @@ import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
-import { useAppSelector } from 'state/hooks/hooks-selectors'
-import { ExtendedInitialStateType } from 'state/reducers/userProfile/userProfileReducer'
+import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
+import { useSelector } from 'react-redux'
 
 type ModalProps = {
   activeModal: boolean
@@ -17,7 +17,7 @@ type ModalProps = {
 }
 
 export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSearchParams }) => {
-  const profileUser = useAppSelector<ExtendedInitialStateType>((state) => state.userProfile)
+  const profileUser = useSelector(selectUserProfile)
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const navigate = useNavigate()
   let profileUserUpper =

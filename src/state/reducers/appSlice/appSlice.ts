@@ -1,8 +1,10 @@
-import { ResultCode } from '../users/usersReducer'
+import { ResultCode } from '../usersSlice/usersSlice'
 import { authApi } from 'api/authApi'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
+import { AppRootState } from 'state/store'
+import { setIsLoggedInAC } from '../authSlice/authSlice'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 
@@ -30,13 +32,13 @@ export const setAppInitializeTC = createAsyncThunk(
       const res = await authApi.authMe()
       // анонимный пользователь или авториз
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(setIsLoggedInAC(true))
+        dispatch(setIsLoggedInAC({ isLoggedIn: true }))
         dispatch(setMeIdAC({ meId: res.data.data.id }))
         dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
       } else {
         handleServerAppError(res.data, dispatch)
       }
-      return
+      return { initialized: true }
     } catch (err: unknown) {
       const error: AxiosError = err as AxiosError
       handleServerNetworkError(error as { message: string }, dispatch)
@@ -79,9 +81,9 @@ const appSlice = createSlice({
 export const appReducer = appSlice.reducer
 export const { setAppStatusAC, setAppErrorAC, setAppSuccessAC, setMeIdAC } = appSlice.actions
 export const { selectAppStatus, selectAppError, selectAppSuccess, selectAppInitialized, selectAppMeId } =
-  appSlice.selectors
+  appSlice.getSelectors((rootState: AppRootState) => rootState.app)
 
-// export const setInitializeAppTC = (): AppThunk => async (dispatch) => {
+// export const setAppInitializeTC = (): AppThunk => async (dispatch) => {
 //   dispatch(setAppStatusAC('loading'))
 //   try {
 //     const res = await authApi.authMe()

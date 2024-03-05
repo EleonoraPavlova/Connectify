@@ -1,11 +1,10 @@
 import React from 'react'
 import DialogItem from '../DialogItem/DialogItem'
 import { DialogsType } from '../../../state/initialState'
-import { useSelector } from 'react-redux'
-import { AppRootState } from 'state/store'
+import { useAppSelector } from 'state/hooks/hooks-selectors'
 
 export const Dialog = () => {
-  const dialogs = useSelector<AppRootState, DialogsType[]>((state) => state.dialogsPage.dialogsData)
+  const dialogs = useAppSelector<DialogsType[]>((state) => state.dialogs.dialogsData)
   let dialogsMap = dialogs.map((d: DialogsType) => <DialogItem key={d.id} id={d.id} name={d.name} />)
 
   return <>{dialogsMap}</>
