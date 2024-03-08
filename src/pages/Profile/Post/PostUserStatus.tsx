@@ -6,8 +6,9 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { UserApi } from 'api/usersApi'
+import { useAppDispatch } from 'state/hooks/selectors'
+import {} from 'state/reducers/userProfileSlice/userProfileSlice'
 import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'state/reducers/usersSlice/usersSlice'
-import { useAppDispatch } from 'state/hooks/hooks-selectors'
 
 type PostUserStatusType = {
   item: UserApi

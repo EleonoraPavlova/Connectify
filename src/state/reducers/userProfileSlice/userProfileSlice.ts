@@ -7,7 +7,10 @@ import { handleServerAppError, handleServerNetworkError } from 'utils/error-util
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { clearUsers } from 'actions/actions'
 
-export type ExtendedInitialState = ResponseProfileUser & { status: string; aboutMe: string | null }
+export type ExtendedInitialState = ResponseProfileUser & {
+  status: string
+  aboutMe: string | null
+}
 
 export const initialStateUser: ExtendedInitialState = {
   userId: 0,
@@ -152,7 +155,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProfileUserTC.fulfilled, (state, action) => {
-        return { status: state.status, ...action.payload.response }
+        return { status: state.status, likeCounter: 0, ...action.payload.response }
       })
       .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
         state.status = action.payload.status

@@ -11,7 +11,7 @@ export type ResponseDomain = ResponseUsers & {
   isLoader: boolean
 }
 
-export enum ResultCode { //enum  ONLY for reading, cannot be overwritten!!
+export enum ResultCode { //enum  ONLY for reading, can't be overwritten!!
   SUCCEEDED = 0,
   ERROR = 1,
   ERROR_CAPTCHA = 10,
@@ -130,11 +130,9 @@ const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(setResponseTC.fulfilled, (state, action) => {
-        const updatedItems = action.payload.response.items.map((user) => ({ ...user, likeCounter: 0 }))
         return {
           ...state,
           ...action.payload.response,
-          items: updatedItems,
         }
       })
       .addCase(unFollowUserTC.fulfilled, (state, action) => {

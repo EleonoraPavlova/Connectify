@@ -1,10 +1,9 @@
 import { UserApi } from 'api/usersApi'
 import { User } from 'pages/FindUsers/User/User'
 import React, { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { useAppDispatch } from 'state/hooks/hooks-selectors'
-import { getProfileUserTC, selectUserProfileStatus } from 'state/reducers/userProfileSlice/userProfileSlice'
+import { useAppDispatch } from 'state/hooks/selectors'
+import { getProfileUserTC } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/usersSlice/usersSlice'
 
 export type UsersMapType = {
@@ -14,7 +13,6 @@ export type UsersMapType = {
 
 export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
   const { id, followed } = user
-  const profileUserStatus = useSelector(selectUserProfileStatus)
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
 

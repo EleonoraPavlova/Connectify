@@ -3,7 +3,6 @@ import './index.scss'
 import { Button } from '../../../common/Button/Button'
 // import { addPostAC } from "src/state/reducers/profile/profileReducer";
 import Box from '@mui/material/Box'
-import { useAppDispatch } from 'state/hooks/hooks-selectors'
 
 export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>('')

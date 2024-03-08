@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { UserForm } from '../UserForm/UserForm'
-import { useAppDispatch } from 'state/hooks/hooks-selectors'
+import { useAppDispatch } from 'state/hooks/selectors'
 import {
   ExtendedInitialState,
   updateProfileUserStatusTC,

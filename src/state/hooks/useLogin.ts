@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useAppDispatch } from './hooks-selectors'
+import { useAppDispatch } from './selectors'
 import { loginTC } from '../reducers/authSlice/authSlice'
 import { LoginParams } from 'api/authApi'
 import { handleServerNetworkError } from 'utils/error-utils'

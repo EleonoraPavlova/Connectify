@@ -1,7 +1,7 @@
 import React from 'react'
 import DialogItem from '../DialogItem/DialogItem'
 import { DialogsType } from '../../../state/initialState'
-import { useAppSelector } from 'state/hooks/hooks-selectors'
+import { useAppSelector } from 'state/hooks/selectors'
 
 export const Dialog = () => {
   const dialogs = useAppSelector<DialogsType[]>((state) => state.dialogs.dialogsData)
