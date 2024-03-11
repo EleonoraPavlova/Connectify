@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './index.scss'
 
 type ButtonProps = {
@@ -8,7 +8,7 @@ type ButtonProps = {
   callBack?: (() => void) | undefined
 }
 
-export const Button: React.FC<ButtonProps> = ({ name, additionalClass, disabled, callBack }) => {
+export const Button: React.FC<ButtonProps> = memo(({ name, additionalClass, disabled, callBack }) => {
   const onClickHandler = () => {
     if (callBack) callBack()
   }
@@ -18,4 +18,4 @@ export const Button: React.FC<ButtonProps> = ({ name, additionalClass, disabled,
       {name}
     </button>
   )
-}
+})

@@ -9,7 +9,7 @@ type FriendProps = {
   friend: UserApi
 }
 
-export const Friend = ({ friend }: FriendProps) => {
+export const Friend: React.FC<FriendProps> = ({ friend }) => {
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const mocStatus = 'My status will be here soon'
   return (

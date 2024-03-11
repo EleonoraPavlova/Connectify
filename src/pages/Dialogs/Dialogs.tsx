@@ -7,11 +7,10 @@ type DialogsProps = {
   welcome?: string
 }
 
-export const Dialogs = (props: DialogsProps) => {
+export const Dialogs: React.FC<DialogsProps> = ({ welcome }) => {
   return (
     <div>
-      {' '}
-      <h5 className="dialogs__welcome">{props.welcome}</h5>
+      <h5 className="dialogs__welcome">{welcome}</h5>
       <div className="dialogs">
         <ul className="dialogs__items">
           <Dialog />

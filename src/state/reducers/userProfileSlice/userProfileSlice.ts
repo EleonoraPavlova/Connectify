@@ -155,7 +155,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProfileUserTC.fulfilled, (state, action) => {
-        return { status: state.status, likeCounter: 0, ...action.payload.response }
+        return { status: state.status, ...action.payload.response }
       })
       .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
         state.status = action.payload.status

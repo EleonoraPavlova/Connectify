@@ -5,12 +5,10 @@ import { DialogsType } from '../../../state/initialState'
 
 type DialogItemProps = DialogsType
 
-function DialogItem(props: DialogItemProps) {
+export const DialogItem: React.FC<DialogItemProps> = ({ id, name }) => {
   return (
     <li className="dialog-item">
-      <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
+      <NavLink to={`/dialogs/${id}`}>{name}</NavLink>
     </li>
   )
 }
-
-export default DialogItem

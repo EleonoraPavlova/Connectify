@@ -15,6 +15,7 @@ type EditableSpanProps = {
 }
 
 export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
+  console.log('EditableSpan')
   let [title, setTitle] = useState<string | undefined>(props.title)
 
   useEffect(() => {
@@ -48,8 +49,7 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
     />
   ) : (
     <Typography sx={{ paddingRight: '8px' }} variant="h6">
-      {' '}
-      {props.title}{' '}
+      {props.title}
     </Typography>
   )
 })

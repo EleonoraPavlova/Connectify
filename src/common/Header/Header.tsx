@@ -10,7 +10,7 @@ import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSl
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
-  const name = useSelector(selectUserProfile).fullName
+  const name = useSelector(selectUserProfile)
   const dispatch = useAppDispatch()
 
   const logOutHandler = useCallback(() => {
@@ -21,10 +21,13 @@ export const Header = () => {
     <header className="header">
       <Logo img="header__img" additionalClass="header__text" />
       {isLoggedIn && (
-          <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 'bold' }}>
-            {name}
+        <div className="flex-end">
+          <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 'bold', color: 'green', margin: '0 20px' }}>
+            {name.fullName}
           </Typography>
-        ) && <Button name={'Log Out'} additionalClass="header__button" callBack={logOutHandler} />}
+          <Button name={'Log Out'} additionalClass="header__button" callBack={logOutHandler} />
+        </div>
+      )}
     </header>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
@@ -16,7 +16,7 @@ type ModalProps = {
   setSearchParams: () => void
 }
 
-export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSearchParams }) => {
+export const Modal: React.FC<ModalProps> = memo(({ activeModal, setActiveModal, setSearchParams }) => {
   const profileUser = useSelector(selectUserProfile)
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const navigate = useNavigate()
@@ -74,4 +74,4 @@ export const Modal: React.FC<ModalProps> = ({ activeModal, setActiveModal, setSe
       </Box>
     </Box>
   )
-}
+})

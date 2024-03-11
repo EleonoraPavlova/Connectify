@@ -6,6 +6,7 @@ import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
 import { clearUsers } from 'actions/actions'
+import { replaceRussianLetters } from 'utils/translator-utils'
 
 export type ResponseDomain = ResponseUsers & {
   isLoader: boolean
@@ -42,6 +43,10 @@ export const setResponseTC = createAsyncThunk(
     try {
       const res = await usersApi.getUsers(pageSize, currentPage, friend)
       if (res.data.items.length) {
+        res.data.items.forEach((u) => {
+          u.name = replaceRussianLetters(u.name)
+          u.status = replaceRussianLetters(u.status)
+        })
         // dispatch(setResponseAC({ response: res.data }))
         dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
         return { response: res.data }
@@ -130,6 +135,10 @@ const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(setResponseTC.fulfilled, (state, action) => {
+        const { items } = action.payload.response
+        items.forEach((u) => {
+          u.likeCounter = Math.floor(Math.random() * (100 - 1) + 1)
+        })
         return {
           ...state,
           ...action.payload.response,
