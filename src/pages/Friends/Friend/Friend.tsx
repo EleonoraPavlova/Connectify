@@ -17,8 +17,7 @@ export const Friend: React.FC<FriendProps> = ({ friend }) => {
       <UserFoto link={friend.photos.small ? friend.photos.small : mocPhoto} additionalClass="friend__foto" />
       <Box>
         <Typography variant="h5" sx={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '15px' }}>
-          {' '}
-          {friend.name}{' '}
+          {friend.name}
         </Typography>
         <Typography> {friend.status ? friend.status : mocStatus} </Typography>
       </Box>

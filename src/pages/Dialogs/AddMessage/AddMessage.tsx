@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, KeyboardEvent } from 'react'
+import React, { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react'
 import './index.scss'
 import { Button } from '../../../common/Button/Button'
 import { useDispatch } from 'react-redux'
@@ -10,11 +10,14 @@ export const AddMessages = () => {
 
   const dispatch = useDispatch()
 
-  const addMessageHandler = (text: string) => {
-    if (textValue) dispatch(addMessageAC({ text }))
-    setTexts([textValue, ...texts])
-    setTextValue('')
-  }
+  const addMessageHandler = useCallback(
+    (text: string) => {
+      if (textValue) dispatch(addMessageAC({ text }))
+      setTexts([textValue, ...texts])
+      setTextValue('')
+    },
+    [textValue]
+  )
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextValue(e.currentTarget.value)

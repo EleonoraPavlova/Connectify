@@ -4,10 +4,10 @@ import { MessagesType } from '../../../state/initialState'
 
 type DialogMessageProps = MessagesType
 
-export const DialogMessage = (props: DialogMessageProps) => {
+export const DialogMessage: React.FC<DialogMessageProps> = ({ id, message }) => {
   return (
-    <li className="dialog-message" id={`${props.id}`}>
-      {props.message}
+    <li className="dialog-message" id={`${id}`}>
+      {message}
     </li>
   )
 }

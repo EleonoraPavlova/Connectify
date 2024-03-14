@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import './index.scss'
 import { Button } from '../../../common/Button/Button'
 // import { addPostAC } from "src/state/reducers/profile/profileReducer";
@@ -7,10 +7,13 @@ import Box from '@mui/material/Box'
 export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>('')
 
-  const addPostHandler = (textValue: string) => {
-    // dispatch(addPostAC(textValue))
-    setTextValue('')
-  }
+  const addPostHandler = useCallback(
+    (textValue: string) => {
+      // dispatch(addPostAC(textValue))
+      setTextValue('')
+    },
+    [textValue]
+  )
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextValue(e.currentTarget.value)
