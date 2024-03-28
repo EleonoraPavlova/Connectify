@@ -1,5 +1,5 @@
+import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
-import { ExtendedInitialResponseProfileUser } from '../reducers/userProfileSlice/userProfileSlice'
 
 export function useUserForm(
   profileUserState: ExtendedInitialResponseProfileUser,

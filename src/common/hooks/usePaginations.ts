@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { selectUsersTotalCount, usersThunks } from 'BLL/reducers/usersSlice'
+import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useAppDispatch } from './selectors'
-import { selectIsLoggedIn } from 'state/reducers/authSlice'
-import { selectUsersTotalCount, usersThunks } from 'state/reducers/usersSlice'
 
 export function usePaginations(
   setName: string,

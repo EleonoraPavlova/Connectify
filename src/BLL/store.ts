@@ -1,14 +1,13 @@
 import { Action } from 'redux'
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit'
-import { appReducer, authReducer, dialogsReducer, userProfileReducer, usersReducer } from './reducers'
+import { appReducer, authReducer, userProfileReducer, usersReducer } from './reducers'
 import { saveState } from 'common/utils/localStorage'
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
     auth: authReducer,
-    dialogs: dialogsReducer,
     users: usersReducer,
     userProfile: userProfileReducer,
   },

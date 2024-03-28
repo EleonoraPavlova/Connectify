@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { selectUsersTotalCount, usersThunks } from 'BLL/reducers/usersSlice'
 import { useAppDispatch } from './selectors'
-import { selectUsersTotalCount, usersThunks } from 'state/reducers/usersSlice'
 
 export function usePaginationsProfile(setName: string, currentPage: number, setCurrentPage: (page: number) => void) {
   const setPage = () => {

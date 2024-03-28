@@ -1,18 +1,14 @@
 import React, { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react'
 import './index.scss'
-import { useDispatch } from 'react-redux'
 import { Button } from 'components/Button'
-import { addMessageAC } from 'BLL/reducers/dialogsSlice'
 
 export const AddMessage = () => {
   let [textValue, setTextValue] = useState<string>('')
   const [texts, setTexts] = useState<string[]>([])
 
-  const dispatch = useDispatch()
-
   const addMessageHandler = useCallback(
     (text: string) => {
-      if (textValue) dispatch(addMessageAC({ text }))
+      // if (textValue) dispatch(addMessageAC({ text }))
       setTexts([textValue, ...texts])
       setTextValue('')
     },

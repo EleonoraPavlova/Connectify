@@ -8,7 +8,7 @@ import { AppRootState } from 'BLL/store'
 import { appThunks, setAppStatusAC, setAppSuccessAC } from '../appSlice'
 import { handleServerAppError, handleServerNetworkError } from 'common/utils/error'
 
-export type initialParamsAuth = {
+type AuthInitial = {
   email: string
   password: string
   rememberMe: boolean
@@ -22,7 +22,7 @@ const authSlice = createSlice({
     password: '',
     rememberMe: false,
     isLoggedIn: false, //залогин пользователь или нет
-  } satisfies initialParamsAuth as initialParamsAuth,
+  } satisfies AuthInitial as AuthInitial,
   reducers: {
     setIsLoggedInAC(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
       state.isLoggedIn = action.payload.isLoggedIn
@@ -42,27 +42,30 @@ const authSlice = createSlice({
   },
 })
 
-const loginTC = createAsyncThunk('auth/login', async (params: LoginParams, { dispatch, rejectWithValue }) => {
-  dispatch(setAppStatusAC({ statusApp: 'loading' }))
-  try {
-    const res = await authApi.login(params)
-    if (res.data.resultCode === ResultCode.SUCCEEDED) {
-      // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-      dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
-      dispatch(appThunks.setAppInitializeTC())
-      return { isLoggedIn: true }
-    } else {
-      handleServerAppError(res.data, dispatch)
-      return rejectWithValue('Mistake')
+const loginTC = createAsyncThunk(
+  `${authSlice.name}/login`,
+  async (params: LoginParams, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatusAC({ statusApp: 'loading' }))
+    try {
+      const res = await authApi.login(params)
+      if (res.data.resultCode === ResultCode.SUCCEEDED) {
+        // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+        dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
+        dispatch(appThunks.setAppInitializeTC())
+        return { isLoggedIn: true }
+      } else {
+        handleServerAppError(res.data, dispatch)
+        return rejectWithValue('Mistake')
+      }
+    } catch (err: unknown) {
+      const error: AxiosError = err as AxiosError
+      handleServerNetworkError(err as { message: string }, dispatch)
+      return rejectWithValue(error.message)
     }
-  } catch (err: unknown) {
-    const error: AxiosError = err as AxiosError
-    handleServerNetworkError(err as { message: string }, dispatch)
-    return rejectWithValue(error.message)
   }
-})
+)
 
-const logOutTC = createAsyncThunk('auth/logOut', async (params, { dispatch, rejectWithValue }) => {
+const logOutTC = createAsyncThunk(`${authSlice.name}/logOut`, async (params, { dispatch, rejectWithValue }) => {
   dispatch(setAppStatusAC({ statusApp: 'loading' }))
   try {
     const res = await authApi.logOut()
