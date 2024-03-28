@@ -3,13 +3,13 @@ import './App.scss'
 import { Header } from '../common/Header/Header'
 import { Nav } from '../components/Nav/Nav'
 import RoutesComponents from '../routes/routes'
-import { SnackbarComponent } from '../components/Snackbar/SnackbarComponent'
 import { useAppDispatch } from '../state/hooks/selectors'
 import Box from '@mui/material/Box'
 import { selectAppInitialized, setAppInitializeTC } from '../state/reducers/appSlice/appSlice'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useSelector } from 'react-redux'
 import { Footer } from 'common/Footer'
+import { SnackBar } from 'components/Snackbar'
 
 const App = () => {
   let initialized = useSelector(selectAppInitialized)
@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <>
-      <SnackbarComponent />
+      <SnackBar />
       <div className="App">
         <Header />
         <Nav />

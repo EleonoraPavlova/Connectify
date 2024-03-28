@@ -6,9 +6,9 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
-import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 import { useSelector } from 'react-redux'
 import { SocialContactsMap } from 'common/SocialContactsMap'
+import { UserFoto } from 'common/UsersComponents/UserFoto'
 
 type ModalProps = {
   activeModal: boolean
@@ -48,7 +48,7 @@ export const Modal: React.FC<ModalProps> = memo(({ activeModal, setActiveModal, 
               </ListItem>
               <ListItem>
                 <Typography>
-                  <span className="modal__data-span"> Id: </span> {profileUser.userId}{' '}
+                  <span className="modal__data-span"> Id: </span> {profileUser.userId}
                 </Typography>
               </ListItem>
               <ListItem>

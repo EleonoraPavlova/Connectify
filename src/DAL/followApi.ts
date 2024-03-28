@@ -1,10 +1,5 @@
+import { ResponseFollow } from 'common/types'
 import { instance } from './usersApi'
-
-export type ResponseFollow<Data = {}> = {
-  resultCode: number
-  messages: string[]
-  data: Data
-}
 
 export const followApi = {
   getFollower(userId: number) {

@@ -1,4 +1,4 @@
-import { ResponseFollow } from './followApi'
+import { ResponseFollow } from 'common/types'
 import { UserPhotos, instance } from './usersApi'
 
 export type ProfileUserContacts = {

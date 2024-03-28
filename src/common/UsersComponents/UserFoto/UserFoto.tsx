@@ -7,6 +7,5 @@ type UserFotoProps = {
 }
 
 export const UserFoto: React.FC<UserFotoProps> = memo(({ link, additionalClass }) => {
-  console.log('UserFoto')
   return <img src={link} alt="avatar" className={`avatar ${additionalClass}`} />
 })

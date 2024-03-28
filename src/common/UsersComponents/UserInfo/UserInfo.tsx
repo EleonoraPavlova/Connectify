@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { UserForm } from '../UserForm/UserForm'
 import { useAppDispatch } from 'state/hooks/selectors'
 import {
   ExtendedInitialState,
@@ -10,6 +9,7 @@ import {
 } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { selectAppMeId } from 'state/reducers/appSlice/appSlice'
 import { useSelector } from 'react-redux'
+import { UserForm } from '../UserForm'
 
 export const UserInfo = () => {
   const profileUser = useSelector(selectUserProfile)

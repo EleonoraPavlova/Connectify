@@ -1,12 +1,5 @@
-import { ResponseFollow } from './followApi'
+import { LoginParams, ResponseFollow } from 'common/types'
 import { instance } from './usersApi'
-
-export type LoginParams = {
-  email: string
-  password: string
-  rememberMe: boolean
-  captcha?: boolean
-}
 
 export const authApi = {
   login(params: LoginParams) {

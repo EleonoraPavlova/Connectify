@@ -6,12 +6,12 @@ import { useAppDispatch } from 'state/hooks/selectors'
 import { getProfileUserTC } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/usersSlice/usersSlice'
 
-export type UsersMapType = {
+export type UsersMapProps = {
   btnTextInfo: string
   user: UserApi
 }
 
-export const UsersMap: React.FC<UsersMapType> = ({ btnTextInfo, user }) => {
+export const UsersMap: React.FC<UsersMapProps> = ({ btnTextInfo, user }) => {
   const { id, followed } = user
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()

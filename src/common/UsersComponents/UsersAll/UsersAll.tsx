@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './index.scss'
-import { PaginationsCustom } from '../../PaginationsCustom/PaginationsCustom'
 import { Loader } from '../../Loader/Loader'
 import { useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
@@ -9,15 +8,16 @@ import { selectUsersIsLoader, selectUsersItems } from 'state/reducers/usersSlice
 import { UsersMap } from '../UsersMap/UsersMap'
 import { Modal } from 'components/Modal/Modal'
 import { useSelector } from 'react-redux'
+import { PaginationsCustom } from 'common/PaginationsCustom'
 
-export type UsersType = {
+type UsersProps = {
   pagesCount: number
   currentPage: number
   setCurrentPageHandle: (page: number) => void
   btnTextInfo: string
 }
 
-export const UsersAll: React.FC<UsersType> = ({ pagesCount, currentPage, setCurrentPageHandle, btnTextInfo }) => {
+export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCurrentPageHandle, btnTextInfo }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
   const isLoader = useSelector(selectUsersIsLoader)

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import './index.scss'
-import Banner from '../../components/Banner/Banner'
-import { FormPosts } from './FormPosts/FormPosts'
 import { PostUserStatus } from './Post/PostUserStatus'
 import { UserApi } from 'DAL/usersApi'
 import { selectUsersItems } from 'state/reducers/usersSlice/usersSlice'
-import { UserInfo } from 'common/UsersComponents/UsersInfo/UserInfo'
-import { PaginationsCustom } from 'common/PaginationsCustom/PaginationsCustom'
-import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
-import { useNavigate } from 'react-router-dom'
 import { selectAppInitialized } from 'state/reducers/appSlice/appSlice'
 import { usePaginations } from 'state/hooks/usePaginations'
+import { UserInfo } from 'common/UsersComponents/UserInfo'
+import { Banner } from 'components/Banner'
+import { PaginationsCustom } from 'common/PaginationsCustom'
+import { FormPosts } from './FormPosts/FormPosts'
 
 export const Profile = () => {
   let memoPage = sessionStorage.getItem('profile')
@@ -21,9 +21,7 @@ export const Profile = () => {
   let initialized = useSelector(selectAppInitialized)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!isLoggedIn && initialized) navigate('/login')
-  }, [isLoggedIn, initialized, navigate])
+  useEffect(() => {}, [isLoggedIn, initialized, navigate])
 
   const { pagesCount, setCurrentPageHandle } = usePaginations('profile', currentPage, true, setCurrentPage)
 

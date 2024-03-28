@@ -1,5 +1,5 @@
-import { ResponseFollow } from 'DAL/followApi'
 import { ResponseUsers } from 'DAL/usersApi'
+import { ResponseFollow } from 'common/types'
 import { Dispatch } from 'redux'
 import { setAppErrorAC, setAppStatusAC } from 'state/reducers/appSlice/appSlice'
 
