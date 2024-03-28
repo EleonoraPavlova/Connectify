@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import './index.scss'
 import { useSearchParams } from 'react-router-dom'
+import './index.scss'
 import Box from '@mui/material/Box'
-import { selectUsersIsLoader, selectUsersItems } from 'state/reducers/usersSlice/usersSlice'
 import { useSelector } from 'react-redux'
 import { PaginationsCustom } from 'components/PaginationsCustom'
 import { UserApi } from 'common/types'
 import { Loader } from 'components/Loader'
 import { Modal } from 'components/Modal'
 import { UsersMap } from '../UsersMap'
+import { selectUsersIsLoader, selectUsersItems } from 'BLL/reducers/usersSlice'
 
 type UsersProps = {
   pagesCount: number

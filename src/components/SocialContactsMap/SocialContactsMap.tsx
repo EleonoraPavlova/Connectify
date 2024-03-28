@@ -8,12 +8,9 @@ import youtubeIcon from './icons/youtube.png'
 import twitter from './icons/twitter.png'
 import website from './icons/website.png'
 import mainLink from './icons/link.png'
-import { UserContacts } from '../UsersComponents/UserContacts/UserContacts'
-import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
-
-export type SocialContacts = {
-  [key: string]: string
-}
+import { SocialContacts } from 'common/types'
+import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
+import { UserContacts } from 'components/UsersComponents/UserContacts'
 
 export const SocialContactsMap = () => {
   const profileUser = useSelector(selectUserProfile)
@@ -44,5 +41,3 @@ export const SocialContactsMap = () => {
     </>
   )
 }
-
-// href={`https://${contact.key}.com/${contactValue}`}

@@ -17,6 +17,11 @@ export type ResponseUsers = {
   error: string
 }
 
+export type ExtendedInitialResponseProfileUser = ResponseProfileUser & {
+  status: string
+  aboutMe: string | null
+}
+
 //profile
 export type ProfileUserContacts = {
   github: string
@@ -53,6 +58,11 @@ export type UserApi = {
   followed: boolean
   followingInProgress: UserStatuses
   likeCounter: number
+}
+
+//social
+export type SocialContacts = {
+  [key: string]: string
 }
 
 export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'

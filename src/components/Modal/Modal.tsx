@@ -5,10 +5,10 @@ import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
-import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { useSelector } from 'react-redux'
 import { SocialContactsMap } from 'components/SocialContactsMap'
 import { UserFoto } from 'components/UsersComponents/UserFoto'
+import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
 
 type ModalProps = {
   activeModal: boolean

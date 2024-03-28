@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import './App.scss'
-import { Header } from '../components/Header/Header'
-import { Nav } from '../components/Nav/Nav'
-import RoutesComponents from '../routes/routes'
-import { useAppDispatch } from '../state/hooks/selectors'
 import Box from '@mui/material/Box'
-import { appThunks, selectAppInitialized } from '../state/reducers/appSlice/appSlice'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useSelector } from 'react-redux'
 import { Footer } from 'components/Footer'
 import { SnackBar } from 'components/Snackbar'
 import { useNavigate } from 'react-router-dom'
-import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
+import { useAppDispatch } from 'common/hooks/selectors'
+import { appThunks, selectAppInitialized } from 'BLL/reducers/appSlice'
+import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
+import { Header } from 'components/Header'
+import { Nav } from 'components/Nav'
+import RoutesComponents from 'features/routes/routes'
 
 const App = () => {
   let initialized = useSelector(selectAppInitialized)

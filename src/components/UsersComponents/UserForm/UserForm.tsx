@@ -1,18 +1,17 @@
 import React, { memo } from 'react'
 import s from './index.module.scss'
-import { useSelector } from 'react-redux'
 import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
 import { SaveAsOutlined } from '@mui/icons-material'
-import { ExtendedInitialState } from 'state/reducers/userProfileSlice/userProfileSlice'
-import { useUserForm } from 'state/hooks/useUserForm'
 import { EditableSpan } from 'components/EditableSpan'
 import { UserFoto } from '../UserFoto'
 import { SocialContactsMap } from 'components/SocialContactsMap'
+import { ExtendedInitialResponseProfileUser } from 'common/types'
+import { useUserForm } from 'common/hooks/useUserForm'
 
 type UserFormProps = {
-  profileUserState: ExtendedInitialState
+  profileUserState: ExtendedInitialResponseProfileUser
   setProfileUserState: (arg: any) => void
   updateProfileUser: () => void
   updateProfileUserStatus: () => void

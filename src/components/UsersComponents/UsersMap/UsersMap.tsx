@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { UserApi } from 'common/types'
-import { useAppDispatch } from 'state/hooks/selectors'
-import { userThunks } from 'state/reducers/userProfileSlice'
-import { usersThunks } from 'state/reducers/usersSlice'
-import { User } from 'pages/FindUsers/User/User'
+import { useAppDispatch } from 'common/hooks/selectors'
+import { usersThunks } from 'BLL/reducers/usersSlice'
+import { userThunks } from 'BLL/reducers/userProfileSlice'
+import { User } from 'features/pages/FindUsers/User'
 
 export type UsersMapProps = {
   btnText: string

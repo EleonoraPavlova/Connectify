@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
 import './index.scss'
-import { Logo } from '../Logo/Logo'
 import Typography from '@mui/material/Typography'
-import { logOutTC, selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from 'state/hooks/selectors'
-import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { Button } from 'components/Button'
+import { authThunks, selectIsLoggedIn } from 'BLL/reducers/authSlice'
+import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
+import { useAppDispatch } from 'common/hooks/selectors'
+import { Logo } from 'components/Logo'
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
@@ -14,7 +14,7 @@ export const Header = () => {
   const dispatch = useAppDispatch()
 
   const logOutHandler = useCallback(() => {
-    dispatch(logOutTC())
+    dispatch(authThunks.logOutTC())
   }, [isLoggedIn])
 
   return (
