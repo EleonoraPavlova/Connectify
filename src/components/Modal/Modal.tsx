@@ -7,8 +7,8 @@ import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
-import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
 import { useSelector } from 'react-redux'
+import { SocialContactsMap } from 'common/SocialContactsMap'
 
 type ModalProps = {
   activeModal: boolean

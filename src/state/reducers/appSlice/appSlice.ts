@@ -1,11 +1,11 @@
 import { ResultCode } from '../usersSlice/usersSlice'
-import { authApi } from 'api/authApi'
+import { authApi } from 'DAL/authApi'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
 import { setIsLoggedInAC } from '../authSlice/authSlice'
-import { clearMeId } from 'actions/actions'
+import { clearMeId } from 'BLL/actions/actions'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 

@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './selectors'
 import { loginTC } from '../reducers/authSlice/authSlice'
-import { LoginParams } from 'api/authApi'
+import { LoginParams } from 'DAL/authApi'
 import { handleServerNetworkError } from 'utils/error-utils'
 
 export function useLogin() {

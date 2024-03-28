@@ -1,0 +1,1 @@
+export { SocialContactsMap } from './SocialContactsMap'

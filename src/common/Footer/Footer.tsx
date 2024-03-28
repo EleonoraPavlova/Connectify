@@ -2,7 +2,6 @@ import React from 'react'
 import './index.scss'
 import { Logo } from '../Logo/Logo'
 import Typography from '@mui/material/Typography'
-import { Box } from '@mui/material'
 
 export const Footer = () => {
   return (

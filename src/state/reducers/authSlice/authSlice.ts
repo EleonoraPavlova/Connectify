@@ -1,11 +1,11 @@
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
 import { setAppInitializeTC, setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
 import { ResultCode } from '../usersSlice/usersSlice'
-import { LoginParams, authApi } from 'api/authApi'
+import { LoginParams, authApi } from 'DAL/authApi'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
-import { clearMeId, clearUsers } from 'actions/actions'
+import { clearMeId, clearUsers } from 'BLL/actions/actions'
 
 export type initialParamsAuth = {
   email: string

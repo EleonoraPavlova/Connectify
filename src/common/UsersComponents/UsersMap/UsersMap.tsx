@@ -1,4 +1,4 @@
-import { UserApi } from 'api/usersApi'
+import { UserApi } from 'DAL/usersApi'
 import { User } from 'pages/FindUsers/User/User'
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'

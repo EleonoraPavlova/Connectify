@@ -1,5 +1,5 @@
-@import './variables.scss';
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Handlee&display=swap');
+@import "../styles/variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Handlee&display=swap");
 
 .App {
   display: grid;
@@ -8,10 +8,10 @@
   grid-gap: 15px;
   margin-bottom: 20px;
   grid-template-areas:
-    'header header'
-    'nav content'
-    'nav pagination'
-    'footer footer';
+    "header header"
+    "nav content"
+    "nav pagination"
+    "footer footer";
 }
 
 .flex-start {

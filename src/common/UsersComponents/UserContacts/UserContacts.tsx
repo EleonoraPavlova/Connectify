@@ -2,12 +2,12 @@ import ListItem from '@mui/material/ListItem'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-type UserContactsType = {
+type UserContactsProps = {
   icon: string
   href: string
 }
 
-export const UserContacts: React.FC<UserContactsType> = ({ icon, href }) => {
+export const UserContacts: React.FC<UserContactsProps> = ({ icon, href }) => {
   return (
     <ListItem className={'modal__data-contacts'}>
       <NavLink to={href} rel="noreferrer" target="_blank">

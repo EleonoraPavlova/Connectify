@@ -1,11 +1,11 @@
 import { ResultCode, switchLoaderAC } from '../usersSlice/usersSlice'
 import { setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
-import { ProfileUserContacts, ResponseProfileUser, userProfileApi } from 'api/profileApi'
-import { UserPhotos } from 'api/usersApi'
+import { ProfileUserContacts, ResponseProfileUser, userProfileApi } from 'DAL/profileApi'
+import { UserPhotos } from 'DAL/usersApi'
 import { AppRootState } from 'state/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import { clearUsers } from 'actions/actions'
+import { clearUsers } from 'BLL/actions/actions'
 
 export type ExtendedInitialState = ResponseProfileUser & {
   status: string

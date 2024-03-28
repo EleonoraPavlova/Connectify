@@ -1,11 +1,11 @@
-import { ResponseUsers, UserStatuses, usersApi } from 'api/usersApi'
+import { ResponseUsers, UserStatuses, usersApi } from 'DAL/usersApi'
 import { setAppStatusAC } from '../appSlice/appSlice'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
-import { followApi } from 'api/followApi'
+import { followApi } from 'DAL/followApi'
 import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
-import { clearUsers } from 'actions/actions'
+import { clearUsers } from 'BLL/actions/actions'
 import { replaceRussianLetters } from 'utils/translator-utils'
 
 export type ResponseDomain = ResponseUsers & {

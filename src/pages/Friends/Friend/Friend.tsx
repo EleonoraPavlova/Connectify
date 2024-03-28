@@ -2,7 +2,7 @@ import React from 'react'
 import './index.scss'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApi } from 'api/usersApi'
+import { UserApi } from 'DAL/usersApi'
 import { UserFoto } from 'common/UsersComponents/UserFoto/UserFoto'
 
 type FriendProps = {
