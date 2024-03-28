@@ -1,8 +1,8 @@
-import { selectUsersTotalCount, setResponseTC } from 'state/reducers/usersSlice/usersSlice'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
 import { useAppDispatch } from './selectors'
+import { selectIsLoggedIn } from 'state/reducers/authSlice'
+import { selectUsersTotalCount, usersThunks } from 'state/reducers/usersSlice'
 
 export function usePaginations(
   setName: string,
@@ -20,7 +20,7 @@ export function usePaginations(
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (isLoggedIn) dispatch(setResponseTC({ pageSize, currentPage, friend }))
+    if (isLoggedIn) dispatch(usersThunks.setResponseTC({ pageSize, currentPage, friend }))
     setPage()
   }, [dispatch, currentPage, friend, isLoggedIn])
 

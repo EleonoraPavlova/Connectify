@@ -1,5 +1,5 @@
 import { ResponseFollow } from 'common/types'
-import { instance } from './usersApi'
+import { instance } from './instance'
 
 export const followApi = {
   getFollower(userId: number) {

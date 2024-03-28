@@ -1,16 +1,15 @@
-import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
-import Checkbox from '@mui/material/Checkbox'
 import React, { memo } from 'react'
 import s from './index.module.scss'
+import { useSelector } from 'react-redux'
+import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
+import Checkbox from '@mui/material/Checkbox'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
-import { UserFoto } from '../UserFoto/UserFoto'
 import { SaveAsOutlined } from '@mui/icons-material'
 import { ExtendedInitialState } from 'state/reducers/userProfileSlice/userProfileSlice'
-import { EditableSpan } from 'common/EditableSpan/EditableSpan'
 import { useUserForm } from 'state/hooks/useUserForm'
-import { SocialContactsMap } from 'common/SocialContactsMap/SocialContactsMap'
-import { useSelector } from 'react-redux'
-import { selectAppMeId } from 'state/reducers/appSlice/appSlice'
+import { EditableSpan } from 'components/EditableSpan'
+import { UserFoto } from '../UserFoto'
+import { SocialContactsMap } from 'components/SocialContactsMap'
 
 type UserFormProps = {
   profileUserState: ExtendedInitialState
@@ -21,8 +20,6 @@ type UserFormProps = {
 
 export const UserForm: React.FC<UserFormProps> = memo(
   ({ profileUserState, setProfileUserState, updateProfileUser, updateProfileUserStatus }) => {
-    const meId = useSelector(selectAppMeId)
-
     let profileUserUpperFullName =
       profileUserState && profileUserState.fullName
         ? profileUserState.fullName[0].toUpperCase() + profileUserState.fullName.slice(1)

@@ -10,3 +10,49 @@ export type ResponseFollow<Data = {}> = {
   messages: string[]
   data: Data
 }
+
+export type ResponseUsers = {
+  items: UserApi[]
+  totalCount: number
+  error: string
+}
+
+//profile
+export type ProfileUserContacts = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
+}
+
+export type ResponseProfileUser = {
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  contacts: ProfileUserContacts
+  photos: UserPhotos
+  aboutMe: string
+}
+
+//user
+export type UserPhotos = {
+  small: string
+  large: string
+}
+
+export type UserApi = {
+  id: number
+  name: string
+  status: string
+  photos: UserPhotos
+  followed: boolean
+  followingInProgress: UserStatuses
+  likeCounter: number
+}
+
+export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'

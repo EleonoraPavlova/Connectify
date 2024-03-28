@@ -7,8 +7,8 @@ import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 import { useSelector } from 'react-redux'
-import { SocialContactsMap } from 'common/SocialContactsMap'
-import { UserFoto } from 'common/UsersComponents/UserFoto'
+import { SocialContactsMap } from 'components/SocialContactsMap'
+import { UserFoto } from 'components/UsersComponents/UserFoto'
 
 type ModalProps = {
   activeModal: boolean
@@ -44,27 +44,32 @@ export const Modal: React.FC<ModalProps> = memo(({ activeModal, setActiveModal, 
           <Box className="modal__mainInfo">
             <List className="modal__data">
               <ListItem className="modal__data-name">
-                <Typography sx={{ fontWeigth: 'bold' }}> {profileUserUpper}</Typography>
+                {' '}
+                <Typography sx={{ fontWeigth: 'bold' }}> {profileUserUpper}</Typography>{' '}
               </ListItem>
               <ListItem>
                 <Typography>
-                  <span className="modal__data-span"> Id: </span> {profileUser.userId}
+                  {' '}
+                  <span className="modal__data-span"> Id: </span> {profileUser.userId}{' '}
                 </Typography>
               </ListItem>
               <ListItem>
                 <Typography>
-                  <span className="modal__data-span"> Looking for a job: </span> {profileUser.lookingForAJob}
+                  {' '}
+                  <span className="modal__data-span"> Looking for a job: </span> {profileUser.lookingForAJob}{' '}
                 </Typography>
               </ListItem>
               <ListItem>
                 <Typography>
-                  <span className="modal__data-span">Description: </span> {profileUser.lookingForAJobDescription}
+                  {' '}
+                  <span className="modal__data-span">Description: </span> {profileUser.lookingForAJobDescription}{' '}
                 </Typography>
               </ListItem>
               <ListItem className="modal__data-status">
                 <Typography>
+                  {' '}
                   <span className="modal__data-span">Status: </span>
-                  {profileUser.status}
+                  {profileUser.status}{' '}
                 </Typography>
               </ListItem>
             </List>

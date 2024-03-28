@@ -14,12 +14,22 @@ const dialogsSlice = createSlice({
     },
     sendMessageAC(state, action: PayloadAction<{ text: string; messageId: string }>) {
       const { text, messageId } = action.payload
+
+      const messageIndex = state.messagesData.findIndex((message) => message.id === messageId)
+      if (messageIndex !== -1) {
+        state.messagesData[messageIndex].message = text
+      }
     },
+
     updateMessageAC(state, action: PayloadAction<{ text: string; messageId: string }>) {
       const { text, messageId } = action.payload
+
+      const messageIndex = state.messagesData.findIndex((message) => message.id === messageId)
+      if (messageIndex !== -1) {
+        state.messagesData[messageIndex].message = text
+      }
     },
   },
-  extraReducers: (builder) => {},
 })
 
 export const dialogsReducer = dialogsSlice.reducer

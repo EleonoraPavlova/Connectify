@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
-import { PostUserStatus } from './Post/PostUserStatus'
-import { UserApi } from 'DAL/usersApi'
 import { selectUsersItems } from 'state/reducers/usersSlice/usersSlice'
 import { selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
-import { selectAppInitialized } from 'state/reducers/appSlice/appSlice'
 import { usePaginations } from 'state/hooks/usePaginations'
-import { UserInfo } from 'common/UsersComponents/UserInfo'
+import { UserInfo } from 'components/UsersComponents/UserInfo'
 import { Banner } from 'components/Banner'
-import { PaginationsCustom } from 'common/PaginationsCustom'
+import { PaginationsCustom } from 'components/PaginationsCustom'
 import { FormPosts } from './FormPosts/FormPosts'
+import { selectAppInitialized } from 'state/reducers/appSlice'
+import { Post } from './Post'
+import { UserApi } from 'common/types'
 
 export const Profile = () => {
   let memoPage = sessionStorage.getItem('profile')
@@ -25,7 +25,7 @@ export const Profile = () => {
 
   const { pagesCount, setCurrentPageHandle } = usePaginations('profile', currentPage, true, setCurrentPage)
 
-  let status = items.map((i: UserApi) => <PostUserStatus key={i.id} item={i} />)
+  let status = items.map((i: UserApi) => <Post key={i.id} item={i} />)
 
   return (
     <div className="content">

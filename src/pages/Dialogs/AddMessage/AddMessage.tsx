@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react'
 import './index.scss'
-import { Button } from '../../../common/Button/Button'
 import { useDispatch } from 'react-redux'
-import { addMessageAC } from 'state/reducers/dialogs/dialogsSlice'
+import { addMessageAC } from 'state/reducers/dialogsSlice/dialogsSlice'
+import { Button } from 'components/Button'
 
 export const AddMessages = () => {
   let [textValue, setTextValue] = useState<string>('')

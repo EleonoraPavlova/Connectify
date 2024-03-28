@@ -6,7 +6,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authReducer } from './reducers/authSlice/authSlice'
 import { usersReducer } from './reducers/usersSlice/usersSlice'
 import { userProfileReducer } from './reducers/userProfileSlice/userProfileSlice'
-import { dialogsReducer } from './reducers/dialogs/dialogsSlice'
+import { dialogsReducer } from './reducers/dialogsSlice/dialogsSlice'
 
 export const store = configureStore({
   reducer: {

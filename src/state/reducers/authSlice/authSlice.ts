@@ -1,12 +1,12 @@
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
-import { setAppInitializeTC, setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
-import { ResultCode } from '../usersSlice/usersSlice'
+import { appThunks, setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
 import { authApi } from 'DAL/authApi'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
 import { clearMeId, clearUsers } from 'BLL/actions/actions'
 import { LoginParams } from 'common/types'
+import { ResultCode } from 'common/emuns'
 
 export type initialParamsAuth = {
   email: string
@@ -23,7 +23,7 @@ export const loginTC = createAsyncThunk('auth/login', async (params: LoginParams
       // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
       // dispatch(setLoginParamsAC({ params }))
       dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
-      dispatch(setAppInitializeTC())
+      dispatch(appThunks.setAppInitializeTC())
       return { isLoggedIn: true }
     } else {
       handleServerAppError(res.data, dispatch)
@@ -46,7 +46,7 @@ export const logOutTC = createAsyncThunk('auth/logOut', async (params, { dispatc
       dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
       dispatch(clearMeId())
       dispatch(clearUsers())
-      dispatch(setAppInitializeTC())
+      dispatch(appThunks.setAppInitializeTC())
       return { isLoggedIn: false }
     } else {
       handleServerAppError(res.data, dispatch)
@@ -89,40 +89,3 @@ const authSlice = createSlice({
 export const authReducer = authSlice.reducer
 export const { setIsLoggedInAC } = authSlice.actions
 export const { selectIsLoggedIn } = authSlice.getSelectors((rootState: AppRootState) => rootState.auth)
-
-//thunks
-// export const loginTC =
-//   (params: LoginParams): AppThunk =>
-//   async (dispatch) => {
-//     dispatch(setAppStatusAC({ statusApp: 'loading' }))
-//     try {
-//       const res = await authApi.login(params)
-//       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-//         dispatch(setIsLoggedInAC(true))
-//         dispatch(setLoginParamsAC(params))
-//         // dispatch(setResponseTC(count, page, friend)); //
-//         dispatch(setAppSuccessAC('you have successfully logged in'))
-//       } else {
-//         handleServerAppError(res.data, dispatch)
-//       }
-//     } catch (err) {
-//       handleServerNetworkError(err as { message: string }, dispatch)
-//     }
-//   }
-
-// export const logOutTC = (): AppThunk => async (dispatch) => {
-//   dispatch(setAppStatusAC({ statusApp: 'loading' }))
-//   try {
-//     const res = await authApi.logOut()
-//     if (res.data.resultCode === ResultCode.SUCCEEDED) {
-//       dispatch(setIsLoggedInAC({ isLoggedIn: false }))
-//       dispatch(setAppSuccessAC({ success: 'you have successfully logged out' }))
-//       dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
-//       dispatch(clearResponseAC())
-//     } else {
-//       handleServerAppError(res.data, dispatch)
-//     }
-//   } catch (err) {
-//     handleServerNetworkError(err as { message: string }, dispatch)
-//   }
-// }

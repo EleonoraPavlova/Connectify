@@ -1,0 +1,1 @@
+export { FormPosts } from './FormPosts'

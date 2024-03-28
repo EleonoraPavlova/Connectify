@@ -1,26 +1,6 @@
-import { ResponseFollow } from 'common/types'
-import { UserPhotos, instance } from './usersApi'
+import { ResponseFollow, ResponseProfileUser } from 'common/types'
 
-export type ProfileUserContacts = {
-  github: string
-  vk: string
-  facebook: string
-  instagram: string
-  twitter: string
-  website: string
-  youtube: string
-  mainLink: string
-}
-
-export type ResponseProfileUser = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: ProfileUserContacts
-  photos: UserPhotos
-  aboutMe: string
-}
+import { instance } from './instance'
 
 export const userProfileApi = {
   getProfileUser(userId: number) {

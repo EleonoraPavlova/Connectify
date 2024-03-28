@@ -1,30 +1,30 @@
 import React, { useState } from 'react'
 import './index.scss'
-import { Loader } from '../../Loader/Loader'
 import { useSearchParams } from 'react-router-dom'
 import Box from '@mui/material/Box'
-import { UserApi } from 'DAL/usersApi'
 import { selectUsersIsLoader, selectUsersItems } from 'state/reducers/usersSlice/usersSlice'
-import { UsersMap } from '../UsersMap/UsersMap'
-import { Modal } from 'components/Modal/Modal'
 import { useSelector } from 'react-redux'
-import { PaginationsCustom } from 'common/PaginationsCustom'
+import { PaginationsCustom } from 'components/PaginationsCustom'
+import { UserApi } from 'common/types'
+import { Loader } from 'components/Loader'
+import { Modal } from 'components/Modal'
+import { UsersMap } from '../UsersMap'
 
 type UsersProps = {
   pagesCount: number
   currentPage: number
   setCurrentPageHandle: (page: number) => void
-  btnTextInfo: string
+  btnText: string
 }
 
-export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCurrentPageHandle, btnTextInfo }) => {
+export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
   const isLoader = useSelector(selectUsersIsLoader)
   const usersResponse = useSelector(selectUsersItems)
 
   const usersMap = usersResponse.map((u: UserApi) => {
-    return <UsersMap btnTextInfo={btnTextInfo} key={u.id} user={u} />
+    return <UsersMap btnText={btnText} key={u.id} user={u} />
   })
 
   return (

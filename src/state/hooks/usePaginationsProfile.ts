@@ -1,7 +1,7 @@
-import { selectUsersTotalCount, setResponseTC } from 'state/reducers/usersSlice/usersSlice'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useAppDispatch } from './selectors'
+import { selectUsersTotalCount, usersThunks } from 'state/reducers/usersSlice'
 
 export function usePaginationsProfile(setName: string, currentPage: number, setCurrentPage: (page: number) => void) {
   const setPage = () => {
@@ -13,7 +13,7 @@ export function usePaginationsProfile(setName: string, currentPage: number, setC
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(setResponseTC({ pageSize, currentPage, friend: true, isLoader: true }))
+    dispatch(usersThunks.setResponseTC({ pageSize, currentPage, friend: true, isLoader: true }))
     setPage()
   }, [dispatch, pagesCount, currentPage])
 

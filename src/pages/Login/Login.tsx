@@ -18,7 +18,6 @@ export const Login = () => {
   const { formik, disabled } = useLogin()
 
   if (isLoggedIn) {
-    debugger
     return <Navigate to={'/'} />
   }
 

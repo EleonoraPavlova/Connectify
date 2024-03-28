@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import './index.scss'
-import { Button } from '../../../common/Button/Button'
-// import { addPostAC } from "src/state/reducers/profile/profileReducer";
 import Box from '@mui/material/Box'
+import { Button } from 'components/Button'
 
 export const FormPosts = () => {
   let [textValue, setTextValue] = useState<string>('')

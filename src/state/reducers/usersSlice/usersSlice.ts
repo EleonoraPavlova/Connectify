@@ -1,5 +1,4 @@
-import { ResponseUsers, UserStatuses, usersApi } from 'DAL/usersApi'
-import { setAppStatusAC } from '../appSlice/appSlice'
+import { usersApi } from 'DAL/usersApi'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { followApi } from 'DAL/followApi'
 import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
@@ -7,15 +6,12 @@ import { AxiosError } from 'axios'
 import { AppRootState } from 'state/store'
 import { clearUsers } from 'BLL/actions/actions'
 import { replaceRussianLetters } from 'utils/translator-utils'
+import { ResultCode } from 'common/emuns'
+import { ResponseUsers, UserStatuses } from 'common/types'
+import { setAppStatusAC } from '../appSlice'
 
-export type ResponseDomain = ResponseUsers & {
+type ResponseDomain = ResponseUsers & {
   isLoader: boolean
-}
-
-export enum ResultCode { //enum  ONLY for reading, can't be overwritten!!
-  SUCCEEDED = 0,
-  ERROR = 1,
-  ERROR_CAPTCHA = 10,
 }
 
 export const initialStateUsers: ResponseDomain = {
@@ -24,93 +20,6 @@ export const initialStateUsers: ResponseDomain = {
   error: '',
   isLoader: false,
 }
-
-export const setResponseTC = createAsyncThunk(
-  'users/setResponse',
-  async (
-    params: {
-      pageSize: number
-      currentPage: number
-      friend?: boolean
-      isLoader?: boolean
-    },
-    { dispatch, rejectWithValue }
-  ) => {
-    const { pageSize, currentPage, friend = false, isLoader = false } = params
-    dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ statusApp: 'loading' }))
-
-    try {
-      const res = await usersApi.getUsers(pageSize, currentPage, friend)
-      if (res.data.items.length) {
-        res.data.items.forEach((u) => {
-          u.name = replaceRussianLetters(u.name)
-          u.status = replaceRussianLetters(u.status)
-        })
-        // dispatch(setResponseAC({ response: res.data }))
-        dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
-        return { response: res.data }
-      } else {
-        dispatch(setAppStatusAC({ statusApp: 'failed' }))
-        handleServerAppError(res.data, dispatch)
-        return rejectWithValue({})
-      }
-    } catch (err: unknown) {
-      const error: AxiosError = err as AxiosError
-      handleServerNetworkError(error as { message: string }, dispatch)
-      return rejectWithValue({})
-    } finally {
-      dispatch(switchLoaderAC({ isLoader }))
-    }
-  }
-)
-
-export const unFollowUserTC = createAsyncThunk(
-  'users/unFollowUser',
-  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
-    const { userId, followed } = params
-    dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
-    try {
-      const res = await followApi.unFollowTo(userId)
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(toggleFollowUserAC({ id: userId, followed }))
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return { id: userId, followed }
-      } else {
-        handleServerAppError(res.data, dispatch)
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-      }
-    } catch (err) {
-      handleServerNetworkError(err as { message: string }, dispatch)
-      dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-      return rejectWithValue(null)
-    }
-  }
-)
-
-export const toggleFollowUserTC = createAsyncThunk(
-  'users/toggleFollowUser',
-  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
-    const { userId, followed } = params
-    dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
-    try {
-      const res = await followApi.followTo(userId)
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(toggleFollowUserAC({ id: userId, followed }))
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return { id: userId, followed }
-      } else {
-        handleServerAppError(res.data, dispatch)
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-        return rejectWithValue(null)
-      }
-    } catch (err) {
-      handleServerNetworkError(err as { message: string }, dispatch)
-      dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-      return rejectWithValue(null)
-    }
-  }
-)
 
 const usersSlice = createSlice({
   name: 'users',
@@ -164,111 +73,100 @@ const usersSlice = createSlice({
   },
 })
 
+const setResponseTC = createAsyncThunk(
+  'users/setResponse',
+  async (
+    params: {
+      pageSize: number
+      currentPage: number
+      friend?: boolean
+      isLoader?: boolean
+    },
+    { dispatch, rejectWithValue }
+  ) => {
+    const { pageSize, currentPage, friend = false, isLoader = false } = params
+    dispatch(switchLoaderAC({ isLoader: !isLoader }))
+    dispatch(setAppStatusAC({ statusApp: 'loading' }))
+
+    try {
+      const res = await usersApi.getUsers(pageSize, currentPage, friend)
+      if (res.data.items.length) {
+        res.data.items.forEach((u) => {
+          u.name = replaceRussianLetters(u.name)
+          u.status = replaceRussianLetters(u.status)
+        })
+        // dispatch(setResponseAC({ response: res.data }))
+        dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
+        return { response: res.data }
+      } else {
+        dispatch(setAppStatusAC({ statusApp: 'failed' }))
+        handleServerAppError(res.data, dispatch)
+        return rejectWithValue({})
+      }
+    } catch (err: unknown) {
+      const error: AxiosError = err as AxiosError
+      handleServerNetworkError(error as { message: string }, dispatch)
+      return rejectWithValue({})
+    } finally {
+      dispatch(switchLoaderAC({ isLoader }))
+    }
+  }
+)
+
+const unFollowUserTC = createAsyncThunk(
+  'users/unFollowUser',
+  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
+    const { userId, followed } = params
+    dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
+    try {
+      const res = await followApi.unFollowTo(userId)
+      if (res.data.resultCode === ResultCode.SUCCEEDED) {
+        // dispatch(toggleFollowUserAC({ id: userId, followed }))
+        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
+        return { id: userId, followed }
+      } else {
+        handleServerAppError(res.data, dispatch)
+        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
+      }
+    } catch (err) {
+      handleServerNetworkError(err as { message: string }, dispatch)
+      dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
+      return rejectWithValue(null)
+    }
+  }
+)
+
+const toggleFollowUserTC = createAsyncThunk(
+  'users/toggleFollowUser',
+  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
+    const { userId, followed } = params
+    dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
+    try {
+      const res = await followApi.followTo(userId)
+      if (res.data.resultCode === ResultCode.SUCCEEDED) {
+        // dispatch(toggleFollowUserAC({ id: userId, followed }))
+        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
+        return { id: userId, followed }
+      } else {
+        handleServerAppError(res.data, dispatch)
+        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
+        return rejectWithValue(null)
+      }
+    } catch (err) {
+      handleServerNetworkError(err as { message: string }, dispatch)
+      dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
+      return rejectWithValue(null)
+    }
+  }
+)
+
 export const usersReducer = usersSlice.reducer
+export const usersThunks = { setResponseTC, toggleFollowUserTC, unFollowUserTC }
 export const { switchLoaderAC, setFollowingInProgressAC, increaseLikeCounterAC, decreaseLikeCounterAC } =
   usersSlice.actions
 export const { selectUsersIsLoader, selectUsersItems, selectUsersTotalCount } = usersSlice.getSelectors(
   (rootState: AppRootState) => rootState.users
 )
-// export const usersReducer = (
-//   state: ResponseDomain = initialState,
-//   action: UsersActionsType
-// ): ResponseDomain => {
-//   switch (action.type) {
-//     case 'TOGGLE-FOLLOWED-USERS':
-//       return {
-//         ...state,
-//         items: state.items.map((u) => (u.id === action.id ? { ...u, followed: !action.followed } : u)),
-//       }
-//     case 'SET-RESPONSE':
-//       return {
-//         ...state,
-//         ...action.response,
-//         items: action.response.items.map((user) => ({ ...user, likeCounter: 0 })),
-//       }
-//     case 'SWITCH-LOADER':
-//       return { ...state, isLoader: action.isLoader }
-//     case 'SET-USER-FOLLOWING-IN-PROGRESS':
-//       return {
-//         ...state,
-//         items: state.items.map((u) =>
-//           u.id === action.userId ? { ...u, followingInProgress: action.followingInProgress } : u
-//         ),
-//       }
-//     case 'INCREASE-LIKE-COUNTER':
-//       return {
-//         ...state,
-//         items: state.items.map((u) => (u.id === action.userId ? { ...u, likeCounter: u.likeCounter + 1 } : u)),
-//       }
-//     case 'DECREASE-LIKE-COUNTER':
-//       return {
-//         ...state,
-//         items: state.items.map((u) => (u.id === action.userId ? { ...u, likeCounter: u.likeCounter - 1 } : u)),
-//       }
-//     case 'CLEAR-RESPONSE':
-//       return initialState
-//     default:
-//       return state
-//   }
-// }
-
-//actions
-// export const setResponseAC = (response: ResponseUsers) => {
-//   return {
-//     type: 'SET-RESPONSE',
-//     response,
-//   } as const
-// }
-
-// export const toggleFollowUserAC = (id: number, followed: boolean) => {
-//   return {
-//     type: 'TOGGLE-FOLLOWED-USERS',
-//     id,
-//     followed,
-//   } as const
-// }
-
-// export const switchLoaderAC = (isLoader: boolean) => {
-//   return {
-//     type: 'SWITCH-LOADER',
-//     isLoader,
-//   } as const
-// }
-
-// export const setFollowingInProgressAC = (followingInProgress: UserStatuses, userId: number) => {
-//   return {
-//     type: 'SET-USER-FOLLOWING-IN-PROGRESS',
-//     followingInProgress,
-//     userId,
-//   } as const
-// }
-
-// export const increaseLikeCounterAC = (userId: number) => {
-//   return {
-//     type: 'INCREASE-LIKE-COUNTER',
-//     userId,
-//   } as const
-// }
-
-// export const decreaseLikeCounterAC = (userId: number) => {
-//   return {
-//     type: 'DECREASE-LIKE-COUNTER',
-//     userId,
-//   } as const
-// }
-
-// export const setUserStatusAC = (status: ResponseUsers) => {// ?
-//   return {
-//     type: 'SET-STATUS',
-//     status,
-//   } as const
-// }
-
-// export const clearResponseAC = () => {
-//   return {
-//     type: 'CLEAR-RESPONSE',
-//   } as const
-// }
 
 //thunk
 // export const setResponseTC =

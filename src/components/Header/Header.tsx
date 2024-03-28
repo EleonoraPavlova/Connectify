@@ -6,7 +6,7 @@ import { logOutTC, selectIsLoggedIn } from 'state/reducers/authSlice/authSlice'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'state/hooks/selectors'
 import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
-import { Button } from 'common/Button'
+import { Button } from 'components/Button'
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)

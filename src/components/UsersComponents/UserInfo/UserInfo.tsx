@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch } from 'state/hooks/selectors'
-import {
-  ExtendedInitialState,
-  updateProfileUserStatusTC,
-  updateProfileUserTC,
-  getProfileUserTC,
-  selectUserProfile,
-} from 'state/reducers/userProfileSlice/userProfileSlice'
-import { selectAppMeId } from 'state/reducers/appSlice/appSlice'
 import { useSelector } from 'react-redux'
 import { UserForm } from '../UserForm'
+import { ExtendedInitialState, selectUserProfile, userThunks } from 'state/reducers/userProfileSlice'
+import { selectAppMeId } from 'state/reducers/appSlice'
 
 export const UserInfo = () => {
   const profileUser = useSelector(selectUserProfile)
@@ -19,7 +13,7 @@ export const UserInfo = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (meId) dispatch(getProfileUserTC({ userId: meId }))
+    if (meId) dispatch(userThunks.getProfileUserTC({ userId: meId }))
   }, [dispatch, meId])
 
   useEffect(() => {
@@ -27,11 +21,11 @@ export const UserInfo = () => {
   }, [profileUser])
 
   const updateProfileUser = () => {
-    dispatch(updateProfileUserTC({ params: profileUserState }))
+    dispatch(userThunks.updateProfileUserTC({ params: profileUserState }))
   }
 
   const updateProfileUserStatus = () => {
-    dispatch(updateProfileUserStatusTC({ status: profileUserState.status }))
+    dispatch(userThunks.updateProfileUserStatusTC({ status: profileUserState.status }))
   }
 
   return (

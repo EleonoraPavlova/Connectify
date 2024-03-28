@@ -8,7 +8,7 @@ import youtubeIcon from './icons/youtube.png'
 import twitter from './icons/twitter.png'
 import website from './icons/website.png'
 import mainLink from './icons/link.png'
-import { UserContacts } from '../../common/UsersComponents/UserContacts/UserContacts'
+import { UserContacts } from '../UsersComponents/UserContacts/UserContacts'
 import { selectUserProfile } from 'state/reducers/userProfileSlice/userProfileSlice'
 
 export type SocialContacts = {

@@ -5,16 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
-import { UserApi } from 'DAL/usersApi'
 import { useAppDispatch } from 'state/hooks/selectors'
-import {} from 'state/reducers/userProfileSlice/userProfileSlice'
 import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'state/reducers/usersSlice/usersSlice'
+import { UserApi } from 'common/types'
 
-type PostUserStatusType = {
+type PostProps = {
   item: UserApi
 }
 
-export const PostUserStatus: React.FC<PostUserStatusType> = ({ item }) => {
+export const Post: React.FC<PostProps> = ({ item }) => {
   const { id, followed, likeCounter } = item
   let [isHighlighted, setisHighlighted] = useState<boolean>(false)
   const dispatch = useAppDispatch()

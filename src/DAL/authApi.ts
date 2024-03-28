@@ -1,5 +1,5 @@
 import { LoginParams, ResponseFollow } from 'common/types'
-import { instance } from './usersApi'
+import { instance } from './instance'
 
 export const authApi = {
   login(params: LoginParams) {

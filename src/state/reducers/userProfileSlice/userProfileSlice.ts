@@ -1,11 +1,12 @@
-import { ResultCode, switchLoaderAC } from '../usersSlice/usersSlice'
+import { switchLoaderAC } from '../usersSlice/usersSlice'
 import { setAppStatusAC, setAppSuccessAC } from '../appSlice/appSlice'
-import { ProfileUserContacts, ResponseProfileUser, userProfileApi } from 'DAL/profileApi'
-import { UserPhotos } from 'DAL/usersApi'
+import { userProfileApi } from 'DAL/profileApi'
 import { AppRootState } from 'state/store'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { clearUsers } from 'BLL/actions/actions'
+import { ResultCode } from 'common/emuns'
+import { ProfileUserContacts, ResponseProfileUser, UserPhotos } from 'common/types'
 
 export type ExtendedInitialState = ResponseProfileUser & {
   status: string
@@ -23,8 +24,37 @@ export const initialStateUser: ExtendedInitialState = {
   aboutMe: 'About me',
 }
 
-export const getProfileUserTC = createAsyncThunk(
-  'userProfile/getProfileUser',
+const userSlice = createSlice({
+  name: 'user',
+  initialState: initialStateUser,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getProfileUserTC.fulfilled, (state, action) => {
+        return { status: state.status, ...action.payload.response }
+      })
+      .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
+        state.status = action.payload.status
+      })
+      .addCase(updateProfileUserTC.fulfilled, (state, action) => {
+        state = { ...state, ...action.payload?.params }
+      })
+      .addCase(updateProfileUserStatusTC.fulfilled, (state, action) => {
+        state.status = action.payload.status
+      })
+      .addCase(clearUsers, (state, action) => {
+        console.log('state/clearUsers', current(state))
+        return initialStateUser
+      })
+  },
+  selectors: {
+    selectUserProfile: (sliceState) => sliceState,
+    selectUserProfileStatus: (sliceState) => sliceState.status,
+  },
+})
+
+const getProfileUserTC = createAsyncThunk(
+  `${userSlice.name}/getProfileUser`,
   async (params: { userId: number; isLoader?: boolean }, { dispatch, rejectWithValue }) => {
     const { userId, isLoader = false } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
@@ -44,8 +74,8 @@ export const getProfileUserTC = createAsyncThunk(
   }
 )
 
-export const getProfileUserStatusTC = createAsyncThunk(
-  'userProfile/getProfileUserStatus',
+const getProfileUserStatusTC = createAsyncThunk(
+  `${userSlice.name}/getProfileUserStatus`,
   async (params: { userId: number; isLoader?: boolean }, { dispatch, rejectWithValue }) => {
     const { userId, isLoader = false } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
@@ -64,8 +94,8 @@ export const getProfileUserStatusTC = createAsyncThunk(
   }
 )
 
-export const updateProfileUserTC = createAsyncThunk(
-  'userProfile/updateProfileUser',
+const updateProfileUserTC = createAsyncThunk(
+  `${userSlice.name}/updateProfileUser`,
   async (payload: { params: ResponseProfileUser; isLoader?: boolean }, { dispatch, getState, rejectWithValue }) => {
     const { params, isLoader = false } = payload
     const state = getState() as AppRootState
@@ -100,8 +130,8 @@ export const updateProfileUserTC = createAsyncThunk(
   }
 )
 
-export const updateProfileUserStatusTC = createAsyncThunk(
-  'userProfile/updateProfileUserStatus',
+const updateProfileUserStatusTC = createAsyncThunk(
+  `${userSlice.name}/updateProfileUserStatus`,
   async (params: { status: string; isLoader?: boolean }, { dispatch, rejectWithValue }) => {
     const { status, isLoader = false } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
@@ -125,59 +155,8 @@ export const updateProfileUserStatusTC = createAsyncThunk(
   }
 )
 
-const userSlice = createSlice({
-  name: 'user',
-  initialState: initialStateUser,
-  reducers: {
-    // setProfileUserAC(state, action: PayloadAction<{ response: ResponseProfileUser }>) {
-    //   state.contacts = {
-    //     ...action.payload.response.contacts,
-    //     facebook: action.payload.response.contacts?.facebook || 'https://www.facebook.com',
-    //     github: action.payload.response.contacts?.github || 'https://github.com',
-    //     instagram: action.payload.response.contacts?.instagram || 'https://www.instagram.com',
-    //     vk: action.payload.response.contacts?.vk || 'https://vk.com',
-    //     youtube: action.payload.response.contacts?.youtube || 'https://www.youtube.com',
-    //     twitter: action.payload.response.contacts?.twitter || 'https://twitter.com',
-    //     website: action.payload.response.contacts?.website || 'https://www.asos.com/',
-    //     mainLink: action.payload.response.contacts?.mainLink || 'https://fontawesome.com',
-    //   }
-    // },
-    // setProfileUserStatusAC(state, action: PayloadAction<{ status: string }>) {
-    //   state.status = action.payload.status
-    // },
-    // updateProfileUserAC(state, action: PayloadAction<{ params: ResponseProfileUser }>) {
-    //   action.payload.params
-    // },
-    // updateProfileUserStatusAC(state, action: PayloadAction<{ status: string }>) {
-    //   state.status = action.payload.status
-    // },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getProfileUserTC.fulfilled, (state, action) => {
-        return { status: state.status, ...action.payload.response }
-      })
-      .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
-        state.status = action.payload.status
-      })
-      .addCase(updateProfileUserTC.fulfilled, (state, action) => {
-        state = { ...state, ...action.payload?.params }
-      })
-      .addCase(updateProfileUserStatusTC.fulfilled, (state, action) => {
-        state.status = action.payload.status
-      })
-      .addCase(clearUsers, (state, action) => {
-        console.log('state/clearUsers', current(state))
-        return initialStateUser
-      })
-  },
-  selectors: {
-    selectUserProfile: (sliceState) => sliceState,
-    selectUserProfileStatus: (sliceState) => sliceState.status,
-  },
-})
-
 export const userProfileReducer = userSlice.reducer
+export const userThunks = { getProfileUserTC, getProfileUserStatusTC, updateProfileUserTC, updateProfileUserStatusTC }
 export const {} = userSlice.actions
 export const { selectUserProfile, selectUserProfileStatus } = userSlice.getSelectors(
   (rootState: AppRootState) => rootState.userProfile
@@ -213,28 +192,6 @@ export const { selectUserProfile, selectUserProfileStatus } = userSlice.getSelec
 //     default:
 //       return state
 //   }
-// }
-
-//actions
-// export const setProfileUserAC = (response: ResponseProfileUser) => {
-//   return {
-//     type: 'SET-PROFILE-USER',
-//     response,
-//   } as const
-// }
-
-// export const setProfileUserStatusAC = (status: string) => {
-//   return {
-//     type: 'GET-PROFILE-USER-STATUS',
-//     status,
-//   } as const
-// }
-
-// export const updateProfileUserAC = (params: ResponseProfileUser) => {
-//   return {
-//     type: 'UPDATE-PROFILE-USER',
-//     params,
-//   } as const
 // }
 
 // export const updateProfileUserStatusAC = (status: string) => {

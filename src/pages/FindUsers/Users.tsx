@@ -1,4 +1,4 @@
-import { UsersAll } from 'common/UsersComponents/UsersAll/UsersAll'
+import { UsersAll } from 'components/UsersComponents/UsersAll'
 import React, { useState } from 'react'
 import { usePaginations } from 'state/hooks/usePaginations'
 
@@ -10,7 +10,7 @@ export const Users = () => {
 
   return (
     <UsersAll
-      btnTextInfo={'Full info'}
+      btnText={'Full info'}
       pagesCount={pagesCount}
       currentPage={currentPage}
       setCurrentPageHandle={(page) => setCurrentPageHandle(page)}

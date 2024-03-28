@@ -1,17 +1,17 @@
-import { UserApi } from 'DAL/usersApi'
-import { User } from 'pages/FindUsers/User/User'
 import React, { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { UserApi } from 'common/types'
 import { useAppDispatch } from 'state/hooks/selectors'
-import { getProfileUserTC } from 'state/reducers/userProfileSlice/userProfileSlice'
-import { toggleFollowUserTC, unFollowUserTC } from 'state/reducers/usersSlice/usersSlice'
+import { userThunks } from 'state/reducers/userProfileSlice'
+import { usersThunks } from 'state/reducers/usersSlice'
+import { User } from 'pages/FindUsers/User/User'
 
 export type UsersMapProps = {
-  btnTextInfo: string
+  btnText: string
   user: UserApi
 }
 
-export const UsersMap: React.FC<UsersMapProps> = ({ btnTextInfo, user }) => {
+export const UsersMap: React.FC<UsersMapProps> = ({ btnText, user }) => {
   const { id, followed } = user
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
@@ -20,14 +20,14 @@ export const UsersMap: React.FC<UsersMapProps> = ({ btnTextInfo, user }) => {
 
   const toggleFollowUser = useCallback(() => {
     if (!user.followed) {
-      dispatch(toggleFollowUserTC({ userId: id, followed }))
+      dispatch(usersThunks.toggleFollowUserTC({ userId: id, followed }))
     } else if (user.followed) {
-      dispatch(unFollowUserTC({ userId: id, followed }))
+      dispatch(usersThunks.unFollowUserTC({ userId: id, followed }))
     }
   }, [user.followed, dispatch])
 
   const viewFullProfile = useCallback(() => {
-    dispatch(getProfileUserTC({ userId: id }))
+    dispatch(userThunks.getProfileUserTC({ userId: id }))
     setActiveModal(true)
     setSearchParams({ id: `${id}` })
   }, [dispatch, setActiveModal, setSearchParams])
@@ -43,8 +43,8 @@ export const UsersMap: React.FC<UsersMapProps> = ({ btnTextInfo, user }) => {
       toggleFollowUser={toggleFollowUser}
       btnTextToggle={user.followed ? 'Unfollowed' : 'Follow'}
       disabled={user.followingInProgress === 'loading'}
-      callBack={() => (btnTextInfo === 'Message' ? sendMessage() : viewFullProfile())}
-      btnTexInfo={btnTextInfo}
+      callBack={() => (btnText === 'Message' ? sendMessage() : viewFullProfile())}
+      btnTexInfo={btnText}
     />
   )
 }
