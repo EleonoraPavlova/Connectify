@@ -35,6 +35,7 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
 
   return props.editMode ? (
     <TextField
+      sx={{ width: '150%' }}
       value={title}
       type="text"
       label={props.label}

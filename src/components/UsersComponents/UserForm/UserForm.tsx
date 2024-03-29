@@ -35,10 +35,14 @@ export const UserForm: React.FC<UserFormProps> = memo(
 
     return (
       <Box className={`${s.user} flex-start`} tabIndex={0}>
-        <UserFoto link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto} />
-        <Box ref={formRef}>
-          <List>
+        <UserFoto
+          link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto}
+          additionalClass={s.user__foto}
+        />
+        <Box className={s.user__box} ref={formRef}>
+          <List sx={{ width: '69%' }}>
             <ListItem className={s.user__item}>
+              <Typography sx={{ fontWeight: 'bold' }}>Name:</Typography>
               <EditableSpan
                 title={profileUserUpperFullName}
                 label={'Name'}
@@ -78,9 +82,7 @@ export const UserForm: React.FC<UserFormProps> = memo(
               />
             </ListItem>
             <ListItem className={s.user__item}>
-              <Typography sx={{ paddingRight: '8px' }}>
-                <span style={{ fontWeight: 'bold' }}> Description:</span>
-              </Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Description:</Typography>
               <EditableSpan
                 title={profileUserState.lookingForAJobDescription}
                 label={'Description'}
@@ -93,25 +95,20 @@ export const UserForm: React.FC<UserFormProps> = memo(
               />
             </ListItem>
             <ListItem className={s.user__item}>
-              <Typography sx={{ paddingRight: '8px' }}>
-                <span style={{ fontWeight: 'bold' }}> Looking for a job:</span>
-              </Typography>
+              <Typography sx={{ fontWeight: 'bold' }}>Looking for a job:</Typography>
               <Checkbox
                 name="lookingForAJob"
                 color="success"
                 checked={profileUserState.lookingForAJob}
                 disabled={!editMode}
                 onChange={(e) => collectionOfFormCheckbox(e)}
+                sx={{ width: 'fit-content' }}
               />
             </ListItem>
           </List>
           <List className={s.user__contact}>{<SocialContactsMap />}</List>
         </Box>
-        <Box
-          sx={{
-            height: '100%',
-            alignSelf: 'baseline',
-          }}>
+        <Box sx={{ height: '100%', alignSelf: 'baseline' }}>
           {editMode ? (
             <IconButton
               color={'success'}

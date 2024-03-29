@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import Typography from '@mui/material/Typography'
 import { useSelector } from 'react-redux'
 import { SocialContactsMap } from 'components/SocialContactsMap'
 import { UserFoto } from 'components/UsersComponents/UserFoto'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
+import { Typography } from '@mui/material'
 
 type ModalProps = {
   activeModal: boolean

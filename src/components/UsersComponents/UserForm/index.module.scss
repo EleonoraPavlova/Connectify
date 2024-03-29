@@ -1,9 +1,19 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .user {
   padding: 30px 0 50px 0;
+  gap: 0;
+  &__foto {
+    margin-right: 40px;
+  }
+  &__box {
+    display: flex;
+    flex-direction: column;
+    width: 69%;
+  }
   &__item {
-    gap: 50px;
+    display: grid !important;
+    grid-template-columns: 36% 64%;
   }
   &__name {
     .MuiTypography-root {
@@ -17,8 +27,9 @@
   }
   &__contact {
     display: flex;
+    width: 0;
     align-items: center;
     height: 50px;
-    gap: 15px;
+    gap: 10px;
   }
 }
