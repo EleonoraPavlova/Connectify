@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/social-net/static/css/main.d3009ebc.css",
-    "main.js": "/social-net/static/js/main.88344082.js",
+    "main.css": "/social-net/static/css/main.b5171725.css",
+    "main.js": "/social-net/static/js/main.4b092a93.js",
     "static/js/685.326956cf.chunk.js": "/social-net/static/js/685.326956cf.chunk.js",
     "static/media/website.png": "/social-net/static/media/website.d7a6f9406eb8ba1c3361.png",
     "index.html": "/social-net/index.html"
   },
   "entrypoints": [
-    "static/css/main.d3009ebc.css",
-    "static/js/main.88344082.js"
+    "static/css/main.b5171725.css",
+    "static/js/main.4b092a93.js"
   ]
 }
