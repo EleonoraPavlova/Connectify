@@ -1,14 +1,13 @@
 import React, { memo } from 'react'
-import './index.scss'
+import { useSelector } from 'react-redux'
+import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
 import { useNavigate } from 'react-router-dom'
+import './index.scss'
 import Box from '@mui/material/Box'
+import { UserFoto } from 'components/UsersComponents/UserFoto'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import { useSelector } from 'react-redux'
 import { SocialContactsMap } from 'components/SocialContactsMap'
-import { UserFoto } from 'components/UsersComponents/UserFoto'
-import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
-import { Typography } from '@mui/material'
 
 type ModalProps = {
   activeModal: boolean
@@ -20,6 +19,7 @@ export const Modal: React.FC<ModalProps> = memo(({ activeModal, setActiveModal, 
   const profileUser = useSelector(selectUserProfile)
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const navigate = useNavigate()
+
   let profileUserUpper =
     profileUser && profileUser.fullName ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1) : ''
 
@@ -44,33 +44,28 @@ export const Modal: React.FC<ModalProps> = memo(({ activeModal, setActiveModal, 
           <Box className="modal__mainInfo">
             <List className="modal__data">
               <ListItem className="modal__data-name">
-                {' '}
-                <Typography sx={{ fontWeigth: 'bold' }}> {profileUserUpper}</Typography>{' '}
+                <Box sx={{ fontWeight: 'bold' }}> {profileUserUpper}</Box>
               </ListItem>
               <ListItem>
-                <Typography>
-                  {' '}
-                  <span className="modal__data-span"> Id: </span> {profileUser.userId}{' '}
-                </Typography>
+                <div>
+                  <span className="modal__data-span"> Id: </span> {profileUser.userId}
+                </div>
               </ListItem>
               <ListItem>
-                <Typography>
-                  {' '}
-                  <span className="modal__data-span"> Looking for a job: </span> {profileUser.lookingForAJob}{' '}
-                </Typography>
+                <div>
+                  <span className="modal__data-span"> Looking for a job: </span> {profileUser.lookingForAJob}
+                </div>
               </ListItem>
               <ListItem>
-                <Typography>
-                  {' '}
-                  <span className="modal__data-span">Description: </span> {profileUser.lookingForAJobDescription}{' '}
-                </Typography>
+                <div>
+                  <span className="modal__data-span"> Description: </span> {profileUser.lookingForAJobDescription}
+                </div>
               </ListItem>
               <ListItem className="modal__data-status">
-                <Typography>
-                  {' '}
+                <div>
                   <span className="modal__data-span">Status: </span>
-                  {profileUser.status}{' '}
-                </Typography>
+                  {profileUser.status}
+                </div>
               </ListItem>
             </List>
             <List className="modal__contact">{<SocialContactsMap />}</List>

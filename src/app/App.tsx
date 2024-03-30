@@ -11,7 +11,7 @@ import { appThunks, selectAppInitialized } from 'BLL/reducers/appSlice'
 import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { Header } from 'components/Header'
 import { Nav } from 'components/Nav'
-import { RoutesComponent } from 'features/routes'
+import { RoutesComponent } from 'features/routes/RoutesComponent'
 
 const App = () => {
   let initialized = useSelector(selectAppInitialized)

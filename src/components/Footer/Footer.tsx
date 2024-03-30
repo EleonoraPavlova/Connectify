@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.scss'
-import { Logo } from '../Logo/Logo'
+import { Logo } from 'components/Logo'
 import Typography from '@mui/material/Typography'
 
 export const Footer = () => {

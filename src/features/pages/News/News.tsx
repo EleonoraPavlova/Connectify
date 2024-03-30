@@ -1,11 +1,9 @@
 import React from 'react'
-import './index.scss'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { Box, Typography } from '@mui/material'
 
 export const News = () => {
   return (
-    <Box className="news">
+    <Box sx={{ padding: '20px' }}>
       <Typography variant="h6">This is news page</Typography>
     </Box>
   )

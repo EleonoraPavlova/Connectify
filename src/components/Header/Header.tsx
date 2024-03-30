@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
 import './index.scss'
-import Typography from '@mui/material/Typography'
 import { useSelector } from 'react-redux'
 import { Button } from 'components/Button'
 import { authThunks, selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
 import { useAppDispatch } from 'common/hooks/selectors'
 import { Logo } from 'components/Logo'
+import { Typography } from '@mui/material'
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)

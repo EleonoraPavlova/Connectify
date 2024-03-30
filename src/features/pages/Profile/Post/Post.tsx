@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { UserApi } from 'common/types'
 import { useAppDispatch } from 'common/hooks/selectors'
 import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'BLL/reducers/usersSlice'
 import { Friend } from 'features/pages/Friends/Friend'
+import { Typography } from '@mui/material'
 
 type PostProps = {
   item: UserApi

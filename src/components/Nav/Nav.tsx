@@ -1,33 +1,34 @@
 import React from 'react'
 import './index.scss'
 import { NavLink } from 'react-router-dom'
+import { List, ListItem } from '@mui/material'
 
 export const Nav = () => {
   return (
     <nav className="nav">
-      <ul>
-        <li className="nav__item">
-          <NavLink to="/"> Profile</NavLink>{' '}
-        </li>
-        <li className="nav__item">
+      <List>
+        <ListItem className="nav__item">
+          <NavLink to="/"> Profile</NavLink>
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/dialogs">Dialogs</NavLink>
-        </li>
-        <li className="nav__item">
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/friends">Friends</NavLink>
-        </li>
-        <li className="nav__item">
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/findUsers"> Find users</NavLink>
-        </li>
-        <li className="nav__item">
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/news">News</NavLink>
-        </li>
-        <li className="nav__item">
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/music">Music</NavLink>
-        </li>
-        <li className="nav__item">
+        </ListItem>
+        <ListItem className="nav__item">
           <NavLink to="/settings">Settings</NavLink>
-        </li>
-      </ul>
+        </ListItem>
+      </List>
     </nav>
   )
 }

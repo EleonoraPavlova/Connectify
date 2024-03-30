@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './index.scss'
-import Typography from '@mui/material/Typography'
 import { useSelector } from 'react-redux'
 import { UsersAll } from 'components/UsersComponents/UsersAll'
 import { selectAppStatus } from 'BLL/reducers/appSlice'
 import { usePaginations } from 'common/hooks/usePaginations'
+import Typography from '@mui/material/Typography'
 
 export const Friends = () => {
   let memoPage = sessionStorage.getItem('friends')

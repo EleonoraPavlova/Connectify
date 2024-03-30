@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import './index.scss'
 import { NavLink } from 'react-router-dom'
-import Typography from '@mui/material/Typography'
+import { Typography } from '@mui/material'
 
 type LogoProps = {
   img: string

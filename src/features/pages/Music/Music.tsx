@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.scss'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import { Typography } from '@mui/material'
 
 export const Music = () => {
   return (
