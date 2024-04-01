@@ -1,6 +1,6 @@
+import React, { useState } from 'react'
 import { usePaginations } from 'common/hooks/usePaginations'
 import { UsersAll } from 'components/UsersComponents/UsersAll'
-import React, { useState } from 'react'
 
 export const Users = () => {
   let memoPage = sessionStorage.getItem('users')

@@ -20,6 +20,10 @@ type UsersProps = {
 export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
+  const idFromSearchParams = searchParams.get('id')
+
+  console.log('idFromSearchParams', idFromSearchParams)
+
   const isLoader = useSelector(selectUsersIsLoader)
   const usersResponse = useSelector(selectUsersItems)
 
@@ -27,31 +31,28 @@ export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCur
     return <UsersMap btnText={btnText} key={u.id} user={u} />
   })
 
+  // debugger
   return (
     <>
-      {isLoader ? (
-        <Loader />
-      ) : (
-        <>
-          <Box className="usersAll">
-            <Box>
-              <Box className="usersAll__list">{usersMap}</Box>
-              <Box className="usersAll__wrap-button">
-                <PaginationsCustom
-                  pagesCount={pagesCount}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPageHandle}
-                />
-              </Box>
-            </Box>
+      <Box className="usersAll">
+        {isLoader && <Loader />}
+        <Box>
+          <Box className="usersAll__list">{usersMap}</Box>
+          <Box className="usersAll__wrap-button">
+            <PaginationsCustom
+              pagesCount={pagesCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPageHandle}
+            />
           </Box>
-          <Modal
-            activeModal={!!searchParams.get('id')}
-            setActiveModal={setActiveModal}
-            setSearchParams={setSearchParams}
-          />
-        </>
-      )}
+        </Box>
+      </Box>
+      <Modal
+        idFromSearchParams={idFromSearchParams}
+        activeModal={!!searchParams.get('id')}
+        setActiveModal={setActiveModal}
+        setSearchParams={setSearchParams}
+      />
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { Dialogs } from 'features/pages/Dialogs/Dialogs'
 import { UserDialogs } from 'features/pages/Dialogs/UserDialogs'
-import { Users } from 'features/pages/FindUsers'
+import { Users } from 'features/pages/FindUsers/'
 import { Friends } from 'features/pages/Friends'
 import { Login } from 'features/pages/Login'
 import { Music } from 'features/pages/Music/Music'
