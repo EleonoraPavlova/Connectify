@@ -144,7 +144,6 @@ const toggleFollowUserTC = createAsyncThunk(
     try {
       const res = await followApi.followTo(userId)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(toggleFollowUserAC({ id: userId, followed }))
         dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
         return { id: userId, followed }
       } else {

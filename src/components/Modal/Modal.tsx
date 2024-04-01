@@ -10,6 +10,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import { useAppDispatch } from 'common/hooks/selectors'
+import { replaceRussianLetters } from 'common/utils/translator'
 
 type ModalProps = {
   idFromSearchParams: string | null
@@ -24,16 +25,14 @@ export const Modal: React.FC<ModalProps> = memo(
     const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    console.log('idFromSearchParams', idFromSearchParams)
 
-    let profileUserUpper =
+    let upperName =
       profileUser && profileUser.fullName ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1) : ''
 
     useEffect(() => {
       if (idFromSearchParams) {
         dispatch(userThunks.getProfileUserTC({ userId: Number(idFromSearchParams) }))
       }
-      return () => console.log('MODAL_DIE')
     }, [])
 
     const closeModal = () => {
@@ -57,7 +56,7 @@ export const Modal: React.FC<ModalProps> = memo(
             <Box className="modal__mainInfo">
               <List className="modal__data">
                 <ListItem className="modal__data-name">
-                  <Typography sx={{ fontWeight: 'bold' }}> {profileUserUpper}</Typography>
+                  <Typography sx={{ fontWeight: 'bold' }}> {replaceRussianLetters(upperName)}</Typography>
                 </ListItem>
                 <ListItem>
                   <Typography>
@@ -71,13 +70,14 @@ export const Modal: React.FC<ModalProps> = memo(
                 </ListItem>
                 <ListItem>
                   <Typography>
-                    <span className="modal__data-span"> Description: </span> {profileUser.lookingForAJobDescription}
+                    <span className="modal__data-span"> Description: </span>{' '}
+                    {replaceRussianLetters(profileUser.lookingForAJobDescription)}
                   </Typography>
                 </ListItem>
                 <ListItem className="modal__data-status">
                   <Typography>
                     <span className="modal__data-span">Status: </span>
-                    {profileUser.status}
+                    {replaceRussianLetters(profileUser.status)}
                   </Typography>
                 </ListItem>
               </List>

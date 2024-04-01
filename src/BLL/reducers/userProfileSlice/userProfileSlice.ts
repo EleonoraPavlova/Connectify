@@ -8,7 +8,7 @@ import { handleServerAppError, handleServerNetworkError } from 'common/utils/err
 import { switchLoaderAC } from '../usersSlice'
 import { AppRootState } from 'BLL/store'
 
-const initialUser: ExtendedInitialResponseProfileUser = {
+export const initialUser: ExtendedInitialResponseProfileUser = {
   userId: 0,
   lookingForAJob: false,
   lookingForAJobDescription: '',
