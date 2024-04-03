@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { UserForm } from '../UserForm'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
@@ -8,8 +8,9 @@ import { ExtendedInitialResponseProfileUser } from 'common/types'
 
 export const UserInfo = () => {
   const profileUser = useSelector(selectUserProfile)
+  console.log('profileUser', profileUser)
   const [profileUserState, setProfileUserState] = useState<ExtendedInitialResponseProfileUser>(profileUser)
-
+  console.log('profileUserState', profileUserState)
   const meId = useSelector(selectAppMeId)
   const dispatch = useAppDispatch()
 
@@ -21,20 +22,12 @@ export const UserInfo = () => {
     setProfileUserState(profileUser)
   }, [profileUser])
 
-  const updateProfileUser = () => {
-    dispatch(userThunks.updateProfileUserTC({ params: profileUserState }))
-  }
-
-  const updateProfileUserStatus = () => {
-    dispatch(userThunks.updateProfileUserStatusTC({ status: profileUserState.status }))
-  }
-
   return (
     <UserForm
       profileUserState={profileUserState}
       setProfileUserState={setProfileUserState}
-      updateProfileUser={updateProfileUser}
-      updateProfileUserStatus={updateProfileUserStatus}
+      // updateProfileUser={updateProfileUser}
+      // updateProfileUserStatus={updateProfileUserStatus}
     />
   )
 }

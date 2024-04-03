@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import './index.scss'
 import Box from '@mui/material/Box'
 import { PaginationsCustom } from 'components/PaginationsCustom'
 import { UserApi } from 'common/types'
@@ -22,8 +21,6 @@ export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCur
   let [searchParams, setSearchParams] = useSearchParams()
   const idFromSearchParams = searchParams.get('id')
 
-  console.log('idFromSearchParams', idFromSearchParams)
-
   const isLoader = useSelector(selectUsersIsLoader)
   const usersResponse = useSelector(selectUsersItems)
 
@@ -31,14 +28,13 @@ export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCur
     return <UsersMap btnText={btnText} key={u.id} user={u} />
   })
 
-  // debugger
   return (
     <>
-      <Box className="usersAll">
+      <Box sx={{ padding: '20px' }}>
         {isLoader && <Loader />}
         <Box>
-          <Box className="usersAll__list">{usersMap}</Box>
-          <Box className="usersAll__wrap-button">
+          <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '60px' }}>{usersMap}</Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <PaginationsCustom
               pagesCount={pagesCount}
               currentPage={currentPage}

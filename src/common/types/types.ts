@@ -60,6 +60,11 @@ export type UserApi = {
   likeCounter: number
 }
 
+export type ParamsProfileUser = {
+  userId: number
+  isLoader?: boolean
+}
+
 //social
 export type SocialContacts = {
   [key: string]: string

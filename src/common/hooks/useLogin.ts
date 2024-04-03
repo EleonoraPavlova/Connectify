@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './selectors'
 import { LoginParams } from 'common/types'
-import { handleServerNetworkError } from 'common/utils/error'
+import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { authThunks } from 'BLL/reducers/authSlice'
 
 export function useLogin() {

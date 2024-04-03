@@ -1,14 +1,16 @@
 import { usersApi } from 'DAL/usersApi'
 import { followApi } from 'DAL/followApi'
-import { PayloadAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { ResponseUsers, UserStatuses } from 'common/types'
 import { setAppStatusAC } from '../appSlice'
 import { replaceRussianLetters } from 'common/utils/translator'
-import { handleServerAppError, handleServerNetworkError } from 'common/utils/error'
+import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
+import { handleServerAppError } from 'common/utils/handleServerAppError'
 import { AppRootState } from 'BLL/store'
+import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
 type ResponseDomain = ResponseUsers & {
   isLoader: boolean
@@ -25,8 +27,8 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: initialUsers,
   reducers: {
-    switchLoaderAC(state, action: PayloadAction<{ isLoader: boolean }>) {
-      state.isLoader = action.payload.isLoader
+    switchLoaderAC(state, action: PayloadAction<{ isLoader: boolean | undefined }>) {
+      if (action.payload.isLoader) state.isLoader = action.payload.isLoader
     },
     setFollowingInProgressAC(state, action: PayloadAction<{ followingInProgress: UserStatuses; userId: number }>) {
       const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
@@ -73,7 +75,7 @@ const usersSlice = createSlice({
   },
 })
 
-const setResponseTC = createAsyncThunk(
+const setResponseTC = createAppAsyncThunk(
   'users/setResponse',
   async (
     params: {
@@ -86,7 +88,7 @@ const setResponseTC = createAsyncThunk(
   ) => {
     const { pageSize, currentPage, friend = false, isLoader = false } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ statusApp: 'loading' }))
+    dispatch(setAppStatusAC({ status: 'loading' }))
 
     try {
       const res = await usersApi.getUsers(pageSize, currentPage, friend)
@@ -96,11 +98,11 @@ const setResponseTC = createAsyncThunk(
           u.status = replaceRussianLetters(u.status)
         })
         // dispatch(setResponseAC({ response: res.data }))
-        dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
+        dispatch(setAppStatusAC({ status: 'succeeded' }))
         return { response: res.data }
       } else {
-        dispatch(setAppStatusAC({ statusApp: 'failed' }))
-        handleServerAppError(res.data, dispatch)
+        dispatch(setAppStatusAC({ status: 'failed' }))
+        handleServerAppError(res.data.error, dispatch)
         return rejectWithValue({})
       }
     } catch (err: unknown) {
@@ -113,7 +115,7 @@ const setResponseTC = createAsyncThunk(
   }
 )
 
-const unFollowUserTC = createAsyncThunk(
+const unFollowUserTC = createAppAsyncThunk(
   'users/unFollowUser',
   async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
     const { userId, followed } = params
@@ -125,7 +127,7 @@ const unFollowUserTC = createAsyncThunk(
         dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
         return { id: userId, followed }
       } else {
-        handleServerAppError(res.data, dispatch)
+        handleServerAppError(res.data.messages, dispatch)
         dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
       }
     } catch (err) {
@@ -136,7 +138,7 @@ const unFollowUserTC = createAsyncThunk(
   }
 )
 
-const toggleFollowUserTC = createAsyncThunk(
+const toggleFollowUserTC = createAppAsyncThunk(
   'users/toggleFollowUser',
   async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
     const { userId, followed } = params
@@ -147,7 +149,7 @@ const toggleFollowUserTC = createAsyncThunk(
         dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
         return { id: userId, followed }
       } else {
-        handleServerAppError(res.data, dispatch)
+        handleServerAppError(res.data.messages, dispatch)
         dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
         return rejectWithValue(null)
       }

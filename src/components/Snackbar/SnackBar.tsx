@@ -19,7 +19,7 @@ export function SnackBar() {
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') return
     dispatch(setAppErrorAC({ error: null }))
-    dispatch(setAppStatusAC({ statusApp: 'idle' }))
+    dispatch(setAppStatusAC({ status: 'idle' }))
   }
 
   if (!error) return null

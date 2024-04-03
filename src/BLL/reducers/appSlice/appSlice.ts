@@ -1,16 +1,18 @@
 import { authApi } from 'DAL/authApi'
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { clearMeId } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { setIsLoggedInAC } from '../authSlice'
-import { handleServerAppError, handleServerNetworkError } from 'common/utils/error'
+import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { AppRootState } from 'BLL/store'
+import { handleServerAppError } from 'common/utils/handleServerAppError'
+import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
 type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 
 type AppInitial = {
-  statusApp: RequestStatus
+  status: RequestStatus
   error: string | null
   success: string | null
   initialized: boolean
@@ -18,7 +20,7 @@ type AppInitial = {
 }
 
 const appInitial: AppInitial = {
-  statusApp: 'idle',
+  status: 'idle',
   error: null,
   success: null,
   initialized: false, //(проверка куки, настроек пользователя)
@@ -29,8 +31,8 @@ const appSlice = createSlice({
   name: 'app',
   initialState: appInitial,
   reducers: {
-    setAppStatusAC(state, action: PayloadAction<{ statusApp: RequestStatus }>) {
-      state.statusApp = action.payload.statusApp
+    setAppStatusAC(state, action: PayloadAction<{ status: RequestStatus }>) {
+      state.status = action.payload.status
     },
     setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
       state.error = action.payload.error
@@ -52,7 +54,7 @@ const appSlice = createSlice({
       })
   },
   selectors: {
-    selectAppStatus: (sliceState) => sliceState.statusApp,
+    selectAppStatus: (sliceState) => sliceState.status,
     selectAppError: (sliceState) => sliceState.error,
     selectAppSuccess: (sliceState) => sliceState.success,
     selectAppInitialized: (sliceState) => sliceState.initialized,
@@ -60,19 +62,19 @@ const appSlice = createSlice({
   },
 })
 
-const setAppInitializeTC = createAsyncThunk(
+const setAppInitializeTC = createAppAsyncThunk<{ initialized: boolean }, void>(
   `${appSlice.name}/appInitialize`,
   async (params, { dispatch, rejectWithValue }) => {
-    dispatch(setAppStatusAC({ statusApp: 'loading' }))
+    dispatch(setAppStatusAC({ status: 'loading' }))
     try {
       const res = await authApi.authMe()
-      // анонимный пользователь или авториз
+      // anonymous user or authorization
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(setIsLoggedInAC({ isLoggedIn: true }))
         dispatch(setMeIdAC({ meId: res.data.data.id }))
-        dispatch(setAppStatusAC({ statusApp: 'succeeded' }))
+        dispatch(setAppStatusAC({ status: 'succeeded' }))
       } else {
-        handleServerAppError(res.data, dispatch)
+        handleServerAppError(res.data.messages, dispatch)
       }
       return { initialized: true }
     } catch (err: unknown) {
