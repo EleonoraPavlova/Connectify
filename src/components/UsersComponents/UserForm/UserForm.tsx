@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useRef } from 'react'
 import s from './index.module.scss'
 import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
@@ -13,8 +13,6 @@ import { useUserForm } from 'common/hooks/useUserForm'
 type UserFormProps = {
   profileUserState: ExtendedInitialResponseProfileUser
   setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
-  // updateProfileUser: () => void
-  // updateProfileUserStatus: () => void
 }
 
 export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setProfileUserState }) => {
@@ -24,9 +22,11 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
       : ''
 
   const mocPhoto = 'https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg'
+  const formRef = useRef<HTMLDivElement | null>(null)
 
   const { editMode, setEditMode, collectionOfForm, collectionOfFormCheckbox, saveForm } = useUserForm(
     profileUserState,
+    formRef,
     setProfileUserState
   )
 
@@ -36,7 +36,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
         link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto}
         additionalClass={s.user__foto}
       />
-      <Box className={s.user__box}>
+      <Box className={s.user__box} ref={formRef}>
         <List sx={{ width: '69%' }}>
           <ListItem className={s.user__item}>
             <Typography sx={{ fontWeight: 'bold' }}>Name:</Typography>

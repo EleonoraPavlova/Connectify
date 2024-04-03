@@ -1,14 +1,15 @@
 import { ExtendedInitialResponseProfileUser } from 'common/types'
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useAppDispatch } from './selectors'
-import { userThunks } from 'BLL/reducers/userProfileSlice'
+import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
+import { useSelector } from 'react-redux'
 
 export function useUserForm(
   profileUserState: ExtendedInitialResponseProfileUser,
+  formRef: React.MutableRefObject<HTMLDivElement | null>,
   setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
-  // updateProfileUser: () => void,
-  // updateProfileUserStatus: () => void
 ) {
+  const profileUser = useSelector(selectUserProfile)
   const [editMode, setEditMode] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
@@ -26,19 +27,10 @@ export function useUserForm(
     }))
   }
 
-  // useEffect(() => {
-  //   const body = document.querySelector('body')
-  //   if (editMode) {
-  //     body?.addEventListener('click', handleContainerClick)
-  //   }
-  // }, [editMode])
-
   const saveForm = useCallback(() => {
     if (!editMode) {
       setEditMode(true)
     } else {
-      // updateProfileUser()
-      // updateProfileUserStatus()
       setEditMode(false)
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
@@ -47,36 +39,25 @@ export function useUserForm(
     }
   }, [editMode, profileUserState, setProfileUserState, dispatch])
 
-  // useEffect(() => {
-  //   dispatch(userThunks.updateProfileUserTC({ params: profileUser }))
-  //   console.log('profileUserState', profileUserState) //сюда приходит инфа пачка со статусом
-  // }, [profileUserState])
+  useEffect(() => {
+    const globalBlurHandler = (e: MouseEvent) => {
+      e.preventDefault()
+      if (formRef) {
+        if (formRef.current && !formRef.current.contains(e.target as Node)) {
+          setEditMode(false)
+          setProfileUserState(profileUser)
+        }
+      }
+    }
+    document.addEventListener('click', globalBlurHandler)
 
-  // const formRef = useRef(null)
-  // const handleContainerClick = (e: Event) => {
-  //   e.preventDefault()
-  //   const currentElement = e.target
-
-  //   if (formRef.current) {
-  //     // @ts-ignore
-  //     const isContain = formRef.current.contains(currentElement)
-
-  //     if (!isContain) {
-  //       setEditMode(false)
-  //       const updatedProfileUserState = { ...profileUserState }
-  //       setProfileUserState((prevState) => ({ ...prevState }))
-  //dispatch(userThunks.updateProfileUserTC({ params: updatedProfileUserState }))
-  //dispatch(userThunks.updateProfileUserStatusTC({ status: updatedProfileUserState.status }))
-  // debugger
-  // const body = document.querySelector('body')
-  // body?.removeEventListener('click', handleContainerClick)
-  //   }
-  //    }
-  // }
+    return () => {
+      document.removeEventListener('click', globalBlurHandler)
+    }
+  })
 
   return {
     editMode,
-    // formRef,
     setEditMode,
     collectionOfForm,
     collectionOfFormCheckbox,
