@@ -34,8 +34,8 @@ export function useUserForm(
       setEditMode(false)
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
-      dispatch(userThunks.updateProfileUserTC({ params: updatedProfileUserState }))
-      dispatch(userThunks.updateProfileUserStatusTC({ status: updatedProfileUserState.status }))
+      dispatch(userThunks.updateProfileUserTC({ params: updatedProfileUserState, isLoader: false }))
+      dispatch(userThunks.updateProfileUserStatusTC({ status: updatedProfileUserState.status, isLoader: false }))
     }
   }, [editMode, profileUserState, setProfileUserState, dispatch])
 

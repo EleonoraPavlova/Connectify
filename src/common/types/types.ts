@@ -12,14 +12,20 @@ export type ResponseFollow<Data = {}> = {
 }
 
 export type ResponseUsers = {
+  error: string
   items: UserApi[]
   totalCount: number
-  error: string
 }
 
 export type ExtendedInitialResponseProfileUser = ResponseProfileUser & {
   status: string
   aboutMe: string | null
+}
+
+export type QueryParamsGetUsers = {
+  count: number //count - page size
+  page: number // currentPage
+  friend?: boolean
 }
 
 //profile
@@ -62,7 +68,7 @@ export type UserApi = {
 
 export type ParamsProfileUser = {
   userId: number
-  isLoader?: boolean
+  isLoader: boolean
 }
 
 //social

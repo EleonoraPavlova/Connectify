@@ -31,7 +31,7 @@ export const Modal: React.FC<ModalProps> = memo(
 
     useEffect(() => {
       if (idFromSearchParams) {
-        dispatch(userThunks.getProfileUserTC({ userId: Number(idFromSearchParams) }))
+        dispatch(userThunks.getProfileUserTC({ userId: Number(idFromSearchParams), isLoader: false }))
       }
     }, [])
 

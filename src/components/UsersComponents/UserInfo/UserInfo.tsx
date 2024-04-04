@@ -15,7 +15,7 @@ export const UserInfo = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (meId) dispatch(userThunks.getProfileUserTC({ userId: meId }))
+    if (meId) dispatch(userThunks.getProfileUserTC({ userId: meId, isLoader: false }))
   }, [dispatch, meId])
 
   useEffect(() => {

@@ -31,17 +31,23 @@ export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCur
   return (
     <>
       <Box sx={{ padding: '20px' }}>
-        {isLoader && <Loader />}
-        <Box>
-          <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '60px' }}>{usersMap}</Box>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <PaginationsCustom
-              pagesCount={pagesCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPageHandle}
-            />
+        {/* if found id in url */}
+        {isLoader && !searchParams.get('id') ? (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+            <Loader />
           </Box>
-        </Box>
+        ) : (
+          <Box>
+            <Box sx={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '60px' }}>{usersMap}</Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <PaginationsCustom
+                pagesCount={pagesCount}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPageHandle}
+              />
+            </Box>
+          </Box>
+        )}
       </Box>
       <Modal
         idFromSearchParams={idFromSearchParams}

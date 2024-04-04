@@ -4,7 +4,7 @@ import { PayloadAction, createSlice, current } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
-import { ResponseUsers, UserStatuses } from 'common/types'
+import { QueryParamsGetUsers, ResponseUsers, UserStatuses } from 'common/types'
 import { setAppStatusAC } from '../appSlice'
 import { replaceRussianLetters } from 'common/utils/translator'
 import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
@@ -14,6 +14,11 @@ import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
 type ResponseDomain = ResponseUsers & {
   isLoader: boolean
+}
+
+type ArgFollowUnFollow = {
+  userId: number
+  followed: boolean
 }
 
 const initialUsers: ResponseDomain = {
@@ -27,8 +32,8 @@ const usersSlice = createSlice({
   name: 'users',
   initialState: initialUsers,
   reducers: {
-    switchLoaderAC(state, action: PayloadAction<{ isLoader: boolean | undefined }>) {
-      if (action.payload.isLoader) state.isLoader = action.payload.isLoader
+    switchLoaderAC(state, action: PayloadAction<{ isLoader: boolean }>) {
+      state.isLoader = action.payload.isLoader
     },
     setFollowingInProgressAC(state, action: PayloadAction<{ followingInProgress: UserStatuses; userId: number }>) {
       const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
@@ -56,12 +61,12 @@ const usersSlice = createSlice({
         }
       })
       .addCase(unFollowUserTC.fulfilled, (state, action) => {
-        const userToUpdate = state.items.find((u) => u.id === action.payload?.id)
-        if (userToUpdate) userToUpdate.followed = !action.payload?.followed
+        const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
+        if (userToUpdate) userToUpdate.followed = !action.payload.followed
       })
       .addCase(toggleFollowUserTC.fulfilled, (state, action) => {
-        const userToUpdate = state.items.find((u) => u.id === action.payload?.id)
-        if (userToUpdate) userToUpdate.followed = !action.payload?.followed
+        const userToUpdate = state.items.find((u) => u.id === action.payload.userId)
+        if (userToUpdate) userToUpdate.followed = !action.payload.followed
       })
       .addCase(clearUsers, (state, action) => {
         console.log('state/clearUsers', current(state))
@@ -75,60 +80,51 @@ const usersSlice = createSlice({
   },
 })
 
-const setResponseTC = createAppAsyncThunk(
-  'users/setResponse',
-  async (
-    params: {
-      pageSize: number
-      currentPage: number
-      friend?: boolean
-      isLoader?: boolean
-    },
-    { dispatch, rejectWithValue }
-  ) => {
-    const { pageSize, currentPage, friend = false, isLoader = false } = params
-    dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ status: 'loading' }))
+const setResponseTC = createAppAsyncThunk<
+  { response: ResponseUsers },
+  { params: QueryParamsGetUsers; isLoader: boolean }
+>(`${usersSlice.name}/setResponse`, async (payload, { dispatch, rejectWithValue }) => {
+  const { isLoader } = payload
+  dispatch(switchLoaderAC({ isLoader: !isLoader }))
+  dispatch(setAppStatusAC({ status: 'loading' }))
 
-    try {
-      const res = await usersApi.getUsers(pageSize, currentPage, friend)
-      if (res.data.items.length) {
-        res.data.items.forEach((u) => {
-          u.name = replaceRussianLetters(u.name)
-          u.status = replaceRussianLetters(u.status)
-        })
-        // dispatch(setResponseAC({ response: res.data }))
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
-        return { response: res.data }
-      } else {
-        dispatch(setAppStatusAC({ status: 'failed' }))
-        handleServerAppError(res.data.error, dispatch)
-        return rejectWithValue({})
-      }
-    } catch (err: unknown) {
-      const error: AxiosError = err as AxiosError
-      handleServerNetworkError(error as { message: string }, dispatch)
-      return rejectWithValue({})
-    } finally {
-      dispatch(switchLoaderAC({ isLoader }))
+  try {
+    const res = await usersApi.getUsers(payload.params) // pageSize / current page /friend
+    if (res.data.items.length) {
+      res.data.items.forEach((u) => {
+        u.name = replaceRussianLetters(u.name)
+        u.status = replaceRussianLetters(u.status)
+      })
+      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      return { response: res.data }
+    } else {
+      dispatch(setAppStatusAC({ status: 'failed' }))
+      handleServerAppError(res.data.error, dispatch)
+      return rejectWithValue(null)
     }
+  } catch (err: unknown) {
+    const error: AxiosError = err as AxiosError
+    handleServerNetworkError(error as { message: string }, dispatch)
+    return rejectWithValue(null)
+  } finally {
+    dispatch(switchLoaderAC({ isLoader: isLoader }))
   }
-)
+})
 
-const unFollowUserTC = createAppAsyncThunk(
-  'users/unFollowUser',
-  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
-    const { userId, followed } = params
+const unFollowUserTC = createAppAsyncThunk<ArgFollowUnFollow, ArgFollowUnFollow>(
+  `${usersSlice.name}/unFollowUser`,
+  async (params, { dispatch, rejectWithValue }) => {
+    const { userId } = params
     dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
     try {
       const res = await followApi.unFollowTo(userId)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        // dispatch(toggleFollowUserAC({ id: userId, followed }))
         dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return { id: userId, followed }
+        return params
       } else {
         handleServerAppError(res.data.messages, dispatch)
         dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
+        return rejectWithValue(null)
       }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
@@ -138,16 +134,16 @@ const unFollowUserTC = createAppAsyncThunk(
   }
 )
 
-const toggleFollowUserTC = createAppAsyncThunk(
-  'users/toggleFollowUser',
-  async (params: { userId: number; followed: boolean }, { dispatch, rejectWithValue }) => {
-    const { userId, followed } = params
+const toggleFollowUserTC = createAppAsyncThunk<ArgFollowUnFollow, ArgFollowUnFollow>(
+  `${usersSlice.name}/toggleFollowUser`,
+  async (params, { dispatch, rejectWithValue }) => {
+    const { userId } = params
     dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
     try {
       const res = await followApi.followTo(userId)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
         dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return { id: userId, followed }
+        return params
       } else {
         handleServerAppError(res.data.messages, dispatch)
         dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))

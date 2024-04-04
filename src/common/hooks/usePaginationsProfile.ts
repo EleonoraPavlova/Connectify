@@ -3,22 +3,22 @@ import { useEffect } from 'react'
 import { selectUsersTotalCount, usersThunks } from 'BLL/reducers/usersSlice'
 import { useAppDispatch } from './selectors'
 
-export function usePaginationsProfile(setName: string, currentPage: number, setCurrentPage: (page: number) => void) {
+export function usePaginationsProfile(setName: string, page: number, setCurrentPage: (pageCurr: number) => void) {
   const setPage = () => {
-    return sessionStorage.setItem(setName, currentPage.toString())
+    return sessionStorage.setItem(setName, page.toString())
   }
-  const pageSize = 5
+  const count = 5
   const totalCount = useSelector(selectUsersTotalCount)
-  const pagesCount = Math.ceil(totalCount / pageSize)
+  const pagesCount = Math.ceil(totalCount / count)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(usersThunks.setResponseTC({ pageSize, currentPage, friend: true, isLoader: true }))
+    dispatch(usersThunks.setResponseTC({ params: { count, page, friend: true }, isLoader: false }))
     setPage()
-  }, [dispatch, pagesCount, currentPage])
+  }, [dispatch, pagesCount, page])
 
-  const setCurrentPageHandle = (page: number) => {
-    setCurrentPage(page)
+  const setCurrentPageHandle = (pageCurr: number) => {
+    setCurrentPage(pageCurr)
   }
 
   return {

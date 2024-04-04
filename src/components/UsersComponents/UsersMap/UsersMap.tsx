@@ -27,7 +27,7 @@ export const UsersMap: React.FC<UsersMapProps> = ({ btnText, user }) => {
   }, [user.followed, dispatch])
 
   const viewFullProfile = useCallback(() => {
-    dispatch(userThunks.getProfileUserTC({ userId: id }))
+    dispatch(userThunks.getProfileUserTC({ userId: id, isLoader: false }))
     setActiveModal(true)
     setSearchParams({ id: `${id}` })
   }, [dispatch, setActiveModal, setSearchParams])

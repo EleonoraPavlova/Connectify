@@ -15,7 +15,6 @@ import { switchLoaderAC } from '../usersSlice'
 import { AppRootState } from 'BLL/store'
 import { handleServerAppError } from 'common/utils/handleServerAppError'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
-import { log } from 'console'
 
 export const initialUser: ExtendedInitialResponseProfileUser = {
   userId: 0,
@@ -61,13 +60,13 @@ const userSlice = createSlice({
 const getProfileUserTC = createAppAsyncThunk<{ response: ResponseProfileUser }, ParamsProfileUser>(
   `${userSlice.name}/getProfileUser`,
   async (params, { dispatch, rejectWithValue }) => {
-    const { userId, isLoader = false } = params
+    const { userId, isLoader } = params
 
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
     dispatch(setAppStatusAC({ status: 'loading' }))
     try {
       const res = await userProfileApi.getProfileUser(userId)
-      dispatch(getProfileUserStatusTC({ userId }))
+      dispatch(getProfileUserStatusTC(params))
       dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { response: res.data }
     } catch (err) {
@@ -82,7 +81,7 @@ const getProfileUserTC = createAppAsyncThunk<{ response: ResponseProfileUser }, 
 const getProfileUserStatusTC = createAppAsyncThunk<{ status: string }, ParamsProfileUser>(
   `${userSlice.name}/getProfileUserStatus`,
   async (params, { dispatch, rejectWithValue }) => {
-    const { userId, isLoader = false } = params
+    const { userId, isLoader } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
     dispatch(setAppStatusAC({ status: 'loading' }))
     try {
@@ -91,23 +90,23 @@ const getProfileUserStatusTC = createAppAsyncThunk<{ status: string }, ParamsPro
       return { status: res.data }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
-      return rejectWithValue({})
+      return rejectWithValue(null)
     } finally {
-      dispatch(switchLoaderAC({ isLoader: isLoader }))
+      dispatch(switchLoaderAC({ isLoader }))
     }
   }
 )
 
 const updateProfileUserTC = createAppAsyncThunk<
   ExtendedInitialResponseProfileUser | undefined,
-  { params: ExtendedInitialResponseProfileUser; isLoader?: boolean }
+  { params: ExtendedInitialResponseProfileUser; isLoader: boolean }
 >(`${userSlice.name}/updateProfileUser`, async (payload, { dispatch, getState, rejectWithValue }) => {
-  const { params } = payload
+  const { params, isLoader } = payload
   const state = getState() as AppRootState
   const meId = state.app.meId
   if (!meId) return
 
-  dispatch(switchLoaderAC({ isLoader: !payload.isLoader }))
+  dispatch(switchLoaderAC({ isLoader: !isLoader }))
   dispatch(setAppStatusAC({ status: 'loading' }))
 
   const apiModel: ExtendedInitialResponseProfileUser = {
@@ -129,14 +128,14 @@ const updateProfileUserTC = createAppAsyncThunk<
     handleServerNetworkError(err as { message: string }, dispatch)
     return rejectWithValue(null)
   } finally {
-    dispatch(switchLoaderAC({ isLoader: payload.isLoader }))
+    dispatch(switchLoaderAC({ isLoader }))
   }
 })
 
-const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { status: string; isLoader?: boolean }>(
+const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { status: string; isLoader: boolean }>(
   `${userSlice.name}/updateProfileUserStatus`,
   async (params, { dispatch, rejectWithValue }) => {
-    const { status, isLoader = false } = params
+    const { status, isLoader } = params
 
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
     dispatch(setAppStatusAC({ status: 'loading' }))

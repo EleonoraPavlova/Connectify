@@ -6,26 +6,30 @@ import { useAppDispatch } from './selectors'
 
 export function usePaginations(
   setName: string,
-  currentPage: number,
+  page: number,
   friend: boolean,
-  setCurrentPage: (page: number) => void
+  setCurrentPage: (pageCurr: number) => void
 ) {
-  const setPage = () => {
-    return sessionStorage.setItem(setName, currentPage.toString())
-  }
-  const pageSize = 15
+  const count = 15
   const totalCount = useSelector(selectUsersTotalCount)
-  const pagesCount = Math.ceil(totalCount / pageSize)
+  const pagesCount = Math.ceil(totalCount / count)
   const isLoggedIn = useSelector(selectIsLoggedIn)
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (isLoggedIn) dispatch(usersThunks.setResponseTC({ pageSize, currentPage, friend }))
-    setPage()
-  }, [dispatch, currentPage, friend, isLoggedIn])
+  const getUsers = (page: number) => {
+    dispatch(usersThunks.setResponseTC({ params: { count, page, friend }, isLoader: false }))
+  }
 
-  const setCurrentPageHandle = (page: number) => {
-    setCurrentPage(page)
+  useEffect(() => {
+    if (isLoggedIn) {
+      getUsers(page)
+    }
+  }, [isLoggedIn])
+
+  const setCurrentPageHandle = (pageCurr: number) => {
+    sessionStorage.setItem(setName, page.toString())
+    setCurrentPage(pageCurr)
+    getUsers(pageCurr)
   }
 
   return {
