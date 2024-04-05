@@ -1,7 +1,18 @@
 import { setAppErrorAC, setAppStatusAC } from 'BLL/reducers/appSlice'
+import { isAxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
-export const handleServerNetworkError = (err: { message: string }, dispatch: Dispatch) => {
-  dispatch(setAppErrorAC({ error: err.message ? err.message : 'Some error occurred' })) //вывод серверной ошибки
+//server crashed
+export const handleServerNetworkError = (err: unknown, dispatch: Dispatch): void => {
+  let errorMessage = 'Some error occurred'
+  if (isAxiosError(err)) {
+    errorMessage = err.response?.data?.message || err?.message || errorMessage
+  } else if (err instanceof Error) {
+    errorMessage = `Native error: ${err.message}`
+  } else {
+    errorMessage = JSON.stringify(err)
+  }
+
+  dispatch(setAppErrorAC({ error: errorMessage }))
   dispatch(setAppStatusAC({ status: 'failed' }))
 }

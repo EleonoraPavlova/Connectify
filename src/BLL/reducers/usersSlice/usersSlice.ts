@@ -98,8 +98,8 @@ const setResponseTC = createAppAsyncThunk<
       dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { response: res.data }
     } else {
-      dispatch(setAppStatusAC({ status: 'failed' }))
       handleServerAppError(res.data.error, dispatch)
+      dispatch(setAppStatusAC({ status: 'failed' }))
       return rejectWithValue(null)
     }
   } catch (err: unknown) {

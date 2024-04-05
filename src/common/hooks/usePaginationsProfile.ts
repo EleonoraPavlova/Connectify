@@ -15,7 +15,7 @@ export function usePaginationsProfile(setName: string, page: number, setCurrentP
   useEffect(() => {
     dispatch(usersThunks.setResponseTC({ params: { count, page, friend: true }, isLoader: false }))
     setPage()
-  }, [dispatch, pagesCount, page])
+  }, [dispatch, page])
 
   const setCurrentPageHandle = (pageCurr: number) => {
     setCurrentPage(pageCurr)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import './index.scss'
 import { Box, Pagination, Stack, ThemeProvider, createTheme } from '@mui/material'
 
@@ -9,6 +9,7 @@ type PaginationsCustomProps = {
 }
 
 export const PaginationsCustom: React.FC<PaginationsCustomProps> = ({ pagesCount, currentPage, setCurrentPage }) => {
+  console.log('currentPage', currentPage)
   const theme = createTheme({
     typography: {
       fontFamily: 'Handlee, sans-serif',
@@ -26,9 +27,14 @@ export const PaginationsCustom: React.FC<PaginationsCustomProps> = ({ pagesCount
     },
   })
 
-  const setCurrentPageHandler = (event: React.ChangeEvent<unknown>, page: number) => {
-    setCurrentPage(page)
-  }
+  const setCurrentPageHandler = useCallback(
+    (event: React.ChangeEvent<unknown>, page: number) => {
+      setCurrentPage(page)
+    },
+    [currentPage]
+  )
+
+  if (pagesCount === 0) return null
 
   return (
     <Box className="pagination">

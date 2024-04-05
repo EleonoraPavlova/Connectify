@@ -27,7 +27,7 @@ export function usePaginations(
   }, [isLoggedIn])
 
   const setCurrentPageHandle = (pageCurr: number) => {
-    sessionStorage.setItem(setName, page.toString())
+    sessionStorage.setItem(setName, pageCurr.toString())
     setCurrentPage(pageCurr)
     getUsers(pageCurr)
   }
