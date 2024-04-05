@@ -39,7 +39,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
       <Box className={s.user__box} ref={formRef}>
         <List sx={{ width: '69%' }}>
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold' }}>Name:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Name:</Typography>
             <EditableSpan
               title={profileUserUpperFullName}
               label={'Name'}
@@ -53,7 +53,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
             />
           </ListItem>
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold' }}>Status:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Status:</Typography>
             <EditableSpan
               title={profileUserState.status}
               label={'Status'}
@@ -66,7 +66,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
             />
           </ListItem>
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold' }}>About me:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>About me:</Typography>
             <EditableSpan
               title={profileUserState.aboutMe}
               label={'AboutMe'}
@@ -79,7 +79,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
             />
           </ListItem>
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold' }}>Description:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Description:</Typography>
             <EditableSpan
               title={profileUserState.lookingForAJobDescription}
               label={'Description'}
@@ -92,14 +92,14 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
             />
           </ListItem>
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold' }}>Looking for a job:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Looking for a job:</Typography>
             <Checkbox
               name="lookingForAJob"
               color="success"
               checked={profileUserState.lookingForAJob}
               disabled={!editMode}
               onChange={(e) => collectionOfFormCheckbox(e)}
-              sx={{ width: 'fit-content' }}
+              sx={{ width: 'fit-content', padding: '0' }}
             />
           </ListItem>
         </List>

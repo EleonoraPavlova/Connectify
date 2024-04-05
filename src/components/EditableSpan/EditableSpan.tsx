@@ -35,7 +35,7 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
 
   return props.editMode ? (
     <TextField
-      sx={{ width: '150%' }}
+      sx={{ width: '120%' }}
       value={title}
       type="text"
       label={props.label}
@@ -46,6 +46,9 @@ export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
       variant="outlined"
       onKeyDown={onKeyDownEditHandler}
       className={props.additionalClass}
+      inputProps={{
+        style: { padding: '10px 9px' },
+      }}
     />
   ) : (
     <Typography sx={{ paddingRight: '8px' }} variant="h6">

@@ -14,7 +14,7 @@ export const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Profile />} />
-      <Route path="/dialogs" element={<Dialogs welcome="Hi, my friends!" />} />
+      <Route path="/dialogs" element={<Dialogs />} />
       <Route path="/friends" element={<Friends />} />
       <Route path="/findUsers" element={<Users />} />
       <Route path="/news" element={<News />} />
