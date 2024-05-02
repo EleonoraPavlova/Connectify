@@ -6,12 +6,12 @@ import { usersThunks } from 'BLL/reducers/usersSlice'
 import { userThunks } from 'BLL/reducers/userProfileSlice'
 import { User } from 'features/pages/FindUsers/User'
 
-export type UsersMapProps = {
+export type Props = {
   btnText: string
   user: UserApi
 }
 
-export const UsersMap: React.FC<UsersMapProps> = ({ btnText, user }) => {
+export const UsersMap: React.FC<Props> = ({ btnText, user }) => {
   const { id, followed } = user
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()

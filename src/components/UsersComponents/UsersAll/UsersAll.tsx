@@ -9,14 +9,14 @@ import { UsersMap } from '../UsersMap'
 import { selectUsersIsLoader, selectUsersItems } from 'BLL/reducers/usersSlice'
 import { Modal } from 'components/Modal'
 
-type UsersProps = {
+type Props = {
   pagesCount: number
   currentPage: number
   setCurrentPageHandle: (page: number) => void
   btnText: string
 }
 
-export const UsersAll: React.FC<UsersProps> = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }) => {
+export const UsersAll: React.FC<Props> = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
   const idFromSearchParams = searchParams.get('id')
