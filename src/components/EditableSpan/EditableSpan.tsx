@@ -1,7 +1,7 @@
 import { TextField, Typography } from '@mui/material'
 import React, { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react'
 
-type EditableSpanProps = {
+type Props = {
   title: string | undefined
   label: string
   error?: boolean | undefined
@@ -14,7 +14,7 @@ type EditableSpanProps = {
   onChange: (title: string) => void
 }
 
-export const EditableSpan: React.FC<EditableSpanProps> = memo((props) => {
+export const EditableSpan: React.FC<Props> = memo((props) => {
   let [title, setTitle] = useState<string | undefined>(props.title)
 
   useEffect(() => {

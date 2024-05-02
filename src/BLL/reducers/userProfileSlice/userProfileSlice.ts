@@ -2,13 +2,7 @@ import { userProfileApi } from 'DAL/profileApi'
 import { createSlice, current } from '@reduxjs/toolkit'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
-import {
-  ExtendedInitialResponseProfileUser,
-  ParamsProfileUser,
-  ProfileUserContacts,
-  ResponseProfileUser,
-  UserPhotos,
-} from 'common/types'
+import { ExtendedInitialResponseProfileUser, ProfileUserContacts, ResponseProfileUser, UserPhotos } from 'common/types'
 import { setAppStatusAC, setAppSuccessAC } from '../appSlice'
 import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { switchLoaderAC } from '../usersSlice'
@@ -26,6 +20,8 @@ export const initialUser: ExtendedInitialResponseProfileUser = {
   status: '',
   aboutMe: 'About me',
 }
+
+type ParamsProfileUser = Pick<ResponseProfileUser, 'userId'> & { isLoader: boolean }
 
 const userSlice = createSlice({
   name: 'user',

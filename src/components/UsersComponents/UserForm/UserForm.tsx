@@ -1,21 +1,20 @@
 import React, { memo, useRef } from 'react'
 import s from './index.module.scss'
-import { Box, IconButton, List, ListItem, Typography } from '@mui/material'
+import { Box, List, ListItem, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
-import { SaveAsOutlined } from '@mui/icons-material'
 import { EditableSpan } from 'components/EditableSpan'
 import { UserFoto } from '../UserFoto'
 import { SocialContactsMap } from 'components/SocialContactsMap'
 import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { useUserForm } from 'common/hooks/useUserForm'
+import { UserFormButton } from '../UserFormButton'
 
-type UserFormProps = {
+type Props = {
   profileUserState: ExtendedInitialResponseProfileUser
   setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
 }
 
-export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setProfileUserState }) => {
+export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUserState }) => {
   let profileUserUpperFullName =
     profileUserState && profileUserState.fullName
       ? profileUserState.fullName[0].toUpperCase() + profileUserState.fullName.slice(1)
@@ -105,29 +104,7 @@ export const UserForm: React.FC<UserFormProps> = memo(({ profileUserState, setPr
         </List>
         <List className={s.user__contact}>{<SocialContactsMap />}</List>
       </Box>
-      <Box sx={{ height: '100%', alignSelf: 'baseline' }}>
-        {editMode ? (
-          <IconButton
-            color={'success'}
-            aria-label="change text"
-            onClick={(event) => {
-              event.stopPropagation()
-              saveForm()
-            }}>
-            <SaveAsOutlined fontSize={'small'} />
-          </IconButton>
-        ) : (
-          <IconButton
-            color={'success'}
-            aria-label="change text"
-            onClick={(event) => {
-              event.stopPropagation()
-              saveForm()
-            }}>
-            <ModeEditOutlineOutlinedIcon fontSize={'small'} />
-          </IconButton>
-        )}
-      </Box>
+      <UserFormButton editMode={editMode} saveForm={saveForm} />
     </Box>
   )
 })

@@ -66,14 +66,7 @@ export type UserApi = {
   likeCounter: number
 }
 
-export type ParamsProfileUser = {
-  userId: number
-  isLoader: boolean
-}
-
 //social
-export type SocialContacts = {
-  [key: string]: string
-}
+export type SocialContacts = Record<string, string>
 
 export type UserStatuses = 'idle' | 'loading' | 'succeeded' | 'failed'
