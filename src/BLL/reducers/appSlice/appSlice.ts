@@ -1,12 +1,8 @@
 import { authApi } from 'DAL/authApi'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { AxiosError } from 'axios'
+import { PayloadAction, createSlice, isAllOf, isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 import { clearMeId } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
-import { setIsLoggedInAC } from '../authSlice'
-import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { AppRootState } from 'BLL/store'
-import { handleServerAppError } from 'common/utils/handleServerAppError'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
 type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
@@ -23,7 +19,7 @@ const appInitial: AppInitial = {
   status: 'idle',
   error: null,
   success: null,
-  initialized: false, //(проверка куки, настроек пользователя)
+  initialized: false, //checking cookies, user settings
   meId: null,
 }
 
@@ -31,9 +27,6 @@ const appSlice = createSlice({
   name: 'app',
   initialState: appInitial,
   reducers: {
-    setAppStatusAC(state, action: PayloadAction<{ status: RequestStatus }>) {
-      state.status = action.payload.status
-    },
     setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
       state.error = action.payload.error
     },
@@ -46,10 +39,25 @@ const appSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setAppInitializeTC.fulfilled, (state) => {
+      .addMatcher(isAnyOf(setAppInitializeTC.fulfilled, setAppInitializeTC.rejected), (state) => {
         state.initialized = true
       })
-      .addCase(clearMeId, () => {
+      .addMatcher(isPending, (state) => {
+        state.status = 'loading'
+      })
+      .addMatcher(isFulfilled, (state, action) => {
+        state.status = 'succeeded'
+      })
+      .addMatcher(isRejected, (state, action: any) => {
+        state.status = 'failed'
+        // if (action.type === setAppInitializeTC.rejected.type) return
+        if (action.payload) {
+          state.error = action.payload.messages[0]
+        } else {
+          state.error = action.error.message ? action.error.message : 'Some error occurred'
+        }
+      })
+      .addMatcher(isAllOf(clearMeId), () => {
         return appInitial
       })
   },
@@ -62,31 +70,25 @@ const appSlice = createSlice({
   },
 })
 
-const setAppInitializeTC = createAppAsyncThunk<{ initialized: boolean }, void>(
+const setAppInitializeTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   `${appSlice.name}/appInitialize`,
-  async (params, { dispatch, rejectWithValue }) => {
-    dispatch(setAppStatusAC({ status: 'loading' }))
-    try {
-      const res = await authApi.authMe()
-      // anonymous user or authorization
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-        dispatch(setMeIdAC({ meId: res.data.data.id }))
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
-      } else {
-        handleServerAppError(res.data.messages, dispatch)
-      }
-      return { initialized: true }
-    } catch (err: unknown) {
-      const error: AxiosError = err as AxiosError
-      handleServerNetworkError(error as { message: string }, dispatch)
-      return rejectWithValue(null)
+  async (_, { dispatch, rejectWithValue }) => {
+    // dispatch(setAppStatusAC({ status: 'loading' }))
+    const res = await authApi.authMe()
+    // anonymous user or authorization
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
+      dispatch(setMeIdAC({ meId: res.data.data.id }))
+      // dispatch(setAppStatusAC({ status: 'succeeded' }))
+      return { isLoggedIn: true }
+    } else {
+      return rejectWithValue(res.data)
     }
   }
 )
 
 export const appReducer = appSlice.reducer
 export const appThunks = { setAppInitializeTC }
-export const { setAppStatusAC, setAppErrorAC, setAppSuccessAC, setMeIdAC } = appSlice.actions
+export const { setAppErrorAC, setAppSuccessAC, setMeIdAC } = appSlice.actions
 export const { selectAppStatus, selectAppError, selectAppSuccess, selectAppInitialized, selectAppMeId } =
   appSlice.getSelectors((rootState: AppRootState) => rootState.app)

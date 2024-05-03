@@ -39,23 +39,31 @@ export const Login = () => {
             </FormLabel>
             <FormGroup>
               <TextField
-                label="Email"
+                label="email"
                 margin="normal"
                 autoComplete="email"
                 error={!!(formik.touched.email && formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
+                // helperText={formik.touched.email && formik.errors.email}
                 {...formik.getFieldProps('email')}
               />
 
+              {formik.touched.email && formik.errors.email ? (
+                <h6 style={{ color: 'red', margin: '0px' }}>{formik.touched.email && formik.errors.email}</h6>
+              ) : null}
+
               <TextField
-                label="Password"
+                label="password"
                 margin="normal"
                 type="password"
                 autoComplete="password"
                 error={!!(formik.touched.password && formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
+                // helperText={formik.touched.password && formik.errors.password}
                 {...formik.getFieldProps('password')}
               />
+
+              {formik.touched.password && formik.errors.password ? (
+                <h6 style={{ color: 'red', margin: '0px' }}>{formik.touched.password && formik.errors.password}</h6>
+              ) : null}
 
               <FormControlLabel
                 label={'Remember me'}

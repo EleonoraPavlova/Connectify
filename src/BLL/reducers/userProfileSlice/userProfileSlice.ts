@@ -3,7 +3,7 @@ import { createSlice, current } from '@reduxjs/toolkit'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { ExtendedInitialResponseProfileUser, ProfileUserContacts, ResponseProfileUser, UserPhotos } from 'common/types'
-import { setAppStatusAC, setAppSuccessAC } from '../appSlice'
+import { setAppSuccessAC } from '../appSlice'
 import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { switchLoaderAC } from '../usersSlice'
 import { AppRootState } from 'BLL/store'
@@ -59,11 +59,11 @@ const getProfileUserTC = createAppAsyncThunk<{ response: ResponseProfileUser }, 
     const { userId, isLoader } = params
 
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ status: 'loading' }))
+    // dispatch(setAppStatusAC({ status: 'loading' }))
     try {
       const res = await userProfileApi.getProfileUser(userId)
       dispatch(getProfileUserStatusTC(params))
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { response: res.data }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
@@ -79,10 +79,10 @@ const getProfileUserStatusTC = createAppAsyncThunk<{ status: string }, ParamsPro
   async (params, { dispatch, rejectWithValue }) => {
     const { userId, isLoader } = params
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ status: 'loading' }))
+    // dispatch(setAppStatusAC({ status: 'loading' }))
     try {
       const res = await userProfileApi.getProfileUserStatus(userId)
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { status: res.data }
     } catch (err) {
       handleServerNetworkError(err as { message: string }, dispatch)
@@ -103,7 +103,7 @@ const updateProfileUserTC = createAppAsyncThunk<
   if (!meId) return
 
   dispatch(switchLoaderAC({ isLoader: !isLoader }))
-  dispatch(setAppStatusAC({ status: 'loading' }))
+  // dispatch(setAppStatusAC({ status: 'loading' }))
 
   const apiModel: ExtendedInitialResponseProfileUser = {
     ...params,
@@ -114,7 +114,7 @@ const updateProfileUserTC = createAppAsyncThunk<
     const res = await userProfileApi.updateProfileUser(apiModel)
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       dispatch(setAppSuccessAC({ success: 'your profile was successfully updated' }))
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return apiModel
     } else {
       handleServerAppError(res.data.messages, dispatch)
@@ -134,11 +134,11 @@ const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { stat
     const { status, isLoader } = params
 
     dispatch(switchLoaderAC({ isLoader: !isLoader }))
-    dispatch(setAppStatusAC({ status: 'loading' }))
+    // dispatch(setAppStatusAC({ status: 'loading' }))
     try {
       const res = await userProfileApi.updateProfileUserStatus(status)
       if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(setAppStatusAC({ status: 'succeeded' }))
+        // dispatch(setAppStatusAC({ status: 'succeeded' }))
         return { status }
       } else {
         handleServerAppError(res.data.messages, dispatch)

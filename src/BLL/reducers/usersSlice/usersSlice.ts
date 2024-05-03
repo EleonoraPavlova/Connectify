@@ -5,7 +5,6 @@ import { AxiosError } from 'axios'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { QueryParamsGetUsers, ResponseUsers, UserStatuses } from 'common/types'
-import { setAppStatusAC } from '../appSlice'
 import { replaceRussianLetters } from 'common/utils/translator'
 import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
 import { handleServerAppError } from 'common/utils/handleServerAppError'
@@ -86,7 +85,7 @@ const setResponseTC = createAppAsyncThunk<
 >(`${usersSlice.name}/setResponse`, async (payload, { dispatch, rejectWithValue }) => {
   const { isLoader } = payload
   dispatch(switchLoaderAC({ isLoader: !isLoader }))
-  dispatch(setAppStatusAC({ status: 'loading' }))
+  // dispatch(setAppStatusAC({ status: 'loading' }))
 
   try {
     const res = await usersApi.getUsers(payload.params) // pageSize / current page /friend
@@ -95,12 +94,11 @@ const setResponseTC = createAppAsyncThunk<
         u.name = replaceRussianLetters(u.name)
         u.status = replaceRussianLetters(u.status)
       })
-      dispatch(setAppStatusAC({ status: 'succeeded' }))
+      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { response: res.data }
     } else {
-      handleServerAppError(res.data.error, dispatch)
-      dispatch(setAppStatusAC({ status: 'failed' }))
-      return rejectWithValue(null)
+      // dispatch(setAppStatusAC({ status: 'failed' }))
+      return rejectWithValue(res.data)
     }
   } catch (err: unknown) {
     const error: AxiosError = err as AxiosError

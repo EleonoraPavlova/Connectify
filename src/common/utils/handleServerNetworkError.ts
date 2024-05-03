@@ -1,4 +1,4 @@
-import { setAppErrorAC, setAppStatusAC } from 'BLL/reducers/appSlice'
+import { setAppErrorAC } from 'BLL/reducers/appSlice'
 import { isAxiosError } from 'axios'
 import { Dispatch } from 'redux'
 
@@ -14,5 +14,5 @@ export const handleServerNetworkError = (err: unknown, dispatch: Dispatch): void
   }
 
   dispatch(setAppErrorAC({ error: errorMessage }))
-  dispatch(setAppStatusAC({ status: 'failed' }))
+  // dispatch(setAppStatusAC({ status: 'failed' }))
 }

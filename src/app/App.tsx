@@ -16,7 +16,8 @@ import { RoutesComponent } from 'features/routes/RoutesComponent'
 const App = () => {
   let initialized = useSelector(selectAppInitialized)
   let isLoggedIn = useSelector(selectIsLoggedIn)
-
+  console.log('initialized', initialized)
+  console.log('isLoggedIn', isLoggedIn)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

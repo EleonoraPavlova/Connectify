@@ -8,7 +8,13 @@ export type LoginParams = {
 export type ResponseFollow<Data = {}> = {
   resultCode: number
   messages: string[]
+  fieldsErrors?: FieldsError[]
   data: Data
+}
+
+export type FieldsError = {
+  field: string
+  error: string
 }
 
 export type ResponseUsers = {

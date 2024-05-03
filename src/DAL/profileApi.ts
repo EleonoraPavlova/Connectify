@@ -1,5 +1,4 @@
 import { ResponseFollow, ResponseProfileUser } from 'common/types'
-
 import { instance } from './instance'
 
 export const userProfileApi = {

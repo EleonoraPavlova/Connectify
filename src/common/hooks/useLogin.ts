@@ -1,7 +1,6 @@
 import { useFormik } from 'formik'
 import { useAppDispatch } from './selectors'
-import { LoginParams } from 'common/types'
-import { handleServerNetworkError } from 'common/utils/handleServerNetworkError'
+import { LoginParams, ResponseFollow } from 'common/types'
 import { authThunks } from 'BLL/reducers/authSlice'
 
 export function useLogin() {
@@ -29,14 +28,23 @@ export function useLogin() {
       password: '',
       rememberMe: false,
     },
-    onSubmit: async (values, { setFieldValue, setSubmitting }) => {
+    onSubmit: (values, { setFieldError, setSubmitting }) => {
       setSubmitting(true)
-      try {
-        await dispatch(authThunks.loginTC(values))
-        setFieldValue('password', '')
-      } catch (err) {
-        handleServerNetworkError(err as { message: string }, dispatch)
-      }
+      dispatch(authThunks.loginTC(values))
+        .unwrap()
+        .catch((e: ResponseFollow) => {
+          if (e.fieldsErrors) {
+            const { fieldsErrors } = e
+            fieldsErrors.forEach((el) => {
+              setFieldError(el.field, el.error)
+            })
+          }
+          if (e.messages) {
+            setFieldError('email', e.messages[0])
+            setFieldError('password', e.messages[0])
+          }
+        })
+
       setSubmitting(false)
     },
   })
