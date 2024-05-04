@@ -4,19 +4,19 @@ import './index.scss'
 import { Button } from 'components/Button'
 import { authThunks, selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
-import { useAppDispatch } from 'common/hooks/selectors'
 import { Logo } from 'components/Logo'
 import { Typography } from '@mui/material'
 import { selectAppMeId } from 'BLL/reducers/appSlice'
+import { useActions } from 'common/hooks/useActions'
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
   const profile = useSelector(selectUserProfile)
   const meId = useSelector(selectAppMeId)
-  const dispatch = useAppDispatch()
+  const { logOutTC } = useActions(authThunks)
 
   const logOutHandler = useCallback(() => {
-    dispatch(authThunks.logOutTC())
+    logOutTC()
   }, [isLoggedIn])
 
   return (

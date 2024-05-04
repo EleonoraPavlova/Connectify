@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { selectUsersTotalCount, usersThunks } from 'BLL/reducers/usersSlice'
 import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useAppDispatch } from './selectors'
+import { useActions } from './useActions'
 
 export function usePaginations(
   setName: string,
@@ -14,10 +15,10 @@ export function usePaginations(
   const totalCount = useSelector(selectUsersTotalCount)
   const pagesCount = Math.ceil(totalCount / count)
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  const dispatch = useAppDispatch()
+  const { setResponseTC } = useActions(usersThunks)
 
   const getUsers = (page: number) => {
-    dispatch(usersThunks.setResponseTC({ params: { count, page, friend }, isLoader: false }))
+    setResponseTC({ params: { count, page, friend }, isLoader: false })
   }
 
   useEffect(() => {

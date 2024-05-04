@@ -6,24 +6,23 @@ import { useSelector } from 'react-redux'
 import { Footer } from 'components/Footer'
 import { SnackBar } from 'components/Snackbar'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from 'common/hooks/selectors'
 import { appThunks, selectAppInitialized } from 'BLL/reducers/appSlice'
 import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { Header } from 'components/Header'
 import { Nav } from 'components/Nav'
 import { RoutesComponent } from 'features/routes/RoutesComponent'
+import { useActions } from 'common/hooks/useActions'
 
 const App = () => {
   let initialized = useSelector(selectAppInitialized)
   let isLoggedIn = useSelector(selectIsLoggedIn)
-  console.log('initialized', initialized)
-  console.log('isLoggedIn', isLoggedIn)
-  const dispatch = useAppDispatch()
+  const { setAppInitializeTC } = useActions(appThunks)
+
   const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(appThunks.setAppInitializeTC())
-  }, [dispatch])
+    setAppInitializeTC()
+  }, [setAppInitializeTC])
 
   useEffect(() => {
     if (!isLoggedIn && initialized) {

@@ -1,10 +1,11 @@
 import { useFormik } from 'formik'
-import { useAppDispatch } from './selectors'
 import { LoginParams, ResponseFollow } from 'common/types'
 import { authThunks } from 'BLL/reducers/authSlice'
+import { useActions } from './useActions'
 
 export function useLogin() {
-  const dispatch = useAppDispatch()
+  const { loginTC } = useActions(authThunks)
+
   const formik = useFormik({
     validate: (values) => {
       const errors: Partial<LoginParams> = {}
@@ -30,7 +31,7 @@ export function useLogin() {
     },
     onSubmit: (values, { setFieldError, setSubmitting }) => {
       setSubmitting(true)
-      dispatch(authThunks.loginTC(values))
+      loginTC(values)
         .unwrap()
         .catch((e: ResponseFollow) => {
           if (e.fieldsErrors) {

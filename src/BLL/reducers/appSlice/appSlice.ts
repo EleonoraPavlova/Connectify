@@ -45,7 +45,7 @@ const appSlice = createSlice({
       .addMatcher(isPending, (state) => {
         state.status = 'loading'
       })
-      .addMatcher(isFulfilled, (state, action) => {
+      .addMatcher(isFulfilled, (state) => {
         state.status = 'succeeded'
       })
       .addMatcher(isRejected, (state, action: any) => {
@@ -73,13 +73,10 @@ const appSlice = createSlice({
 const setAppInitializeTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   `${appSlice.name}/appInitialize`,
   async (_, { dispatch, rejectWithValue }) => {
-    // dispatch(setAppStatusAC({ status: 'loading' }))
     const res = await authApi.authMe()
     // anonymous user or authorization
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
-      // dispatch(setIsLoggedInAC({ isLoggedIn: true }))
       dispatch(setMeIdAC({ meId: res.data.data.id }))
-      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { isLoggedIn: true }
     } else {
       return rejectWithValue(res.data)

@@ -3,20 +3,19 @@ import { useSelector } from 'react-redux'
 import { UserForm } from '../UserForm'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
 import { selectAppMeId } from 'BLL/reducers/appSlice'
-import { useAppDispatch } from 'common/hooks/selectors'
 import { ExtendedInitialResponseProfileUser } from 'common/types'
+import { useActions } from 'common/hooks/useActions'
 
 export const UserInfo = () => {
   const profileUser = useSelector(selectUserProfile)
   const [profileUserState, setProfileUserState] = useState<ExtendedInitialResponseProfileUser>(profileUser)
+  const { getProfileUserTC } = useActions(userThunks)
 
   const meId = useSelector(selectAppMeId)
 
-  const dispatch = useAppDispatch()
-
   useEffect(() => {
-    if (meId) dispatch(userThunks.getProfileUserTC({ userId: meId, isLoader: false }))
-  }, [dispatch, meId])
+    if (meId) getProfileUserTC({ userId: meId, isLoader: false })
+  }, [getProfileUserTC, meId])
 
   useEffect(() => {
     setProfileUserState(profileUser)

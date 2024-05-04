@@ -85,8 +85,6 @@ const setResponseTC = createAppAsyncThunk<
 >(`${usersSlice.name}/setResponse`, async (payload, { dispatch, rejectWithValue }) => {
   const { isLoader } = payload
   dispatch(switchLoaderAC({ isLoader: !isLoader }))
-  // dispatch(setAppStatusAC({ status: 'loading' }))
-
   try {
     const res = await usersApi.getUsers(payload.params) // pageSize / current page /friend
     if (res.data.items.length) {
@@ -94,10 +92,8 @@ const setResponseTC = createAppAsyncThunk<
         u.name = replaceRussianLetters(u.name)
         u.status = replaceRussianLetters(u.status)
       })
-      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       return { response: res.data }
     } else {
-      // dispatch(setAppStatusAC({ status: 'failed' }))
       return rejectWithValue(res.data)
     }
   } catch (err: unknown) {

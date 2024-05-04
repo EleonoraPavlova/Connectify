@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from './selectors'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
 import { useSelector } from 'react-redux'
+import { useActions } from './useActions'
 
 export function useUserForm(
   profileUserState: ExtendedInitialResponseProfileUser,
@@ -12,6 +13,7 @@ export function useUserForm(
   const formRef = useRef<HTMLDivElement | null>(null)
   const [editMode, setEditMode] = useState<boolean>(false)
   const dispatch = useAppDispatch()
+  const { updateProfileUserTC, updateProfileUserStatusTC } = useActions(userThunks)
 
   const saveForm = useCallback(() => {
     if (!editMode) {
@@ -20,10 +22,10 @@ export function useUserForm(
       setEditMode(false)
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
-      dispatch(userThunks.updateProfileUserTC({ params: updatedProfileUserState, isLoader: false }))
-      dispatch(userThunks.updateProfileUserStatusTC({ status: updatedProfileUserState.status, isLoader: false }))
+      updateProfileUserTC({ params: updatedProfileUserState, isLoader: false })
+      updateProfileUserStatusTC({ status: updatedProfileUserState.status, isLoader: false })
     }
-  }, [editMode, profileUserState, setProfileUserState, dispatch])
+  }, [editMode, profileUserState, setProfileUserState, updateProfileUserTC, updateProfileUserStatusTC])
 
   useEffect(() => {
     const globalBlurHandler = (e: MouseEvent) => {

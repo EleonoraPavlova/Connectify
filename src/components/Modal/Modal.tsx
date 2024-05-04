@@ -9,8 +9,8 @@ import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
-import { useAppDispatch } from 'common/hooks/selectors'
 import { replaceRussianLetters } from 'common/utils/translator'
+import { useActions } from 'common/hooks/useActions'
 
 type Props = {
   idFromSearchParams: string | null
@@ -20,17 +20,16 @@ type Props = {
 }
 
 export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, setActiveModal, setSearchParams }) => {
-  const profileUser = useSelector(selectUserProfile)
+  let profileUser = useSelector(selectUserProfile)
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const { getProfileUserTC } = useActions(userThunks)
 
-  let upperName =
-    profileUser && profileUser.fullName ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1) : ''
+  let upperName = profileUser?.fullName ? profileUser.fullName[0].toUpperCase() + profileUser.fullName.slice(1) : ''
 
   useEffect(() => {
     if (idFromSearchParams) {
-      dispatch(userThunks.getProfileUserTC({ userId: Number(idFromSearchParams), isLoader: false }))
+      getProfileUserTC({ userId: Number(idFromSearchParams), isLoader: false })
     }
   }, [])
 
@@ -38,6 +37,7 @@ export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, s
     setActiveModal(false)
     setSearchParams() //clean query params
     navigate('/findUsers')
+    idFromSearchParams = null
   }
 
   return (

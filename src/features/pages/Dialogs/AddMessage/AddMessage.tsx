@@ -8,7 +8,6 @@ export const AddMessage = () => {
 
   const addMessageHandler = useCallback(
     (text: string) => {
-      // if (textValue) dispatch(addMessageAC({ text }))
       setTexts([textValue, ...texts])
       setTextValue('')
     },
