@@ -1,6 +1,5 @@
 import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from './selectors'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
 import { useSelector } from 'react-redux'
 import { useActions } from './useActions'
@@ -12,7 +11,6 @@ export function useUserForm(
   const profileUser = useSelector(selectUserProfile)
   const formRef = useRef<HTMLDivElement | null>(null)
   const [editMode, setEditMode] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
   const { updateProfileUserTC, updateProfileUserStatusTC } = useActions(userThunks)
 
   const saveForm = useCallback(() => {
@@ -22,8 +20,8 @@ export function useUserForm(
       setEditMode(false)
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
-      updateProfileUserTC({ params: updatedProfileUserState, isLoader: false })
-      updateProfileUserStatusTC({ status: updatedProfileUserState.status, isLoader: false })
+      updateProfileUserTC({ params: updatedProfileUserState })
+      updateProfileUserStatusTC({ status: updatedProfileUserState.status })
     }
   }, [editMode, profileUserState, setProfileUserState, updateProfileUserTC, updateProfileUserStatusTC])
 

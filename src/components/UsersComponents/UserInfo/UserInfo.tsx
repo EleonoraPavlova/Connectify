@@ -14,7 +14,7 @@ export const UserInfo = () => {
   const meId = useSelector(selectAppMeId)
 
   useEffect(() => {
-    if (meId) getProfileUserTC({ userId: meId, isLoader: false })
+    if (meId) getProfileUserTC({ userId: meId })
   }, [getProfileUserTC, meId])
 
   useEffect(() => {

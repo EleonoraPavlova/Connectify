@@ -27,9 +27,6 @@ const appSlice = createSlice({
   name: 'app',
   initialState: appInitial,
   reducers: {
-    setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
-      state.error = action.payload.error
-    },
     setAppSuccessAC(state, action: PayloadAction<{ success: string | null }>) {
       state.success = action.payload.success
     },
@@ -50,7 +47,7 @@ const appSlice = createSlice({
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = 'failed'
-        // if (action.type === setAppInitializeTC.rejected.type) return
+        if (action.type === setAppInitializeTC.rejected.type) return
         if (action.payload) {
           state.error = action.payload.messages[0]
         } else {
@@ -86,6 +83,6 @@ const setAppInitializeTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
 
 export const appReducer = appSlice.reducer
 export const appThunks = { setAppInitializeTC }
-export const { setAppErrorAC, setAppSuccessAC, setMeIdAC } = appSlice.actions
+export const { setAppSuccessAC, setMeIdAC } = appSlice.actions
 export const { selectAppStatus, selectAppError, selectAppSuccess, selectAppInitialized, selectAppMeId } =
   appSlice.getSelectors((rootState: AppRootState) => rootState.app)

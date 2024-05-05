@@ -36,7 +36,6 @@ const authSlice = createSlice({
 const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
   `${authSlice.name}/login`,
   async (params, { dispatch, rejectWithValue }) => {
-    // dispatch(setAppStatusAC({ status: 'loading' }))
     const res = await authApi.login(params)
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
@@ -51,11 +50,9 @@ const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
 const logOutTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   `${authSlice.name}/logOut`,
   async (_, { dispatch, rejectWithValue }) => {
-    // dispatch(setAppStatusAC({ status: 'loading' }))
     const res = await authApi.logOut()
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       dispatch(setAppSuccessAC({ success: 'you have successfully logged out' }))
-      // dispatch(setAppStatusAC({ status: 'succeeded' }))
       dispatch(clearMeId())
       dispatch(clearUsers())
       dispatch(appThunks.setAppInitializeTC())

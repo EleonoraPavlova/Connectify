@@ -28,7 +28,7 @@ export const UsersMap: React.FC<Props> = ({ btnText, user }) => {
   }, [user.followed, toggleFollowUserTC, unFollowUserTC])
 
   const viewFullProfile = useCallback(() => {
-    getProfileUserTC({ userId: id, isLoader: false })
+    getProfileUserTC({ userId: id })
     setActiveModal(true)
     setSearchParams({ id: `${id}` })
   }, [getProfileUserTC, setActiveModal, setSearchParams])

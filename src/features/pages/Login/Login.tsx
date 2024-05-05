@@ -12,6 +12,7 @@ import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useLogin } from 'common/hooks/useLogin'
+import { LoginError } from './LoginError/LoginError'
 
 export const Login = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
@@ -43,13 +44,10 @@ export const Login = () => {
                 margin="normal"
                 autoComplete="email"
                 error={!!(formik.touched.email && formik.errors.email)}
-                // helperText={formik.touched.email && formik.errors.email}
                 {...formik.getFieldProps('email')}
               />
 
-              {formik.touched.email && formik.errors.email ? (
-                <h6 style={{ color: 'red', margin: '0px' }}>{formik.touched.email && formik.errors.email}</h6>
-              ) : null}
+              <LoginError formik={formik} />
 
               <TextField
                 label="password"
@@ -57,13 +55,10 @@ export const Login = () => {
                 type="password"
                 autoComplete="password"
                 error={!!(formik.touched.password && formik.errors.password)}
-                // helperText={formik.touched.password && formik.errors.password}
                 {...formik.getFieldProps('password')}
               />
 
-              {formik.touched.password && formik.errors.password ? (
-                <h6 style={{ color: 'red', margin: '0px' }}>{formik.touched.password && formik.errors.password}</h6>
-              ) : null}
+              <LoginError formik={formik} />
 
               <FormControlLabel
                 label={'Remember me'}
