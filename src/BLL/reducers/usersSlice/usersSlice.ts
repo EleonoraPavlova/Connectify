@@ -99,18 +99,14 @@ const unFollowUserTC = createAppAsyncThunk<ArgFollowUnFollow, ArgFollowUnFollow>
   async (params, { dispatch, rejectWithValue }) => {
     const { userId } = params
     dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
-    try {
-      const res = await followApi.unFollowTo(userId)
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return params
-      } else {
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-        return rejectWithValue(res.data)
-      }
-    } catch (err) {
+
+    const res = await followApi.unFollowTo(userId)
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
+      return params
+    } else {
       dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-      return rejectWithValue(null)
+      return rejectWithValue(res.data)
     }
   }
 )
@@ -120,18 +116,13 @@ const toggleFollowUserTC = createAppAsyncThunk<ArgFollowUnFollow, ArgFollowUnFol
   async (params, { dispatch, rejectWithValue }) => {
     const { userId } = params
     dispatch(setFollowingInProgressAC({ followingInProgress: 'loading', userId }))
-    try {
-      const res = await followApi.followTo(userId)
-      if (res.data.resultCode === ResultCode.SUCCEEDED) {
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
-        return params
-      } else {
-        dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-        return rejectWithValue(res.data)
-      }
-    } catch (err) {
+    const res = await followApi.followTo(userId)
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      dispatch(setFollowingInProgressAC({ followingInProgress: 'succeeded', userId }))
+      return params
+    } else {
       dispatch(setFollowingInProgressAC({ followingInProgress: 'failed', userId }))
-      return rejectWithValue(null)
+      return rejectWithValue(res.data)
     }
   }
 )
