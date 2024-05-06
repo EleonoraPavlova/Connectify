@@ -15,14 +15,16 @@ type Props = {
 export const LoginError = ({ formik }: Props) => {
   const { touched, errors } = formik
 
+  const errorMessages = Object.keys(touched)
+    .filter((field) => touched[field as keyof FormValues] && errors[field as keyof FormValues])
+    .map((field) => errors[field as keyof FormValues])
+
   return (
     <>
-      {Object.keys(touched).map((field) =>
-        touched[field as keyof FormValues] && errors[field as keyof FormValues] ? (
-          <Typography key={field} sx={{ color: 'red', margin: '0px', fontSize: '12px', fontWeight: '500' }}>
-            {errors[field as keyof FormValues]}
-          </Typography>
-        ) : null
+      {errorMessages.length > 0 && (
+        <Typography sx={{ color: 'red', margin: '0px', fontSize: '12px', fontWeight: '500' }}>
+          {errorMessages[0]}
+        </Typography>
       )}
     </>
   )

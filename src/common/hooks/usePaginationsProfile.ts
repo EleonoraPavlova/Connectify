@@ -13,7 +13,7 @@ export function usePaginationsProfile(setName: string, page: number, setCurrentP
   const { setResponseTC } = useActions(usersThunks)
 
   useEffect(() => {
-    setResponseTC({ params: { count, page, friend: true }, isLoader: false })
+    setResponseTC({ params: { count, page, friend: true } })
     setPage()
   }, [setResponseTC, page])
 

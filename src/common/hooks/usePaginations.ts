@@ -17,7 +17,7 @@ export function usePaginations(
   const { setResponseTC } = useActions(usersThunks)
 
   const getUsers = (page: number) => {
-    setResponseTC({ params: { count, page, friend }, isLoader: false })
+    setResponseTC({ params: { count, page, friend } })
   }
 
   useEffect(() => {

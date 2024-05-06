@@ -80,7 +80,7 @@ const usersSlice = createSlice({
 
 const setResponseTC = createAppAsyncThunk<
   { response: ResponseUsers },
-  { params: QueryParamsGetUsers; isLoader: boolean } // pageSize / current page /friend
+  { params: QueryParamsGetUsers } // pageSize / current page /friend
 >(`${usersSlice.name}/setResponse`, async (payload, { rejectWithValue }) => {
   const res = await usersApi.getUsers(payload.params)
   if (res.data.items.length) {

@@ -8,7 +8,7 @@ import { PaginationsCustom } from 'components/PaginationsCustom'
 import { Post } from './Post'
 import { UserApi } from 'common/types'
 import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
-import { selectAppInitialized } from 'BLL/reducers/appSlice'
+import { selectAppError, selectAppInitialized, selectAppStatus, selectAppSuccess } from 'BLL/reducers/appSlice'
 import { selectUsersItems } from 'BLL/reducers/usersSlice'
 import { usePaginations } from 'common/hooks/usePaginations'
 import { FormPosts } from './FormPosts'
@@ -19,6 +19,7 @@ export const Profile = () => {
   const items = useSelector(selectUsersItems)
   let isLoggedIn = useSelector(selectIsLoggedIn)
   let initialized = useSelector(selectAppInitialized)
+
   const navigate = useNavigate()
 
   useEffect(() => {

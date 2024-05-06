@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { UsersAll } from 'components/UsersComponents/UsersAll'
 import { selectAppStatus } from 'BLL/reducers/appSlice'
 import { usePaginations } from 'common/hooks/usePaginations'
-import Typography from '@mui/material/Typography'
 
 export const Friends = () => {
   let memoPage = sessionStorage.getItem('friends')
@@ -13,20 +12,7 @@ export const Friends = () => {
 
   const { pagesCount, setCurrentPageHandle } = usePaginations('friends', currentPage, true, setCurrentPage)
 
-  if (statusApp === 'failed') {
-    return (
-      <Typography
-        variant="h3"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#c2c5cc',
-        }}>
-        You're not authorization
-      </Typography>
-    )
-  }
+  if (statusApp === 'failed') return null
 
   return (
     <UsersAll

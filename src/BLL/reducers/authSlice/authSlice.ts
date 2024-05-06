@@ -4,7 +4,7 @@ import { clearMeId, clearUsers } from 'BLL/actions/actions'
 import { LoginParams } from 'common/types'
 import { ResultCode } from 'common/emuns'
 import { AppRootState } from 'BLL/store'
-import { appThunks, setAppSuccessAC } from '../appSlice'
+import { appThunks } from '../appSlice'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
 type AuthInitial = {
@@ -38,7 +38,6 @@ const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
   async (params, { dispatch, rejectWithValue }) => {
     const res = await authApi.login(params)
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
-      dispatch(setAppSuccessAC({ success: 'you have successfully logged in' }))
       dispatch(appThunks.setAppInitializeTC())
       return { isLoggedIn: true }
     } else {
@@ -52,7 +51,6 @@ const logOutTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   async (_, { dispatch, rejectWithValue }) => {
     const res = await authApi.logOut()
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
-      dispatch(setAppSuccessAC({ success: 'you have successfully logged out' }))
       dispatch(clearMeId())
       dispatch(clearUsers())
       dispatch(appThunks.setAppInitializeTC())

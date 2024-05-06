@@ -1,9 +1,8 @@
 import { userProfileApi } from 'DAL/profileApi'
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createSlice, current, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
 import { clearUsers } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { ExtendedInitialResponseProfileUser, ProfileUserContacts, ResponseProfileUser, UserPhotos } from 'common/types'
-import { setAppSuccessAC } from '../appSlice'
 import { AppRootState } from 'BLL/store'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
@@ -24,20 +23,19 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProfileUserTC.fulfilled, (state, action) => {
-        return { status: state.status, ...action.payload.response }
-      })
-      .addCase(getProfileUserStatusTC.fulfilled, (state, action) => {
+      .addMatcher(isFulfilled(getProfileUserStatusTC, updateProfileUserStatusTC), (state, action) => {
         state.status = action.payload.status
       })
-      .addCase(updateProfileUserTC.fulfilled, (state, action) => {
-        console.log(action.payload)
-        return (state = { ...state, ...action.payload })
+      .addMatcher(isAnyOf(getProfileUserTC.fulfilled, updateProfileUserTC.fulfilled), (state, action: any) => {
+        if (action.type === getProfileUserTC.fulfilled.type) {
+          return { status: state.status, ...action.payload.response }
+        }
+        if (action.type === updateProfileUserTC.fulfilled.type) {
+          return { ...state, ...action.payload }
+        }
+        return state
       })
-      .addCase(updateProfileUserStatusTC.fulfilled, (state, action) => {
-        state.status = action.payload.status
-      })
-      .addCase(clearUsers, (state) => {
+      .addMatcher(isAnyOf(clearUsers), (state) => {
         console.log('state/clearUsers', current(state))
         return initialUser
       })
@@ -70,7 +68,7 @@ const getProfileUserStatusTC = createAppAsyncThunk<{ status: string }, Pick<Resp
 const updateProfileUserTC = createAppAsyncThunk<
   ExtendedInitialResponseProfileUser | undefined,
   { params: ExtendedInitialResponseProfileUser }
->(`${userSlice.name}/updateProfileUser`, async (payload, { dispatch, getState, rejectWithValue }) => {
+>(`${userSlice.name}/updateProfileUser`, async (payload, { getState, rejectWithValue }) => {
   const { params } = payload
   const state = getState() as AppRootState
   const meId = state.app.meId
@@ -83,7 +81,6 @@ const updateProfileUserTC = createAppAsyncThunk<
 
   const res = await userProfileApi.updateProfileUser(apiModel)
   if (res.data.resultCode === ResultCode.SUCCEEDED) {
-    dispatch(setAppSuccessAC({ success: 'your profile was successfully updated' }))
     return apiModel
   } else {
     return rejectWithValue(res.data)
