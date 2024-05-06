@@ -4,6 +4,8 @@ import { clearMeId } from 'BLL/actions/actions'
 import { ResultCode } from 'common/emuns'
 import { AppRootState } from 'BLL/store'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
+import { authThunks } from '../authSlice'
+import { userThunks } from '../userProfileSlice'
 
 type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed' //server interaction status
 
@@ -27,6 +29,12 @@ const appSlice = createSlice({
   name: 'app',
   initialState: appInitial,
   reducers: {
+    setAppErrorAC(state, action: PayloadAction<{ error: string | null }>) {
+      state.error = action.payload.error
+    },
+    setAppStatusAC(state, action: PayloadAction<{ status: RequestStatus }>) {
+      state.status = action.payload.status
+    },
     setAppSuccessAC(state, action: PayloadAction<{ success: string | null }>) {
       state.success = action.payload.success
     },
@@ -42,8 +50,17 @@ const appSlice = createSlice({
       .addMatcher(isPending, (state) => {
         state.status = 'loading'
       })
-      .addMatcher(isFulfilled, (state) => {
+      .addMatcher(isFulfilled, (state, action) => {
         state.status = 'succeeded'
+        if (action.type === authThunks.loginTC.fulfilled.type) {
+          state.success = 'you have successfully logged in'
+        }
+        if (action.type === authThunks.logOutTC.fulfilled.type) {
+          state.success = 'you have successfully logged out'
+        }
+        if (action.type === userThunks.updateProfileUserTC.fulfilled.type) {
+          state.success = 'your profile was successfully updated'
+        }
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = 'failed'
@@ -83,6 +100,6 @@ const setAppInitializeTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
 
 export const appReducer = appSlice.reducer
 export const appThunks = { setAppInitializeTC }
-export const { setAppSuccessAC, setMeIdAC } = appSlice.actions
+export const { setAppStatusAC, setAppSuccessAC, setAppErrorAC, setMeIdAC } = appSlice.actions
 export const { selectAppStatus, selectAppError, selectAppSuccess, selectAppInitialized, selectAppMeId } =
   appSlice.getSelectors((rootState: AppRootState) => rootState.app)
