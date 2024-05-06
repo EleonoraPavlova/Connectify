@@ -29,14 +29,24 @@ export function SnackBar() {
     dispatch(setAppSuccessAC({ success: null }))
     dispatch(setAppStatusAC({ status: 'idle' }))
   }
+  console.log('error', error)
+  console.log('statusApp', statusApp)
+  console.log('success', success)
 
   if (!error && !success) return null
+
+  let displayMessage = null
+  if (error && !success) {
+    displayMessage = error
+  } else if (!error && success) {
+    displayMessage = success
+  }
 
   return (
     <Stack sx={{ width: '100%' }}>
       <Snackbar open={!!error || !!success} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={statusApp === 'succeeded' ? 'success' : 'error'} sx={{ width: '100%' }}>
-          {statusApp === 'failed' && error ? error : success}
+          {displayMessage}
         </Alert>
       </Snackbar>
     </Stack>
