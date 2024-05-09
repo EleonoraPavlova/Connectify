@@ -29,9 +29,6 @@ export function SnackBar() {
     dispatch(setAppSuccessAC({ success: null }))
     dispatch(setAppStatusAC({ status: 'idle' }))
   }
-  console.log('error', error)
-  console.log('statusApp', statusApp)
-  console.log('success', success)
 
   if (!error && !success) return null
 
