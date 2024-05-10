@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksocial_net=self.webpackChunksocial_net||[]).push([[881],{4881:(s,e,n)=>{n.r(e),n.d(e,{default:()=>i});n(8094);var a=n(6746),t=n(8298),c=n(5678);const i=()=>(0,c.jsx)(a.A,{sx:{padding:"20px"},children:(0,c.jsx)(t.A,{variant:"h6",children:"Settings"})})}}]);

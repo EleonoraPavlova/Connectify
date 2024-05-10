@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksocial_net=self.webpackChunksocial_net||[]).push([[462],{5462:(s,e,a)=>{a.r(e),a.d(e,{default:()=>h});a(8094);var n=a(6746),i=a(8298),c=a(5678);const h=()=>(0,c.jsx)(n.A,{sx:{padding:"20px"},children:(0,c.jsx)(i.A,{variant:"h6",children:"This is news page"})})}}]);

@@ -1,0 +1,1 @@
+.dialogs{grid-gap:60px;display:grid;gap:60px;grid-auto-columns:20% 70%;padding:20px}.dialogs__welcome{padding:3px;text-align:end}.dialogs__title{color:green;font-size:25px}.dialogs__items{border-right:1px solid green}.dialogs__messeges{grid-column-start:2}.dialog-item{padding:15px 0}
