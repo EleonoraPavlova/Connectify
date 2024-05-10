@@ -5,7 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 const Profile = lazy(() => import('features/pages/Profile'))
 const Dialogs = lazy(() => import('features/pages/Dialogs/Dialogs'))
 const Friends = lazy(() => import('features/pages/Friends'))
-const Users = lazy(() => import('features/pages/FindUsers'))
+const Users = lazy(() => import('features/pages/FindUsers/Users'))
 const News = lazy(() => import('features/pages/News'))
 const Music = lazy(() => import('features/pages/Music/Music'))
 const Settings = lazy(() => import('features/pages/Settings'))

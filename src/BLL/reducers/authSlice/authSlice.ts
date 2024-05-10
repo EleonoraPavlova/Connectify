@@ -1,5 +1,5 @@
 import { authApi } from 'DAL/authApi'
-import { createSlice, isFulfilled } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
 import { clearMeId, clearUsers } from 'BLL/actions/actions'
 import { LoginParams } from 'common/types'
 import { ResultCode } from 'common/emuns'
@@ -20,13 +20,18 @@ const authSlice = createSlice({
     email: '',
     password: '',
     rememberMe: false,
-    isLoggedIn: false, //залогин пользователь или нет
+    isLoggedIn: false, //Is the user logged in or not
   } satisfies AuthInitial as AuthInitial,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addMatcher(isFulfilled(loginTC, logOutTC, appThunks.setAppInitializeTC), (state, action) => {
-      state.isLoggedIn = action.payload.isLoggedIn
-    })
+    builder
+      .addMatcher(isFulfilled(loginTC, logOutTC, appThunks.setAppInitializeTC), (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn
+      })
+      .addMatcher(isAnyOf(logOutTC.fulfilled), (state) => {
+        sessionStorage.removeItem('profile')
+        sessionStorage.removeItem('users')
+      })
   },
   selectors: {
     selectIsLoggedIn: (sliceState) => sliceState.isLoggedIn,
