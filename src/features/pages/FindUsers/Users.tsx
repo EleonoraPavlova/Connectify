@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { usePaginations } from 'common/hooks/usePaginations'
 import { UsersAll } from 'components/UsersComponents/UsersAll'
 
-export const Users = () => {
+const Users = () => {
   let memoPage = sessionStorage.getItem('users')
   const [currentPage, setCurrentPage] = useState<number>(memoPage ? +memoPage : 1)
 
@@ -17,3 +17,4 @@ export const Users = () => {
     />
   )
 }
+export default Users

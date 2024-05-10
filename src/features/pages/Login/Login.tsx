@@ -14,7 +14,7 @@ import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useLogin } from 'common/hooks/useLogin'
 import { LoginError } from './LoginError/LoginError'
 
-export const Login = () => {
+const Login = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
   const { formik, disabled } = useLogin()
 
@@ -84,3 +84,4 @@ export const Login = () => {
     </Grid>
   )
 }
+export default Login

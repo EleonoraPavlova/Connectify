@@ -2,11 +2,11 @@ import React, { memo } from 'react'
 import './index.scss'
 import { AddMessage } from '../AddMessage'
 
-type UserDialogsProps = {
+type Props = {
   name: string
 }
 
-export const UserDialogs: React.FC<UserDialogsProps> = memo(({ name }) => {
+const UserDialogs: React.FC<Props> = memo(({ name }) => {
   return (
     <div className="userDialogs">
       <h4 className="userDialogs__h4">Your dialogs with {name}</h4>
@@ -14,3 +14,4 @@ export const UserDialogs: React.FC<UserDialogsProps> = memo(({ name }) => {
     </div>
   )
 })
+export default UserDialogs

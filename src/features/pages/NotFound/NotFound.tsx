@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <Typography
       variant="h5"
@@ -15,3 +15,4 @@ export const NotFound = () => {
     </Typography>
   )
 }
+export default NotFound

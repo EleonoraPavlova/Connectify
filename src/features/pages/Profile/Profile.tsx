@@ -13,7 +13,7 @@ import { selectUsersItems } from 'BLL/reducers/usersSlice'
 import { usePaginations } from 'common/hooks/usePaginations'
 import { FormPosts } from './FormPosts'
 
-export const Profile = () => {
+const Profile = () => {
   let memoPage = sessionStorage.getItem('profile')
   const [currentPage, setCurrentPage] = useState<number>(memoPage ? +memoPage : 1)
   const items = useSelector(selectUsersItems)
@@ -40,3 +40,4 @@ export const Profile = () => {
     </div>
   )
 }
+export default Profile

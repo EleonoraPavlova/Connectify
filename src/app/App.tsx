@@ -31,7 +31,7 @@ const App = () => {
   }, [isLoggedIn, initialized, navigate])
 
   if (!initialized) {
-    //loader во время проверки срока куки и настроек
+    //loader during checking cookies and settings
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         <CircularProgress sx={{ color: '#008000', strokeWidth: 1 }} thickness={1} />

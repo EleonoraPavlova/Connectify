@@ -1,1 +1,2 @@
-export {} from './News'
+import News from './News'
+export default News

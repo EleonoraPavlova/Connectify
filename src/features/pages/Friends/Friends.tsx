@@ -5,7 +5,7 @@ import { UsersAll } from 'components/UsersComponents/UsersAll'
 import { selectAppStatus } from 'BLL/reducers/appSlice'
 import { usePaginations } from 'common/hooks/usePaginations'
 
-export const Friends = () => {
+const Friends = () => {
   let memoPage = sessionStorage.getItem('friends')
   const [currentPage, setCurrentPage] = useState<number>(memoPage ? +memoPage : 1)
   let statusApp = useSelector(selectAppStatus)
@@ -23,3 +23,4 @@ export const Friends = () => {
     />
   )
 }
+export default Friends

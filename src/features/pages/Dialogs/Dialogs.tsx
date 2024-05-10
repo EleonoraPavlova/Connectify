@@ -3,11 +3,11 @@ import './index.scss'
 import { DialogMessages } from './DialogsRender/DialogMessages'
 import { Dialog } from './DialogsRender/Dialog'
 
-type DialogsProps = {
+type Props = {
   welcome?: string
 }
 
-export const Dialogs: React.FC<DialogsProps> = ({ welcome }) => {
+const Dialogs: React.FC<Props> = ({ welcome }) => {
   return (
     <div>
       <h5 className="dialogs__welcome">{welcome}</h5>
@@ -22,3 +22,4 @@ export const Dialogs: React.FC<DialogsProps> = ({ welcome }) => {
     </div>
   )
 }
+export default Dialogs
