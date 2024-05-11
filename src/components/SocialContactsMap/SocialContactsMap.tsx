@@ -11,6 +11,8 @@ import mainLink from './icons/link.png'
 import { SocialContacts } from 'common/types'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
 import { UserContacts } from 'components/UsersComponents/UserContacts'
+import { List } from '@mui/material'
+import s from './index.module.scss'
 
 export const SocialContactsMap = () => {
   const profileUser = useSelector(selectUserProfile)
@@ -28,7 +30,7 @@ export const SocialContactsMap = () => {
   ]
 
   return (
-    <>
+    <List className={s.social__list}>
       {socialContacts.map((contact) => {
         const contactValue = contacts[contact.key]
         if (contactValue !== undefined) {
@@ -38,6 +40,6 @@ export const SocialContactsMap = () => {
         }
         return null
       })}
-    </>
+    </List>
   )
 }

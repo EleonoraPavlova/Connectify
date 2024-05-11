@@ -3,7 +3,15 @@
 .user {
   padding: 30px 0 50px 0;
   gap: 0;
-  &__foto {
-    margin-right: 40px;
+  margin-right: 40px;
+  &__boxFoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__btnChange {
+    margin-top: 10px;
+    color: $color-green;
+    padding: 7px 15px;
   }
 }

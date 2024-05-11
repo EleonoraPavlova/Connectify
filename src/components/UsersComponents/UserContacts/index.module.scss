@@ -1,0 +1,11 @@
+.contacts {
+  display: flex;
+  align-items: center;
+  &__icon {
+    width: 25px;
+    height: 25px;
+  }
+  &__link {
+    width: 17px;
+  }
+}

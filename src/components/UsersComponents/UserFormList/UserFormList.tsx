@@ -54,7 +54,7 @@ export const UserFormList: React.FC<Props> = memo(
             />
           </ListItem>
         </List>
-        <List className={s.user__contact}>{<SocialContactsMap />}</List>
+        <SocialContactsMap />
       </Box>
     )
   }

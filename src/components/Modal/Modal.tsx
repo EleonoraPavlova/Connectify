@@ -86,7 +86,7 @@ export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, s
                     </Typography>
                   </ListItem>
                 </List>
-                <List className="modal__contact">{<SocialContactsMap />}</List>
+                <SocialContactsMap />
               </Box>
             </>
           )}

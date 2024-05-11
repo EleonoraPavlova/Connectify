@@ -6,6 +6,7 @@ import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { useUserForm } from 'common/hooks/useUserForm'
 import { UserFormButton } from '../UserFormButton'
 import { UserFormList } from '../UserFormList'
+import { Button } from 'components/Button'
 
 type Props = {
   profileUserState: ExtendedInitialResponseProfileUser
@@ -19,10 +20,10 @@ export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUse
 
   return (
     <Box className={`${s.user} flex-start`} tabIndex={0}>
-      <UserFoto
-        link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto}
-        additionalClass={s.user__foto}
-      />
+      <Box className={s.user__boxFoto}>
+        <UserFoto link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto} />
+        {editMode && <Button name="change" additionalClass={s.user__btnChange} />}
+      </Box>
       <UserFormList
         editMode={editMode}
         profileUserState={profileUserState}

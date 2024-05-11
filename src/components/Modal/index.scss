@@ -62,7 +62,6 @@
       -webkit-box-orient: vertical;
     }
   }
-
   &__image {
     padding: 2px;
     border-radius: 50%;
@@ -70,12 +69,6 @@
     object-fit: cover;
     width: 160px;
     height: 160px;
-  }
-  &__contact {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    gap: 15px;
   }
 }
 
