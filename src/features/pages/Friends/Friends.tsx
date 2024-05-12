@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './index.scss'
 import { useSelector } from 'react-redux'
 import { UsersAll } from 'components/UsersComponents/UsersAll'
 import { selectAppStatus } from 'BLL/reducers/appSlice'

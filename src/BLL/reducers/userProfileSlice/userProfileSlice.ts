@@ -23,9 +23,15 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addMatcher(isFulfilled(getProfileUserStatusTC, updateProfileUserStatusTC), (state, action) => {
-        state.status = action.payload.status
-      })
+      .addMatcher(
+        isFulfilled(getProfileUserStatusTC, updateProfileUserStatusTC, updateProfileUserPhotoTC),
+        (state, action: any) => {
+          if (action.type === updateProfileUserPhotoTC.fulfilled.type) {
+            return { photos: state.photos, ...action.payload }
+          }
+          state.status = action.payload.status
+        }
+      )
       .addMatcher(isAnyOf(getProfileUserTC.fulfilled, updateProfileUserTC.fulfilled), (state, action: any) => {
         if (action.type === getProfileUserTC.fulfilled.type) {
           return { status: state.status, ...action.payload.response }
@@ -100,8 +106,26 @@ const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { stat
   }
 )
 
+const updateProfileUserPhotoTC = createAppAsyncThunk<UserPhotos, UserPhotos>(
+  `${userSlice.name}/updateProfileUserPhoto`,
+  async (params, { rejectWithValue }) => {
+    const res = await userProfileApi.updateProfileUserPhoto(params)
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      return res.data.data
+    } else {
+      return rejectWithValue(res.data)
+    }
+  }
+)
+
 export const userProfileReducer = userSlice.reducer
-export const userThunks = { getProfileUserTC, getProfileUserStatusTC, updateProfileUserTC, updateProfileUserStatusTC }
+export const userThunks = {
+  getProfileUserTC,
+  getProfileUserStatusTC,
+  updateProfileUserTC,
+  updateProfileUserStatusTC,
+  updateProfileUserPhotoTC,
+}
 export const { selectUserProfile, selectUserProfileStatus } = userSlice.getSelectors(
   (rootState: AppRootState) => rootState.userProfile
 )

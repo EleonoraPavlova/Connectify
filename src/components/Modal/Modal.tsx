@@ -23,7 +23,6 @@ type Props = {
 export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, setActiveModal, setSearchParams }) => {
   let profileUser = useSelector(selectUserProfile)
   let error = useSelector(selectAppError)
-  const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
   const navigate = useNavigate()
   const { getProfileUserTC } = useActions(userThunks)
 
@@ -53,10 +52,7 @@ export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, s
           ) : (
             <>
               <Box className="modal__avatar">
-                <UserFoto
-                  link={profileUser.photos.large ? profileUser.photos.large : mocPhoto}
-                  additionalClass="modal__image"
-                />
+                <UserFoto link={profileUser.photos.small} additionalClass="modal__image" />
               </Box>
               <Box className="modal__mainInfo">
                 <List className="modal__data">

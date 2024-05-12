@@ -4,7 +4,7 @@
   &__box {
     display: flex;
     flex-direction: column;
-    width: 69%;
+    width: 79%;
   }
   &__item {
     display: grid !important;
@@ -15,17 +15,7 @@
       font-weight: bold !important;
     }
   }
-  // &__link {
-  //   &:hover {
-  //     color: $color-green;
-  //   }
-  // }
-  // &__contact {
-  //   display: flex;
-  //   width: 28px;
-  //   height: 28px;
-  //   align-items: center;
-  //   // height: 50px;
-  //   gap: 10px;
-  // }
+  &__social {
+    width: 60%;
+  }
 }

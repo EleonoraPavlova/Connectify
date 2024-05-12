@@ -14,7 +14,11 @@ import { UserContacts } from 'components/UsersComponents/UserContacts'
 import { List } from '@mui/material'
 import s from './index.module.scss'
 
-export const SocialContactsMap = () => {
+type Props = {
+  additionalClass?: string
+}
+
+export const SocialContactsMap: React.FC<Props> = ({ additionalClass }) => {
   const profileUser = useSelector(selectUserProfile)
   const contacts: SocialContacts = profileUser.contacts as SocialContacts
 
@@ -30,7 +34,7 @@ export const SocialContactsMap = () => {
   ]
 
   return (
-    <List className={s.social__list}>
+    <List className={`${s.social__list} ${additionalClass}`}>
       {socialContacts.map((contact) => {
         const contactValue = contacts[contact.key]
         if (contactValue !== undefined) {

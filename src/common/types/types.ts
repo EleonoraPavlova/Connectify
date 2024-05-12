@@ -58,8 +58,8 @@ export type ResponseProfileUser = {
 
 //user
 export type UserPhotos = {
-  small: string
-  large: string
+  small: string | null
+  large: string | null
 }
 
 export type UserApi = {

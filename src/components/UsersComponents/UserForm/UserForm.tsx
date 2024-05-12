@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { ChangeEvent, memo } from 'react'
 import s from './index.module.scss'
 import { Box } from '@mui/material'
 import { UserFoto } from '../UserFoto'
@@ -6,7 +6,8 @@ import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { useUserForm } from 'common/hooks/useUserForm'
 import { UserFormButton } from '../UserFormButton'
 import { UserFormList } from '../UserFormList'
-import { Button } from 'components/Button'
+import { useSelector } from 'react-redux'
+import { selectAppMeId } from 'BLL/reducers/appSlice'
 
 type Props = {
   profileUserState: ExtendedInitialResponseProfileUser
@@ -14,15 +15,18 @@ type Props = {
 }
 
 export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUserState }) => {
-  const mocPhoto = 'https://cdn.pixabay.com/photo/2021/04/07/17/01/woman-6159648_1280.jpg'
-
-  const { editMode, formRef, setEditMode, saveForm } = useUserForm(profileUserState, setProfileUserState)
+  // debugger
+  const meId = useSelector(selectAppMeId)
+  const { editMode, formRef, setEditMode, updatePhotoUser, saveForm } = useUserForm(
+    profileUserState,
+    setProfileUserState
+  )
 
   return (
     <Box className={`${s.user} flex-start`} tabIndex={0}>
-      <Box className={s.user__boxFoto}>
-        <UserFoto link={profileUserState.photos.small ? profileUserState.photos.small : mocPhoto} />
-        {editMode && <Button name="change" additionalClass={s.user__btnChange} />}
+      <Box className={s.user__boxFoto} onClick={(e) => e.stopPropagation()}>
+        <UserFoto link={profileUserState.photos.large} additionalClass={meId ? s.user__meId : ''} />
+        {editMode && <input type="file" name="photo" onChange={updatePhotoUser} />}
       </Box>
       <UserFormList
         editMode={editMode}

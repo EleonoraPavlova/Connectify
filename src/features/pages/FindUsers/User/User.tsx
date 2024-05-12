@@ -6,7 +6,7 @@ import { UserFoto } from 'components/UsersComponents/UserFoto'
 import { UserApi } from 'common/types'
 import { Typography } from '@mui/material'
 
-type UserProps = {
+type Props = {
   user: UserApi
   btnTextToggle?: string
   btnTexInfo?: string
@@ -15,14 +15,14 @@ type UserProps = {
   callBack?: () => void
 }
 
-export const User: React.FC<UserProps> = memo(
+export const User: React.FC<Props> = memo(
   ({ user, btnTextToggle, btnTexInfo, disabled, toggleFollowUser, callBack }) => {
-    const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
+    // const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
 
     return (
       <Box className={s.user}>
         <Box className={s.user__box}>
-          <UserFoto link={user.photos.small ? user.photos.small : mocPhoto} additionalClass={s.user__image} />
+          <UserFoto link={user.photos.small} additionalClass={s.user__image} />
           <Box className={s.user__data}>
             <Typography variant="h6" className={s.user__name}>
               {user.name}

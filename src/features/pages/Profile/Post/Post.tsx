@@ -9,11 +9,11 @@ import { decreaseLikeCounterAC, increaseLikeCounterAC } from 'BLL/reducers/users
 import { Friend } from 'features/pages/Friends/Friend'
 import { Typography } from '@mui/material'
 
-type PostProps = {
+type Props = {
   item: UserApi
 }
 
-export const Post: React.FC<PostProps> = ({ item }) => {
+export const Post: React.FC<Props> = ({ item }) => {
   const { id, followed, likeCounter } = item
   let [isHighlighted, setisHighlighted] = useState<boolean>(false)
   const dispatch = useAppDispatch()
