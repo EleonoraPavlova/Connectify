@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/social-net/static/css/main.f6ce3068.css",
-    "main.js": "/social-net/static/js/main.c814578d.js",
+    "main.js": "/social-net/static/js/main.0df67373.js",
     "static/js/915.f32d6bb1.chunk.js": "/social-net/static/js/915.f32d6bb1.chunk.js",
-    "static/css/473.dd0a7a3f.chunk.css": "/social-net/static/css/473.dd0a7a3f.chunk.css",
-    "static/js/473.e124a0ad.chunk.js": "/social-net/static/js/473.e124a0ad.chunk.js",
+    "static/css/403.c268e16b.chunk.css": "/social-net/static/css/403.c268e16b.chunk.css",
+    "static/js/403.8e418948.chunk.js": "/social-net/static/js/403.8e418948.chunk.js",
     "static/css/387.6e93d700.chunk.css": "/social-net/static/css/387.6e93d700.chunk.css",
     "static/js/387.52eacbb3.chunk.js": "/social-net/static/js/387.52eacbb3.chunk.js",
-    "static/css/980.ff7fd537.chunk.css": "/social-net/static/css/980.ff7fd537.chunk.css",
-    "static/js/980.1d9ab31a.chunk.js": "/social-net/static/js/980.1d9ab31a.chunk.js",
-    "static/css/139.4a8c9bce.chunk.css": "/social-net/static/css/139.4a8c9bce.chunk.css",
-    "static/js/139.d26ffd3a.chunk.js": "/social-net/static/js/139.d26ffd3a.chunk.js",
+    "static/css/270.e29d056b.chunk.css": "/social-net/static/css/270.e29d056b.chunk.css",
+    "static/js/270.6ef970c1.chunk.js": "/social-net/static/js/270.6ef970c1.chunk.js",
+    "static/css/975.e29d056b.chunk.css": "/social-net/static/css/975.e29d056b.chunk.css",
+    "static/js/975.5e3f8e1d.chunk.js": "/social-net/static/js/975.5e3f8e1d.chunk.js",
     "static/js/462.33133caf.chunk.js": "/social-net/static/js/462.33133caf.chunk.js",
     "static/css/566.eb249774.chunk.css": "/social-net/static/css/566.eb249774.chunk.css",
     "static/js/566.3d5a9422.chunk.js": "/social-net/static/js/566.3d5a9422.chunk.js",
@@ -23,12 +23,12 @@
     "static/js/492.3274e80f.chunk.js": "/social-net/static/js/492.3274e80f.chunk.js",
     "static/js/974.661f444a.chunk.js": "/social-net/static/js/974.661f444a.chunk.js",
     "static/js/732.782dd6af.chunk.js": "/social-net/static/js/732.782dd6af.chunk.js",
-    "static/js/827.b29543c2.chunk.js": "/social-net/static/js/827.b29543c2.chunk.js",
+    "static/js/827.bd37cd36.chunk.js": "/social-net/static/js/827.bd37cd36.chunk.js",
     "static/media/website.png": "/social-net/static/media/website.d7a6f9406eb8ba1c3361.png",
     "index.html": "/social-net/index.html"
   },
   "entrypoints": [
     "static/css/main.f6ce3068.css",
-    "static/js/main.c814578d.js"
+    "static/js/main.0df67373.js"
   ]
 }
