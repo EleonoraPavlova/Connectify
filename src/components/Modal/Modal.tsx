@@ -52,7 +52,7 @@ export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, s
           ) : (
             <>
               <Box className="modal__avatar">
-                <UserFoto link={profileUser.photos.small} additionalClass="modal__image" />
+                <UserFoto link={profileUser.photos.large} additionalClass="modal__image" />
               </Box>
               <Box className="modal__mainInfo">
                 <List className="modal__data">

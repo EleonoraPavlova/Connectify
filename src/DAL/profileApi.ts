@@ -18,25 +18,20 @@ export const userProfileApi = {
     return instance.put<ResponseFollow>('/profile/status', { status })
   },
 
-  updateProfileUserPhoto(photos: UserPhotos) {
+  updateProfileUserPhoto(image: UserPhotos) {
     const formData = new FormData()
-    if (photos.large) {
-      formData.append('image', photos.large)
+    if (image.small) {
+      formData.append('small', image.small)
     }
 
-    return instance.put<ResponseFollow<UserPhotos>>('/profile/photo', formData, {
+    if (image.large) {
+      formData.append('large', image.large)
+    }
+
+    return instance.put<ResponseFollow<UserPhotos>>('/profile/photo', image, {
       headers: {
         'Content-type': 'multipart/form-data',
       },
     })
   },
 }
-
-// if (photos.small) {
-//   const smallPhotoBlob = await fetch(photos.small).then((res) => res.blob())
-//   formData.append('image', smallPhotoBlob, 'small_photo.jpg')
-// }
-// if (photos.large) {
-//   const largePhotoBlob = await fetch(photos.large).then((res) => res.blob())
-//   formData.append('image', largePhotoBlob, 'large_photo.jpg')
-// }

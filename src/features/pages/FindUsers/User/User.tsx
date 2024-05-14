@@ -17,18 +17,18 @@ type Props = {
 
 export const User: React.FC<Props> = memo(
   ({ user, btnTextToggle, btnTexInfo, disabled, toggleFollowUser, callBack }) => {
-    // const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
+    const { photos, name, followed, id, status } = user
 
     return (
       <Box className={s.user}>
         <Box className={s.user__box}>
-          <UserFoto link={user.photos.small} additionalClass={s.user__image} />
+          <UserFoto link={photos.large} additionalClass={s.user__image} />
           <Box className={s.user__data}>
             <Typography variant="h6" className={s.user__name}>
-              {user.name}
+              {name}
             </Typography>
-            {user.followed ? <Typography> Id: {user.id}</Typography> : null}
-            <Typography className={s.user__status}>{user.status}</Typography>
+            {followed ? <Typography> Id: {id}</Typography> : null}
+            <Typography className={s.user__status}>{status}</Typography>
           </Box>
         </Box>
         <Box className={s.user__buttons}>

@@ -15,33 +15,32 @@ export function useUserForm(
 
   const updatePhotoUser = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      const file = e.target.files[0] as unknown as string
-      const updatedProfileUserState: ExtendedInitialResponseProfileUser = {
-        ...profileUserState,
-        photos: {
-          ...profileUserState.photos,
-          large: file,
-        },
-      }
-      setProfileUserState(updatedProfileUserState)
+      const file = e.target.files[0]
+
+      setProfileUserState((prevState) => ({
+        ...prevState,
+        photos: { small: file as any, large: file as any },
+      }))
     }
   }
 
-  const saveForm = useCallback(() => {
+  const saveForm = useCallback(async () => {
     if (!editMode) {
       setEditMode(true)
     } else {
       setEditMode(false)
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
-      updateProfileUserTC({ params: updatedProfileUserState })
-      updateProfileUserStatusTC({ status: updatedProfileUserState.status })
 
-      const updatedUserPhotos: UserPhotos = {
-        ...profileUserState.photos,
+      updateProfileUserStatusTC({ status: updatedProfileUserState.status })
+      updateProfileUserPhotoTC({
+        small: updatedProfileUserState.photos.small,
         large: updatedProfileUserState.photos.large,
-      }
-      updateProfileUserPhotoTC(updatedUserPhotos)
+      })
+      updateProfileUserTC({ params: updatedProfileUserState })
+
+      console.log('updatedProfileUserState.photos.small hook', updatedProfileUserState.photos.small)
+      console.log('updatedProfileUserState.photos.large hook', updatedProfileUserState.photos.large)
     }
   }, [
     editMode,
@@ -68,6 +67,8 @@ export function useUserForm(
       document.removeEventListener('click', globalBlurHandler)
     }
   })
+  console.log('profileUser', profileUser)
+  console.log('profileUserState', profileUserState)
 
   return {
     editMode,

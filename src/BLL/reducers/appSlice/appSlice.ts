@@ -58,9 +58,6 @@ const appSlice = createSlice({
         if (action.type === authThunks.logOutTC.fulfilled.type) {
           state.success = 'you have successfully logged out'
         }
-        if (action.type === userThunks.updateProfileUserTC.fulfilled.type) {
-          state.success = 'your profile was successfully updated'
-        }
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = 'failed'
@@ -70,6 +67,7 @@ const appSlice = createSlice({
         } else {
           state.error = action.error.message ? action.error.message : 'Some error occurred'
         }
+        console.log('actionisRejected', action)
       })
       .addMatcher(isAllOf(clearMeId), () => {
         return appInitial

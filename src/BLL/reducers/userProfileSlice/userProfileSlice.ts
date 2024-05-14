@@ -23,24 +23,24 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addMatcher(isFulfilled(getProfileUserStatusTC, updateProfileUserStatusTC), (state, action: any) => {
+        state.status = action.payload.status
+      })
       .addMatcher(
-        isFulfilled(getProfileUserStatusTC, updateProfileUserStatusTC, updateProfileUserPhotoTC),
+        isAnyOf(getProfileUserTC.fulfilled, updateProfileUserTC.fulfilled, updateProfileUserPhotoTC.fulfilled),
         (state, action: any) => {
-          if (action.type === updateProfileUserPhotoTC.fulfilled.type) {
-            return { photos: state.photos, ...action.payload }
+          if (action.type === getProfileUserTC.fulfilled.type) {
+            return { status: state.status, ...action.payload.response }
           }
-          state.status = action.payload.status
+          if (action.type === updateProfileUserPhotoTC.fulfilled.type) {
+            return { ...state, photos: action.payload.photos }
+          }
+          if (action.type === updateProfileUserTC.fulfilled.type) {
+            return { ...state, ...action.payload }
+          }
+          return state
         }
       )
-      .addMatcher(isAnyOf(getProfileUserTC.fulfilled, updateProfileUserTC.fulfilled), (state, action: any) => {
-        if (action.type === getProfileUserTC.fulfilled.type) {
-          return { status: state.status, ...action.payload.response }
-        }
-        if (action.type === updateProfileUserTC.fulfilled.type) {
-          return { ...state, ...action.payload }
-        }
-        return state
-      })
       .addMatcher(isAnyOf(clearUsers), (state) => {
         console.log('state/clearUsers', current(state))
         return initialUser
@@ -106,14 +106,14 @@ const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { stat
   }
 )
 
-const updateProfileUserPhotoTC = createAppAsyncThunk<UserPhotos, UserPhotos>(
+const updateProfileUserPhotoTC = createAppAsyncThunk<UserPhotos, UserPhotos>( //jyrhusd
   `${userSlice.name}/updateProfileUserPhoto`,
   async (params, { rejectWithValue }) => {
     const res = await userProfileApi.updateProfileUserPhoto(params)
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       return res.data.data
     } else {
-      return rejectWithValue(res.data)
+      return rejectWithValue(res.data.messages)
     }
   }
 )

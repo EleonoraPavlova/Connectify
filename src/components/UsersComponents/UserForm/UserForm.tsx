@@ -1,4 +1,4 @@
-import React, { ChangeEvent, memo } from 'react'
+import React, { memo, useRef } from 'react'
 import s from './index.module.scss'
 import { Box } from '@mui/material'
 import { UserFoto } from '../UserFoto'
@@ -8,6 +8,7 @@ import { UserFormButton } from '../UserFormButton'
 import { UserFormList } from '../UserFormList'
 import { useSelector } from 'react-redux'
 import { selectAppMeId } from 'BLL/reducers/appSlice'
+import { Button } from 'components/Button'
 
 type Props = {
   profileUserState: ExtendedInitialResponseProfileUser
@@ -15,18 +16,36 @@ type Props = {
 }
 
 export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUserState }) => {
-  // debugger
   const meId = useSelector(selectAppMeId)
+  const filePicker: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
   const { editMode, formRef, setEditMode, updatePhotoUser, saveForm } = useUserForm(
     profileUserState,
     setProfileUserState
   )
 
+  const handlePick = () => {
+    if (filePicker.current !== null) {
+      filePicker.current.click()
+    }
+  }
+
   return (
     <Box className={`${s.user} flex-start`} tabIndex={0}>
       <Box className={s.user__boxFoto} onClick={(e) => e.stopPropagation()}>
         <UserFoto link={profileUserState.photos.large} additionalClass={meId ? s.user__meId : ''} />
-        {editMode && <input type="file" name="photo" onChange={updatePhotoUser} />}
+        {editMode && (
+          <>
+            <Button name="Upload" additionalClass={s.user__btnInput} callBack={handlePick}></Button>
+            <input
+              type="file"
+              name="photo"
+              ref={filePicker}
+              className={s.user__hidden}
+              accept="image/*, .png, .jpg, .gif, .jpeg"
+              onChange={updatePhotoUser}
+            />
+          </>
+        )}
       </Box>
       <UserFormList
         editMode={editMode}
