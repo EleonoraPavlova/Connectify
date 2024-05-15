@@ -53,10 +53,13 @@ const appSlice = createSlice({
       .addMatcher(isFulfilled, (state, action) => {
         state.status = 'succeeded'
         if (action.type === authThunks.loginTC.fulfilled.type) {
-          state.success = 'you have successfully logged in'
+          state.success = "you've successfully logged in"
         }
         if (action.type === authThunks.logOutTC.fulfilled.type) {
-          state.success = 'you have successfully logged out'
+          state.success = "you've successfully logged out"
+        }
+        if (action.type === userThunks.updateProfileUserTC.fulfilled.type) {
+          state.success = "you've successfully updated your profile"
         }
       })
       .addMatcher(isRejected, (state, action: any) => {
@@ -67,7 +70,6 @@ const appSlice = createSlice({
         } else {
           state.error = action.error.message ? action.error.message : 'Some error occurred'
         }
-        console.log('actionisRejected', action)
       })
       .addMatcher(isAllOf(clearMeId), () => {
         return appInitial

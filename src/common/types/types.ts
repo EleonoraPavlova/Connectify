@@ -24,6 +24,7 @@ export type ResponseUsers = {
 }
 
 export type ExtendedInitialResponseProfileUser = ResponseProfileUser & {
+  photos: UserPhotos
   status: string
   aboutMe: string | null
 }
@@ -52,8 +53,7 @@ export type ResponseProfileUser = {
   lookingForAJobDescription: string
   fullName: string
   contacts: ProfileUserContacts
-  photos: UserPhotos
-  aboutMe: string
+  aboutMe?: string
 }
 
 //user

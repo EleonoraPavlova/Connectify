@@ -1,4 +1,4 @@
-import { ExtendedInitialResponseProfileUser, UserPhotos } from 'common/types'
+import { ExtendedInitialResponseProfileUser } from 'common/types'
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
 import { useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ export function useUserForm(
   setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
 ) {
   const profileUser = useSelector(selectUserProfile)
+  const filePicker: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
   const formRef = useRef<HTMLDivElement | null>(null)
   const [editMode, setEditMode] = useState<boolean>(false)
   const { updateProfileUserTC, updateProfileUserStatusTC, updateProfileUserPhotoTC } = useActions(userThunks)
@@ -33,14 +34,15 @@ export function useUserForm(
       setProfileUserState((prevState) => ({ ...prevState }))
 
       updateProfileUserStatusTC({ status: updatedProfileUserState.status })
-      updateProfileUserPhotoTC({
-        small: updatedProfileUserState.photos.small,
-        large: updatedProfileUserState.photos.large,
-      })
-      updateProfileUserTC({ params: updatedProfileUserState })
 
-      console.log('updatedProfileUserState.photos.small hook', updatedProfileUserState.photos.small)
-      console.log('updatedProfileUserState.photos.large hook', updatedProfileUserState.photos.large)
+      if (profileUser.photos !== profileUserState.photos) {
+        updateProfileUserPhotoTC({
+          small: updatedProfileUserState.photos.small,
+          large: updatedProfileUserState.photos.large,
+        })
+      }
+      const { status, photos, ...params } = updatedProfileUserState
+      updateProfileUserTC({ params })
     }
   }, [
     editMode,
@@ -50,6 +52,12 @@ export function useUserForm(
     updateProfileUserStatusTC,
     updateProfileUserPhotoTC,
   ])
+
+  const handlePick = () => {
+    if (filePicker.current !== null) {
+      filePicker.current.click()
+    }
+  }
 
   useEffect(() => {
     const globalBlurHandler = (e: MouseEvent) => {
@@ -67,14 +75,14 @@ export function useUserForm(
       document.removeEventListener('click', globalBlurHandler)
     }
   })
-  console.log('profileUser', profileUser)
-  console.log('profileUserState', profileUserState)
 
   return {
     editMode,
+    filePicker,
     formRef,
     setEditMode,
     updatePhotoUser,
     saveForm,
+    handlePick,
   }
 }

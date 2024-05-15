@@ -28,7 +28,7 @@ export const userProfileApi = {
       formData.append('large', image.large)
     }
 
-    return instance.put<ResponseFollow<UserPhotos>>('/profile/photo', image, {
+    return instance.put<ResponseFollow<{ photos: UserPhotos }>>('/profile/photo', formData, {
       headers: {
         'Content-type': 'multipart/form-data',
       },

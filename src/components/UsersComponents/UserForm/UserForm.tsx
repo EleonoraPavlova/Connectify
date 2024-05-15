@@ -1,4 +1,4 @@
-import React, { memo, useRef } from 'react'
+import React, { memo } from 'react'
 import s from './index.module.scss'
 import { Box } from '@mui/material'
 import { UserFoto } from '../UserFoto'
@@ -17,17 +17,10 @@ type Props = {
 
 export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUserState }) => {
   const meId = useSelector(selectAppMeId)
-  const filePicker: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
-  const { editMode, formRef, setEditMode, updatePhotoUser, saveForm } = useUserForm(
+  const { editMode, formRef, filePicker, setEditMode, updatePhotoUser, saveForm, handlePick } = useUserForm(
     profileUserState,
     setProfileUserState
   )
-
-  const handlePick = () => {
-    if (filePicker.current !== null) {
-      filePicker.current.click()
-    }
-  }
 
   return (
     <Box className={`${s.user} flex-start`} tabIndex={0}>

@@ -20,12 +20,12 @@ export const UsersMap: React.FC<Props> = ({ btnText, user }) => {
   const { getProfileUserTC } = useActions(userThunks)
 
   const toggleFollowUser = useCallback(() => {
-    if (!user.followed) {
+    if (!followed) {
       toggleFollowUserTC({ userId: id, followed })
-    } else if (user.followed) {
+    } else if (followed) {
       unFollowUserTC({ userId: id, followed })
     }
-  }, [user.followed, toggleFollowUserTC, unFollowUserTC])
+  }, [followed, toggleFollowUserTC, unFollowUserTC])
 
   const viewFullProfile = useCallback(() => {
     getProfileUserTC({ userId: id })
@@ -39,13 +39,10 @@ export const UsersMap: React.FC<Props> = ({ btnText, user }) => {
 
   return (
     <User
-      key={user.id}
       user={user}
       toggleFollowUser={toggleFollowUser}
-      btnTextToggle={user.followed ? 'Unfollowed' : 'Follow'}
-      disabled={user.followingInProgress === 'loading'}
-      callBack={() => (btnText === 'Message' ? sendMessage() : viewFullProfile())}
-      btnTexInfo={btnText}
+      sendViewHandler={() => (btnText === 'Message' ? sendMessage() : viewFullProfile())}
+      btnText={btnText}
     />
   )
 }

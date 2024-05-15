@@ -6,7 +6,7 @@ import { ExtendedInitialResponseProfileUser, ProfileUserContacts, ResponseProfil
 import { AppRootState } from 'BLL/store'
 import { createAppAsyncThunk } from 'common/utils/createAppAsyncThunk'
 
-export const initialUser: ExtendedInitialResponseProfileUser = {
+const initialUser: ExtendedInitialResponseProfileUser = {
   userId: 0,
   lookingForAJob: false,
   lookingForAJobDescription: '',
@@ -33,7 +33,7 @@ const userSlice = createSlice({
             return { status: state.status, ...action.payload.response }
           }
           if (action.type === updateProfileUserPhotoTC.fulfilled.type) {
-            return { ...state, photos: action.payload.photos }
+            return { ...state, photos: action.payload }
           }
           if (action.type === updateProfileUserTC.fulfilled.type) {
             return { ...state, ...action.payload }
@@ -71,27 +71,27 @@ const getProfileUserStatusTC = createAppAsyncThunk<{ status: string }, Pick<Resp
   }
 )
 
-const updateProfileUserTC = createAppAsyncThunk<
-  ExtendedInitialResponseProfileUser | undefined,
-  { params: ExtendedInitialResponseProfileUser }
->(`${userSlice.name}/updateProfileUser`, async (payload, { getState, rejectWithValue }) => {
-  const { params } = payload
-  const state = getState() as AppRootState
-  const meId = state.app.meId
-  if (!meId) return
+const updateProfileUserTC = createAppAsyncThunk<ResponseProfileUser | undefined, { params: ResponseProfileUser }>(
+  `${userSlice.name}/updateProfileUser`,
+  async (payload, { getState, rejectWithValue }) => {
+    const { params } = payload
+    const state = getState() as AppRootState
+    const meId = state.app.meId
+    if (!meId) return
 
-  const apiModel: ExtendedInitialResponseProfileUser = {
-    ...params,
-    userId: meId,
-  }
+    const apiModel: ResponseProfileUser = {
+      ...params,
+      userId: meId,
+    }
 
-  const res = await userProfileApi.updateProfileUser(apiModel)
-  if (res.data.resultCode === ResultCode.SUCCEEDED) {
-    return apiModel
-  } else {
-    return rejectWithValue(res.data)
+    const res = await userProfileApi.updateProfileUser(apiModel)
+    if (res.data.resultCode === ResultCode.SUCCEEDED) {
+      return apiModel
+    } else {
+      return rejectWithValue(res.data)
+    }
   }
-})
+)
 
 const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { status: string }>(
   `${userSlice.name}/updateProfileUserStatus`,
@@ -106,12 +106,12 @@ const updateProfileUserStatusTC = createAppAsyncThunk<{ status: string }, { stat
   }
 )
 
-const updateProfileUserPhotoTC = createAppAsyncThunk<UserPhotos, UserPhotos>( //jyrhusd
+const updateProfileUserPhotoTC = createAppAsyncThunk<UserPhotos, UserPhotos>(
   `${userSlice.name}/updateProfileUserPhoto`,
   async (params, { rejectWithValue }) => {
     const res = await userProfileApi.updateProfileUserPhoto(params)
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
-      return res.data.data
+      return res.data.data.photos
     } else {
       return rejectWithValue(res.data.messages)
     }
