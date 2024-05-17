@@ -61,6 +61,10 @@ const appSlice = createSlice({
         if (action.type === userThunks.updateProfileUserTC.fulfilled.type) {
           state.success = "you've successfully updated your profile"
         }
+        if (action.type === authThunks.getCaptchaUrl.fulfilled.type) {
+          state.status = 'failed'
+        }
+        console.log('action.type success', action.type)
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = 'failed'
@@ -70,6 +74,7 @@ const appSlice = createSlice({
         } else {
           state.error = action.error.message ? action.error.message : 'Some error occurred'
         }
+        console.log('action.type error', action.type)
       })
       .addMatcher(isAllOf(clearMeId), () => {
         return appInitial

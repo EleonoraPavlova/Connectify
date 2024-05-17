@@ -7,21 +7,23 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
+import { selectCaptcha, selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useLogin } from 'common/hooks/useLogin'
 import { LoginError } from './LoginError/LoginError'
+import Captcha from './Captcha'
 
 const Login = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
+  let captcha = useSelector(selectCaptcha)
   const { formik, disabled } = useLogin()
 
   if (isLoggedIn) {
     return <Navigate to={'/'} />
   }
-
+  console.log('captcha', captcha)
   return (
     <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
@@ -64,6 +66,7 @@ const Login = () => {
                 label={'Remember me'}
                 control={<Checkbox checked={formik.values.rememberMe} {...formik.getFieldProps('rememberMe')} />}
               />
+              <Captcha />
               <Button
                 type={'submit'}
                 variant={'contained'}
