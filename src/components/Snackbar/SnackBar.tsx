@@ -32,12 +32,12 @@ export function SnackBar() {
 
   if (!error && !success) return null
 
-  let displayMessage = null
-  if (error && !success) {
-    displayMessage = error
-  } else if (!error && success) {
-    displayMessage = success
-  }
+  // let displayMessage = null
+  // if (error && !success) {
+  //   displayMessage = error
+  // } else if (!error && success) {
+  //   displayMessage = success
+  // }
 
   console.log('successSnackBar', success, statusApp)
   console.log('errorSnackBar', error, statusApp)
@@ -45,7 +45,7 @@ export function SnackBar() {
     <Stack sx={{ width: '100%' }}>
       <Snackbar open={!!error || !!success} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={statusApp === 'succeeded' ? 'success' : 'error'} sx={{ width: '100%' }}>
-          {displayMessage}
+          {error ? error : success}
         </Alert>
       </Snackbar>
     </Stack>

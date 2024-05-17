@@ -3,12 +3,12 @@
 .user {
   &__box {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     width: 79%;
   }
   &__item {
     display: grid !important;
-    grid-template-columns: 36% 64%;
+    grid-template-columns: 25% 73%;
   }
   &__name {
     .MuiTypography-root {
@@ -17,5 +17,6 @@
   }
   &__social {
     width: 60%;
+    flex-direction: column;
   }
 }

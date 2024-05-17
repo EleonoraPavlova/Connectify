@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import instaIcon from './icons/insta.png'
 import facebookIcon from './icons/facebook.png'
@@ -11,39 +11,70 @@ import mainLink from './icons/link.png'
 import { SocialContacts } from 'common/types'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
 import { UserContacts } from 'components/UsersComponents/UserContacts'
-import { List } from '@mui/material'
+import { Box, List } from '@mui/material'
 import s from './index.module.scss'
+import { EditableSpan } from 'components/EditableSpan'
+import { isValidUrl } from 'common/utils/isValidUrl'
 
 type Props = {
   additionalClass?: string
+  editMode: boolean
+  saveForm?: () => void | undefined
+  setEditMode?: (arg: boolean) => void | undefined
+  collectionOfFormSocial?: (arg: SocialContacts) => void | undefined
 }
 
-export const SocialContactsMap: React.FC<Props> = ({ additionalClass }) => {
+export const SocialContactsMap: React.FC<Props> = ({
+  additionalClass,
+  editMode,
+  saveForm,
+  setEditMode,
+  collectionOfFormSocial = undefined,
+}) => {
   const profileUser = useSelector(selectUserProfile)
-  const contacts: SocialContacts = profileUser.contacts as SocialContacts
+  let [errorLocal, setErrorLocal] = useState<Partial<SocialContacts>>({})
 
-  const socialContacts: SocialContacts[] = [
-    { icon: facebookIcon, key: 'facebook', link: 'https://www.facebook.com' },
-    { icon: githubIcon, key: 'github', link: 'https://github.com' },
-    { icon: instaIcon, key: 'instagram', link: 'https://www.instagram.com' },
-    { icon: vkIcon, key: 'vk', link: 'https://vk.com' },
-    { icon: youtubeIcon, key: 'youtube', link: 'https://www.youtube.com' },
-    { icon: twitter, key: 'twitter', link: 'https://twitter.com' },
+  const socialContacts: { icon: string; key: keyof SocialContacts; link: string }[] = [
+    { icon: facebookIcon, key: 'facebook', link: 'https://www.facebook.com/' },
+    { icon: githubIcon, key: 'github', link: 'https://github.com/' },
+    { icon: instaIcon, key: 'instagram', link: 'https://www.instagram.com/' },
+    { icon: vkIcon, key: 'vk', link: 'https://vk.com/' },
+    { icon: youtubeIcon, key: 'youtube', link: 'https://www.youtube.com/' },
+    { icon: twitter, key: 'twitter', link: 'https://twitter.com/' },
     { icon: website, key: 'website', link: 'https://www.asos.com/' },
-    { icon: mainLink, key: 'link', link: 'https://fontawesome.com' },
+    { icon: mainLink, key: 'mainLink', link: 'https://fontawesome.com/' },
   ]
 
-  return (
-    <List className={`${s.social__list} ${additionalClass}`}>
-      {socialContacts.map((contact) => {
-        const contactValue = contacts[contact.key]
-        if (contactValue !== undefined) {
-          return (
-            <UserContacts key={contact.key} icon={contact.icon} href={`https://${contact.key}.com/${contactValue}`} />
-          )
-        }
-        return null
-      })}
-    </List>
-  )
+  const handleChangeSocial = (key: keyof SocialContacts, newValue: string) => {
+    if (isValidUrl(newValue)) {
+      setErrorLocal((prev) => ({ ...prev, [key]: undefined }))
+      if (collectionOfFormSocial) {
+        collectionOfFormSocial({ [key]: newValue })
+      }
+    } else {
+      setErrorLocal((prev) => ({ ...prev, [key]: 'invalid field' }))
+    }
+  }
+
+  const iconsMap = () => {
+    return socialContacts.map(({ icon, key, link }) => (
+      <Box className={s.social__box} key={key}>
+        <UserContacts icon={icon} href={link} />
+        {editMode && (
+          <EditableSpan
+            error={!!errorLocal[key]}
+            helperText={errorLocal[key] ? errorLocal[key] : undefined}
+            label={''}
+            title={profileUser.contacts[key as keyof typeof profileUser.contacts] || ''}
+            editMode={editMode}
+            saveForm={saveForm ? saveForm : undefined}
+            setEditMode={setEditMode ? setEditMode : undefined}
+            onChange={(newValue) => handleChangeSocial(key, newValue)}
+          />
+        )}
+      </Box>
+    ))
+  }
+
+  return <List className={`${s.social__list} ${additionalClass || ''}`}>{iconsMap()}</List>
 }

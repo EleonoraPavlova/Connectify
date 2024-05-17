@@ -9,8 +9,8 @@ type Props = {
   additionalClass?: string
   isDone?: boolean | undefined
   editMode: boolean
-  saveForm: () => void
-  setEditMode: (arg: boolean) => void
+  saveForm?: () => void | undefined
+  setEditMode?: (arg: boolean) => void | undefined
   onChange: (title: string) => void
 }
 
@@ -29,17 +29,17 @@ export const EditableSpan: React.FC<Props> = memo((props) => {
 
   const onKeyDownEditHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.saveForm()
+      if (props.saveForm) {
+        props.saveForm()
+      }
     }
   }
 
   return props.editMode ? (
     <TextField
-      sx={{ width: '120%' }}
       value={title}
       type="text"
       label={props.label}
-      autoComplete={props.label}
       error={props.error}
       helperText={props.helperText}
       onChange={onChangeHandler}
@@ -47,7 +47,7 @@ export const EditableSpan: React.FC<Props> = memo((props) => {
       onKeyDown={onKeyDownEditHandler}
       className={props.additionalClass}
       inputProps={{
-        style: { padding: '10px 9px' },
+        style: { padding: '8px 6px' },
       }}
     />
   ) : (

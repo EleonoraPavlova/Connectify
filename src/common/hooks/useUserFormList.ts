@@ -1,4 +1,4 @@
-import { ExtendedInitialResponseProfileUser } from 'common/types'
+import { ExtendedInitialResponseProfileUser, SocialContacts } from 'common/types'
 import { ChangeEvent } from 'react'
 
 export function useUserFormList(
@@ -14,6 +14,16 @@ export function useUserFormList(
     setProfileUserState((prevState: ExtendedInitialResponseProfileUser) => ({
       ...prevState,
       [key]: title,
+    }))
+  }
+
+  const collectionOfFormSocial = (params: SocialContacts) => {
+    setProfileUserState((prevState: ExtendedInitialResponseProfileUser) => ({
+      ...prevState,
+      contacts: {
+        ...prevState.contacts,
+        ...params,
+      },
     }))
   }
 
@@ -41,7 +51,7 @@ export function useUserFormList(
       title: profileUserState.aboutMe,
     },
     {
-      label: 'Description',
+      label: 'Skills',
       prop: 'lookingForAJobDescription',
       title: profileUserState.lookingForAJobDescription,
     },
@@ -51,5 +61,6 @@ export function useUserFormList(
     formItems,
     collectionOfForm,
     collectionOfFormCheckbox,
+    collectionOfFormSocial,
   }
 }

@@ -64,25 +64,25 @@ export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, s
                       <span className="modal__data-span"> Id: </span> {profileUser.userId}
                     </Typography>
                   </ListItem>
-                  <ListItem>
-                    <Typography>
-                      <span className="modal__data-span"> Looking for a job: </span> {profileUser.lookingForAJob}
-                    </Typography>
-                  </ListItem>
-                  <ListItem>
-                    <Typography>
-                      <span className="modal__data-span"> Description: </span>{' '}
-                      {replaceRussianLetters(profileUser.lookingForAJobDescription)}
-                    </Typography>
-                  </ListItem>
                   <ListItem className="modal__data-status">
                     <Typography>
                       <span className="modal__data-span">Status: </span>
                       {replaceRussianLetters(profileUser.status)}
                     </Typography>
                   </ListItem>
+                  <ListItem>
+                    <Typography>
+                      <span className="modal__data-span"> Skills: </span>{' '}
+                      {replaceRussianLetters(profileUser.lookingForAJobDescription)}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography>
+                      <span className="modal__data-span"> Job Seeker: </span> {profileUser.lookingForAJob}
+                    </Typography>
+                  </ListItem>
                 </List>
-                <SocialContactsMap />
+                <SocialContactsMap editMode={false} />
               </Box>
             </>
           )}

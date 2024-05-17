@@ -18,17 +18,17 @@ type Props = {
 
 export const UserFormList: React.FC<Props> = memo(
   ({ profileUserState, editMode, formRef, setProfileUserState, setEditMode, saveForm }) => {
-    const { formItems, collectionOfForm, collectionOfFormCheckbox } = useUserFormList(
+    const { formItems, collectionOfForm, collectionOfFormCheckbox, collectionOfFormSocial } = useUserFormList(
       profileUserState,
       setProfileUserState
     )
 
     return (
       <Box className={s.user__box} ref={formRef}>
-        <List sx={{ width: '69%' }}>
+        <List sx={{ width: '118%' }}>
           {formItems.map((item) => (
             <ListItem key={item.label} className={s.user__item}>
-              <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>{item.label}:</Typography>
+              <Typography sx={{ fontWeight: 'bold', padding: '10px 9px', lineHeight: '0px' }}>{item.label}:</Typography>
               <EditableSpan
                 title={item.title}
                 label={item.label}
@@ -43,7 +43,7 @@ export const UserFormList: React.FC<Props> = memo(
             </ListItem>
           ))}
           <ListItem className={s.user__item}>
-            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Looking for a job:</Typography>
+            <Typography sx={{ fontWeight: 'bold', padding: '10px 9px' }}>Job Seeker:</Typography>
             <Checkbox
               name="lookingForAJob"
               color="success"
@@ -54,7 +54,13 @@ export const UserFormList: React.FC<Props> = memo(
             />
           </ListItem>
         </List>
-        <SocialContactsMap additionalClass={s.user__social} />
+        <SocialContactsMap
+          editMode={editMode}
+          additionalClass={s.user__social}
+          saveForm={saveForm}
+          setEditMode={setEditMode}
+          collectionOfFormSocial={collectionOfFormSocial}
+        />
       </Box>
     )
   }

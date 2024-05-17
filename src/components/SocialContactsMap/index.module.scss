@@ -1,7 +1,10 @@
 .social {
-  &__list {
+  &__box {
     display: flex;
     align-items: center;
-    height: 45px;
+    justify-content: flex-start;
+  }
+  &__list {
+    display: flex;
   }
 }

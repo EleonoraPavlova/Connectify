@@ -33,7 +33,9 @@ export function useUserForm(
       const updatedProfileUserState = { ...profileUserState }
       setProfileUserState((prevState) => ({ ...prevState }))
 
-      updateProfileUserStatusTC({ status: updatedProfileUserState.status })
+      if (profileUser.status !== profileUserState.status) {
+        updateProfileUserStatusTC({ status: updatedProfileUserState.status })
+      }
 
       if (profileUser.photos !== profileUserState.photos) {
         updateProfileUserPhotoTC({

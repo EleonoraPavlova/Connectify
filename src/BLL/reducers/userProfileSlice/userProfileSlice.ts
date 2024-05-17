@@ -85,6 +85,7 @@ const updateProfileUserTC = createAppAsyncThunk<ResponseProfileUser | undefined,
     }
 
     const res = await userProfileApi.updateProfileUser(apiModel)
+
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       return apiModel
     } else {
