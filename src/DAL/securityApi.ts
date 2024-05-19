@@ -1,4 +1,3 @@
-import { ResponseFollow } from 'common/types'
 import { instance } from './instance'
 
 export const captchaApi = {

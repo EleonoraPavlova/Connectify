@@ -28,6 +28,7 @@ export function useLogin() {
       email: '',
       password: '',
       rememberMe: false,
+      captcha: '',
     },
     onSubmit: (values, { setFieldError, setSubmitting }) => {
       setSubmitting(true)

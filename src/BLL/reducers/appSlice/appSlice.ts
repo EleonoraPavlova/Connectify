@@ -61,7 +61,7 @@ const appSlice = createSlice({
         if (action.type === userThunks.updateProfileUserTC.fulfilled.type) {
           state.success = "you've successfully updated your profile"
         }
-        if (action.type === authThunks.getCaptchaUrl.fulfilled.type) {
+        if (action.type === authThunks.getCaptchaUrlTC.fulfilled.type) {
           state.status = 'failed'
         }
         console.log('action.type success', action.type)

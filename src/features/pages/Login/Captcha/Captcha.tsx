@@ -1,39 +1,68 @@
 import React from 'react'
-import { Box, Grid } from '@mui/material'
+import { Box, IconButton, TextField } from '@mui/material'
 import { useSelector } from 'react-redux'
-import { selectCaptcha } from 'BLL/reducers/authSlice'
-import { EditableSpan } from 'components/EditableSpan'
+import { authThunks, selectCaptcha } from 'BLL/reducers/authSlice'
+import { FormikErrors, FormikTouched } from 'formik'
+import { LoginParams } from 'common/types'
+import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined'
+import { useActions } from 'common/hooks/useActions'
 
-const Captcha = () => {
+type FormValues = Pick<LoginParams, 'captcha'>
+
+type Props = {
+  formik: {
+    touched: FormikTouched<FormValues>
+    errors: FormikErrors<FormValues>
+    getFieldProps: any
+    setFieldValue: any
+  }
+}
+
+const Captcha: React.FC<Props> = ({ formik }) => {
+  const { touched, errors, setFieldValue } = formik
   const captcha = useSelector(selectCaptcha)
-  console.log('captcha', captcha)
+  const { getCaptchaUrlTC } = useActions(authThunks)
+
+  const refreshCaptchaHandler = () => {
+    getCaptchaUrlTC()
+    setFieldValue('captcha', '')
+  }
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={10}>
+    <Box>
+      <Box sx={{}}>
         {captcha && (
           <Box
-            component="img"
-            src={captcha}
-            alt="Captcha"
             sx={{
-              width: '200px',
-              height: 'auto',
-            }}
-          />
+              display: 'flex',
+              margin: ' 0 auto',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}>
+            <Box component="img" src={captcha} alt="Captcha" sx={{ width: '160px', height: 'auto' }} />
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <TextField
+                sx={{ padding: 0, margin: '7px' }}
+                name="captcha"
+                label="Captcha"
+                margin="normal"
+                type="text"
+                autoComplete="captcha"
+                error={!!(touched.captcha && errors.captcha)}
+                inputProps={{
+                  style: { padding: '8px 6px' },
+                }}
+                {...formik.getFieldProps('captcha')}
+              />
+              <IconButton aria-label="change" size="small" onClick={refreshCaptchaHandler}>
+                <ChangeCircleOutlinedIcon color="success" sx={{ opacity: '0.9' }} />
+              </IconButton>
+            </Box>
+          </Box>
         )}
-      </Grid>
-      <Grid item xs={10}>
-        <EditableSpan
-          title={undefined}
-          label={'captcha'}
-          editMode={captcha ? true : false}
-          onChange={function (title: string): void {
-            throw new Error('Function not implemented.')
-          }}
-        />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   )
 }
 

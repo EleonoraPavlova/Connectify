@@ -2,7 +2,7 @@ export type LoginParams = {
   email: string
   password: string
   rememberMe: boolean
-  captcha?: boolean
+  captcha?: string
 }
 
 export type ResponseFollow<Data = {}> = {

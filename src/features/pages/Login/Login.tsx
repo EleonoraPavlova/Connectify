@@ -7,7 +7,7 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectCaptcha, selectIsLoggedIn } from 'BLL/reducers/authSlice'
@@ -40,7 +40,7 @@ const Login = () => {
                 Password: free
               </Typography>
             </FormLabel>
-            <FormGroup>
+            <FormGroup sx={{ width: '240px' }}>
               <TextField
                 label="email"
                 margin="normal"
@@ -66,7 +66,7 @@ const Login = () => {
                 label={'Remember me'}
                 control={<Checkbox checked={formik.values.rememberMe} {...formik.getFieldProps('rememberMe')} />}
               />
-              <Captcha />
+              <Captcha formik={formik} />
               <Button
                 type={'submit'}
                 variant={'contained'}

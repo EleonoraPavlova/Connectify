@@ -13,7 +13,7 @@ type AuthInitial = {
   password: string
   rememberMe: boolean
   isLoggedIn: boolean
-  captcha: string | null
+  captchaUrl: string | null
 }
 
 const authSlice = createSlice({
@@ -23,7 +23,7 @@ const authSlice = createSlice({
     password: '',
     rememberMe: false,
     isLoggedIn: false, //Is the user logged in or not
-    captcha: '',
+    captchaUrl: '',
   } satisfies AuthInitial as AuthInitial,
   reducers: {},
   extraReducers: (builder) => {
@@ -31,8 +31,8 @@ const authSlice = createSlice({
       .addMatcher(isFulfilled(loginTC, logOutTC, appThunks.setAppInitializeTC), (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn
       })
-      .addMatcher(isAnyOf(getCaptchaUrl.fulfilled), (state, action: any) => {
-        state.captcha = action.payload
+      .addMatcher(isAnyOf(getCaptchaUrlTC.fulfilled), (state, action: any) => {
+        state.captchaUrl = action.payload
       })
       .addMatcher(isAnyOf(logOutTC.fulfilled), (state) => {
         sessionStorage.removeItem('profile')
@@ -41,7 +41,7 @@ const authSlice = createSlice({
   },
   selectors: {
     selectIsLoggedIn: (sliceState) => sliceState.isLoggedIn,
-    selectCaptcha: (sliceState) => sliceState.captcha,
+    selectCaptcha: (sliceState) => sliceState.captchaUrl,
   },
 })
 
@@ -50,7 +50,7 @@ const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParams>(
   async (params, { dispatch, rejectWithValue }) => {
     const res = await authApi.login(params)
     if (res.data.resultCode === ResultCode.ERROR_CAPTCHA) {
-      dispatch(getCaptchaUrl())
+      dispatch(getCaptchaUrlTC())
     }
     if (res.data.resultCode === ResultCode.SUCCEEDED) {
       dispatch(appThunks.setAppInitializeTC())
@@ -76,12 +76,12 @@ const logOutTC = createAppAsyncThunk<{ isLoggedIn: boolean }>(
   }
 )
 
-const getCaptchaUrl = createAppAsyncThunk(`${authSlice.name}/getCaptchaUrl`, async (_) => {
+const getCaptchaUrlTC = createAppAsyncThunk(`${authSlice.name}/getCaptchaUrl`, async (_) => {
   const res = await captchaApi.getCaptcha()
   console.log('res.data.url', res.data.url)
   return res.data.url
 })
 
 export const authReducer = authSlice.reducer
-export const authThunks = { loginTC, logOutTC, getCaptchaUrl }
+export const authThunks = { loginTC, logOutTC, getCaptchaUrlTC }
 export const { selectIsLoggedIn, selectCaptcha } = authSlice.getSelectors((rootState: AppRootState) => rootState.auth)
