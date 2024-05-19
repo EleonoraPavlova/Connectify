@@ -28,9 +28,9 @@ export function useLogin() {
       email: '',
       password: '',
       rememberMe: false,
-      captcha: '',
+      captcha: undefined,
     },
-    onSubmit: (values, { setFieldError, setSubmitting }) => {
+    onSubmit: (values, { setFieldError, setSubmitting, setFieldValue }) => {
       setSubmitting(true)
       loginTC(values)
         .unwrap()
@@ -44,9 +44,10 @@ export function useLogin() {
           if (e.messages) {
             setFieldError('email', e.messages[0])
             setFieldError('password', e.messages[0])
+            setFieldError('captcha', e.messages[0])
           }
         })
-
+      setFieldValue('captcha', '')
       setSubmitting(false)
     },
   })

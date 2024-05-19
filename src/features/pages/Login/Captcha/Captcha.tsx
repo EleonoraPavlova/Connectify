@@ -2,19 +2,24 @@ import React from 'react'
 import { Box, IconButton, TextField } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { authThunks, selectCaptcha } from 'BLL/reducers/authSlice'
-import { FormikErrors, FormikTouched } from 'formik'
+import { FieldConfig, FieldInputProps, FormikErrors, FormikTouched } from 'formik'
 import { LoginParams } from 'common/types'
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined'
 import { useActions } from 'common/hooks/useActions'
+import { LoginError } from '../LoginError/LoginError'
 
 type FormValues = Pick<LoginParams, 'captcha'>
 
-type Props = {
+interface Props {
   formik: {
-    touched: FormikTouched<FormValues>
-    errors: FormikErrors<FormValues>
-    getFieldProps: any
-    setFieldValue: any
+    touched: FormikTouched<LoginParams>
+    errors: FormikErrors<LoginParams>
+    getFieldProps: (nameOrOptions: string | FieldConfig<any>) => FieldInputProps<any>
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean
+    ) => Promise<FormikErrors<FormValues>> | Promise<void>
   }
 }
 
@@ -30,7 +35,7 @@ const Captcha: React.FC<Props> = ({ formik }) => {
 
   return (
     <Box>
-      <Box sx={{}}>
+      <Box>
         {captcha && (
           <Box
             sx={{
@@ -44,7 +49,6 @@ const Captcha: React.FC<Props> = ({ formik }) => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <TextField
                 sx={{ padding: 0, margin: '7px' }}
-                name="captcha"
                 label="Captcha"
                 margin="normal"
                 type="text"
@@ -55,10 +59,12 @@ const Captcha: React.FC<Props> = ({ formik }) => {
                 }}
                 {...formik.getFieldProps('captcha')}
               />
+
               <IconButton aria-label="change" size="small" onClick={refreshCaptchaHandler}>
                 <ChangeCircleOutlinedIcon color="success" sx={{ opacity: '0.9' }} />
               </IconButton>
             </Box>
+            <LoginError formik={formik} />
           </Box>
         )}
       </Box>

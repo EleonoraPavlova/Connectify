@@ -10,20 +10,19 @@ import Button from '@mui/material/Button'
 import { Typography } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectCaptcha, selectIsLoggedIn } from 'BLL/reducers/authSlice'
+import { selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { useLogin } from 'common/hooks/useLogin'
 import { LoginError } from './LoginError/LoginError'
 import Captcha from './Captcha'
 
 const Login = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
-  let captcha = useSelector(selectCaptcha)
   const { formik, disabled } = useLogin()
 
   if (isLoggedIn) {
     return <Navigate to={'/'} />
   }
-  console.log('captcha', captcha)
+
   return (
     <Grid container justifyContent={'center'}>
       <Grid item justifyContent={'center'}>
