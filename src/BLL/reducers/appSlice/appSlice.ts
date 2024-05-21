@@ -50,6 +50,15 @@ const appSlice = createSlice({
       .addMatcher(isPending, (state) => {
         state.status = 'loading'
       })
+      // .addMatcher(
+      //   (action) => action.type === userThunks.updateProfileUserTC.fulfilled.type,
+      //   (state) => {
+      //     if (state.status === 'failed') {
+      //       state.status = 'failed'
+      //       state.error = 'Error updating user profile due to failed status update'
+      //     }
+      //   }
+      // )
       .addMatcher(isFulfilled, (state, action) => {
         state.status = 'succeeded'
         if (action.type === authThunks.loginTC.fulfilled.type) {
@@ -64,7 +73,6 @@ const appSlice = createSlice({
         if (action.type === authThunks.getCaptchaUrlTC.fulfilled.type) {
           state.status = 'failed'
         }
-        console.log('action.type success', action.type)
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = 'failed'
@@ -74,7 +82,8 @@ const appSlice = createSlice({
         } else {
           state.error = action.error.message ? action.error.message : 'Some error occurred'
         }
-        console.log('action.type error', action.type)
+        // debugger
+        // console.log('action.type error', action.type)
       })
       .addMatcher(isAllOf(clearMeId), () => {
         return appInitial

@@ -18,10 +18,8 @@ type Props = {
 
 export const UserFormList: React.FC<Props> = memo(
   ({ profileUserState, editMode, formRef, setProfileUserState, setEditMode, saveForm }) => {
-    const { formItems, collectionOfForm, collectionOfFormCheckbox, collectionOfFormSocial } = useUserFormList(
-      profileUserState,
-      setProfileUserState
-    )
+    const { errorLocal, formItems, collectionOfForm, collectionOfFormCheckbox, collectionOfFormSocial } =
+      useUserFormList(profileUserState, setProfileUserState)
 
     return (
       <Box className={s.user__box} ref={formRef}>
@@ -30,10 +28,10 @@ export const UserFormList: React.FC<Props> = memo(
             <ListItem key={item.label} className={s.user__item}>
               <Typography sx={{ fontWeight: 'bold', padding: '10px 9px', lineHeight: '0px' }}>{item.label}:</Typography>
               <EditableSpan
+                error={errorLocal && errorLocal[item.prop] !== undefined}
+                helperText={errorLocal && errorLocal[item.prop]}
                 title={item.title}
                 label={item.label}
-                error={false}
-                helperText={''}
                 additionalClass={s.user__name}
                 editMode={editMode}
                 setEditMode={setEditMode}

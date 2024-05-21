@@ -1,20 +1,29 @@
 import { ExtendedInitialResponseProfileUser, SocialContacts } from 'common/types'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 export function useUserFormList(
   profileUserState: ExtendedInitialResponseProfileUser,
   setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
 ) {
+  const [errorLocal, setErrorLocal] = useState<{
+    [key: string]: string | undefined
+  }>({})
+
   let profileUserUpperFullName =
     profileUserState && profileUserState.fullName
       ? profileUserState.fullName[0].toUpperCase() + profileUserState.fullName.slice(1)
       : ''
 
   const collectionOfForm = (key: string, title: string) => {
-    setProfileUserState((prevState: ExtendedInitialResponseProfileUser) => ({
-      ...prevState,
-      [key]: title,
-    }))
+    if (title.length >= 300) {
+      setErrorLocal((prev) => ({ ...prev, [key]: 'More than 300 symbols' }))
+    } else {
+      setErrorLocal((prev) => ({ ...prev, [key]: undefined }))
+      setProfileUserState((prevState: ExtendedInitialResponseProfileUser) => ({
+        ...prevState,
+        [key]: title,
+      }))
+    }
   }
 
   const collectionOfFormSocial = (params: SocialContacts) => {
@@ -58,6 +67,7 @@ export function useUserFormList(
   ]
 
   return {
+    errorLocal,
     formItems,
     collectionOfForm,
     collectionOfFormCheckbox,

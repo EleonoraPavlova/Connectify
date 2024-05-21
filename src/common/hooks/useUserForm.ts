@@ -43,6 +43,7 @@ export function useUserForm(
           large: updatedProfileUserState.photos.large,
         })
       }
+
       const { status, photos, ...params } = updatedProfileUserState
       updateProfileUserTC({ params })
     }

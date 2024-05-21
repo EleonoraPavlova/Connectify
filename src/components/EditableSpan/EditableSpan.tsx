@@ -5,7 +5,7 @@ type Props = {
   title: string | undefined
   label: string
   error?: boolean | undefined
-  helperText?: string
+  helperText?: string | null
   additionalClass?: string
   isDone?: boolean | undefined
   editMode: boolean

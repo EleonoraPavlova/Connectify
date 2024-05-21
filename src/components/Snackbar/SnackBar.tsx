@@ -32,15 +32,6 @@ export function SnackBar() {
 
   if (!error && !success) return null
 
-  // let displayMessage = null
-  // if (error && !success) {
-  //   displayMessage = error
-  // } else if (!error && success) {
-  //   displayMessage = success
-  // }
-
-  console.log('successSnackBar', success, statusApp)
-  console.log('errorSnackBar', error, statusApp)
   return (
     <Stack sx={{ width: '100%' }}>
       <Snackbar open={!!error || !!success} autoHideDuration={4000} onClose={handleClose}>
