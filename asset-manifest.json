@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Connectify/static/css/main.f6ce3068.css",
-    "main.js": "/Connectify/static/js/main.d7391523.js",
+    "main.css": "/Connectify/static/css/main.b09db5dd.css",
+    "main.js": "/Connectify/static/js/main.4fa4166f.js",
     "static/js/915.f32d6bb1.chunk.js": "/Connectify/static/js/915.f32d6bb1.chunk.js",
-    "static/css/104.9f5a96e8.chunk.css": "/Connectify/static/css/104.9f5a96e8.chunk.css",
-    "static/js/104.9452de36.chunk.js": "/Connectify/static/js/104.9452de36.chunk.js",
+    "static/css/87.c65ef6e8.chunk.css": "/Connectify/static/css/87.c65ef6e8.chunk.css",
+    "static/js/87.c5c9919b.chunk.js": "/Connectify/static/js/87.c5c9919b.chunk.js",
     "static/css/387.6e93d700.chunk.css": "/Connectify/static/css/387.6e93d700.chunk.css",
     "static/js/387.52eacbb3.chunk.js": "/Connectify/static/js/387.52eacbb3.chunk.js",
     "static/css/270.b80a5033.chunk.css": "/Connectify/static/css/270.b80a5033.chunk.css",
@@ -17,20 +17,20 @@
     "static/js/881.9658e78f.chunk.js": "/Connectify/static/js/881.9658e78f.chunk.js",
     "static/js/25.980eb903.chunk.js": "/Connectify/static/js/25.980eb903.chunk.js",
     "static/css/171.77006170.chunk.css": "/Connectify/static/css/171.77006170.chunk.css",
-    "static/js/171.a0e7dd09.chunk.js": "/Connectify/static/js/171.a0e7dd09.chunk.js",
+    "static/js/171.7563775a.chunk.js": "/Connectify/static/js/171.7563775a.chunk.js",
     "static/js/685.da4f83d1.chunk.js": "/Connectify/static/js/685.da4f83d1.chunk.js",
-    "static/js/756.eb17ce67.chunk.js": "/Connectify/static/js/756.eb17ce67.chunk.js",
-    "static/js/223.474c8780.chunk.js": "/Connectify/static/js/223.474c8780.chunk.js",
-    "static/js/280.876cd464.chunk.js": "/Connectify/static/js/280.876cd464.chunk.js",
-    "static/js/742.ba671987.chunk.js": "/Connectify/static/js/742.ba671987.chunk.js",
+    "static/js/756.4b73b728.chunk.js": "/Connectify/static/js/756.4b73b728.chunk.js",
+    "static/js/223.59e4aeca.chunk.js": "/Connectify/static/js/223.59e4aeca.chunk.js",
+    "static/js/280.76abbaed.chunk.js": "/Connectify/static/js/280.76abbaed.chunk.js",
+    "static/js/742.dffed8e7.chunk.js": "/Connectify/static/js/742.dffed8e7.chunk.js",
     "static/js/732.1d117a9b.chunk.js": "/Connectify/static/js/732.1d117a9b.chunk.js",
     "static/js/964.1e71305c.chunk.js": "/Connectify/static/js/964.1e71305c.chunk.js",
-    "static/js/475.d7a2536d.chunk.js": "/Connectify/static/js/475.d7a2536d.chunk.js",
+    "static/js/475.eb6e5b27.chunk.js": "/Connectify/static/js/475.eb6e5b27.chunk.js",
     "static/media/website.png": "/Connectify/static/media/website.d7a6f9406eb8ba1c3361.png",
     "index.html": "/Connectify/index.html"
   },
   "entrypoints": [
-    "static/css/main.f6ce3068.css",
-    "static/js/main.d7391523.js"
+    "static/css/main.b09db5dd.css",
+    "static/js/main.4fa4166f.js"
   ]
 }
