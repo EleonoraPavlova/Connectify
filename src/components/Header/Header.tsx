@@ -25,6 +25,7 @@ export const Header = () => {
     logo: s.logo,
     text: s.text,
     wrapperLogo: clsx(s.wrapperLogo, 'flex-end'),
+    button: s.button,
   }
 
   return (
@@ -35,7 +36,9 @@ export const Header = () => {
           <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 'bold', color: 'green' }}>
             {profile.userId === meId ? profile.fullName : null}
           </Typography>
-          <Button onClick={logOutHandler}>Log Out</Button>
+          <Button className={cn.button} onClick={logOutHandler}>
+            Log Out
+          </Button>
         </div>
       )}
     </header>

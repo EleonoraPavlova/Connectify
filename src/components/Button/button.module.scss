@@ -6,8 +6,6 @@
   box-sizing: border-box;
   padding: 6px 16px;
   border-radius: 4px;
-  font-size: 14px;
-  transition: font-size 0.6s;
 }
 
 .primary {
@@ -15,13 +13,20 @@
   background-color: transparent;
   color: $color-green;
   cursor: pointer;
-  &:hover {
-    border: $color-white;
-    color: $color-white;
-    font-size: 16px;
-  }
 }
 
-.fullWidth {
-  width: 100%;
+.small {
+  font-size: 13px;
+}
+
+.medium {
+  font-size: 16px;
+}
+
+.large {
+  font-size: 20px;
+}
+
+.bold {
+  font-weight: bold;
 }

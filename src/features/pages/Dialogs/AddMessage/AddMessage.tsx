@@ -51,7 +51,9 @@ export const AddMessage = () => {
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}
         />
-        <Button onClick={() => addMessageHandler(textValue)} name="Add" className="message__button" />
+        <Button onClick={() => addMessageHandler(textValue)} className="message__button">
+          Add
+        </Button>
       </div>
     </div>
   )

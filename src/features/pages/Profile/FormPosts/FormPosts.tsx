@@ -33,7 +33,9 @@ export const FormPosts = () => {
         onChange={onChangeHandler}
       />
       <div className="flex-end">
-        <Button onClick={() => addPostHandler(textValue)} name="Send" className="form-posts__button" />
+        <Button fontSize="medium" onClick={() => addPostHandler(textValue)}>
+          Send
+        </Button>
       </div>
     </Box>
   )

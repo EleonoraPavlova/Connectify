@@ -25,3 +25,10 @@
   color: $color-green;
   font-size: 23px;
 }
+
+.button {
+  &:hover {
+    border: 1px solid transparent;
+    color: $color-white;
+  }
+}

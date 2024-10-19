@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import s from './index.module.scss'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -13,7 +13,7 @@ type Props = {
   sendViewHandler?: () => void
 }
 
-export const User: React.FC<Props> = memo(({ user, btnText, toggleFollowUser, sendViewHandler }) => {
+export const User = memo(({ user, btnText, toggleFollowUser, sendViewHandler }: Props) => {
   const { photos, name, followed, id, status, followingInProgress } = user
   const disabled = followingInProgress === 'loading'
 
