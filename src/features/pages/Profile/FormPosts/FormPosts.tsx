@@ -33,7 +33,7 @@ export const FormPosts = () => {
         onChange={onChangeHandler}
       />
       <div className="flex-end">
-        <Button callBack={() => addPostHandler(textValue)} name="Send" additionalClass="form-posts__button" />
+        <Button onClick={() => addPostHandler(textValue)} name="Send" className="form-posts__button" />
       </div>
     </Box>
   )

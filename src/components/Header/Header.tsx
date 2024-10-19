@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import './index.scss'
+import s from './header.module.scss'
 import { Button } from 'components/Button'
 import { authThunks, selectIsLoggedIn } from 'BLL/reducers/authSlice'
 import { selectUserProfile } from 'BLL/reducers/userProfileSlice'
@@ -8,6 +8,7 @@ import { Logo } from 'components/Logo'
 import { Typography } from '@mui/material'
 import { selectAppMeId } from 'BLL/reducers/appSlice'
 import { useActions } from 'common/hooks/useActions'
+import clsx from 'clsx'
 
 export const Header = () => {
   let isLoggedIn = useSelector(selectIsLoggedIn)
@@ -19,15 +20,22 @@ export const Header = () => {
     logOutTC()
   }, [isLoggedIn])
 
+  const cn = {
+    header: s.header,
+    logo: s.logo,
+    text: s.text,
+    wrapperLogo: clsx(s.wrapperLogo, 'flex-end'),
+  }
+
   return (
-    <header className="header">
-      <Logo img="header__img" additionalClass="header__text" />
+    <header className={cn.header}>
+      <Logo img={cn.logo} additionalClass={cn.text} />
       {isLoggedIn && (
-        <div className="flex-end">
-          <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 'bold', color: 'green', margin: '0 20px' }}>
+        <div className={cn.wrapperLogo}>
+          <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 'bold', color: 'green' }}>
             {profile.userId === meId ? profile.fullName : null}
           </Typography>
-          <Button name={'Log Out'} additionalClass="header__button" callBack={logOutHandler} />
+          <Button onClick={logOutHandler}>Log Out</Button>
         </div>
       )}
     </header>

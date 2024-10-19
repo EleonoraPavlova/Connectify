@@ -1,7 +1,5 @@
-import React from 'react'
-import './index.scss'
-import { Box } from '@mui/material'
+import s from './banner.module.scss'
 
 export const Banner = () => {
-  return <Box className="banner"></Box>
+  return <div className={s.banner}></div>
 }

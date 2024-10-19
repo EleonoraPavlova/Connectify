@@ -28,7 +28,7 @@ export const UserForm: React.FC<Props> = memo(({ profileUserState, setProfileUse
         <UserFoto link={profileUserState.photos.large} additionalClass={meId ? s.user__meId : ''} />
         {editMode && (
           <>
-            <Button name="Upload" additionalClass={s.user__btnInput} callBack={handlePick}></Button>
+            <Button name="Upload" className={s.user__btnInput} onClick={handlePick} />
             <input
               type="file"
               name="photo"

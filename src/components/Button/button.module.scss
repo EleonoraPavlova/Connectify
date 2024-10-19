@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.button {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: font-size 0.6s;
+}
+
+.primary {
+  border: 1px solid $color-green;
+  background-color: transparent;
+  color: $color-green;
+  cursor: pointer;
+  &:hover {
+    border: $color-white;
+    color: $color-white;
+    font-size: 16px;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

@@ -51,7 +51,7 @@ export const AddMessage = () => {
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}
         />
-        <Button callBack={() => addMessageHandler(textValue)} name="Add" additionalClass="message__button" />
+        <Button onClick={() => addMessageHandler(textValue)} name="Add" className="message__button" />
       </div>
     </div>
   )

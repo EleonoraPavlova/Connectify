@@ -23,6 +23,7 @@
     "@types/react-dom": "18.2.19",
     "@types/react-redux": "^7.1.33",
     "axios": "^1.6.7",
+    "clsx": "^2.1.1",
     "esm": "^3.2.25",
     "formik": "^2.4.5",
     "gh-pages": "^6.1.1",
