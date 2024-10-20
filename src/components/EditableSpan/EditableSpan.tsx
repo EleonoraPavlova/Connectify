@@ -1,57 +1,55 @@
-import { TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react'
+import { TextField, TextFieldProps, Typography, TypographyProps } from '@mui/material'
+import { ChangeEvent, useState, KeyboardEvent, memo, useEffect } from 'react'
 
 type Props = {
   title: string | undefined
-  label: string
   error?: boolean | undefined
   helperText?: string | null
-  additionalClass?: string
-  isDone?: boolean | undefined
   editMode: boolean
   saveForm?: () => void | undefined
   setEditMode?: (arg: boolean) => void | undefined
-  onChange: (title: string) => void
-}
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+} & Partial<TextFieldProps> &
+  Partial<TypographyProps>
 
-export const EditableSpan: React.FC<Props> = memo((props) => {
+export const EditableSpan = memo((props: Props) => {
+  const { editMode, helperText, error, saveForm, setEditMode, onChange, ...muiProps } = props
+
   let [title, setTitle] = useState<string | undefined>(props.title)
 
   useEffect(() => {
     setTitle(props.title)
-  }, [props.title, props.editMode])
+  }, [props.title, editMode])
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value
     setTitle(value)
-    props.onChange(value)
+    onChange(e)
   }
 
   const onKeyDownEditHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      if (props.saveForm) {
-        props.saveForm()
+      if (saveForm) {
+        saveForm()
       }
     }
   }
 
-  return props.editMode ? (
+  return editMode ? (
     <TextField
       value={title}
-      type="text"
-      label={props.label}
-      error={props.error}
-      helperText={props.helperText}
       onChange={onChangeHandler}
       variant="outlined"
       onKeyDown={onKeyDownEditHandler}
-      className={props.additionalClass}
       inputProps={{
         style: { padding: '8px 6px' },
       }}
+      error={error}
+      helperText={helperText}
+      {...muiProps}
     />
   ) : (
-    <Typography sx={{ paddingRight: '8px' }} variant="h6">
+    <Typography sx={{ paddingRight: '8px' }} variant="h6" {...muiProps}>
       {props.title}
     </Typography>
   )

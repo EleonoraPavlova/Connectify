@@ -21,25 +21,3 @@ export const Button = forwardRef(
     return <Component className={cn} ref={ref} {...rest} />
   }
 )
-
-// import { memo } from 'react'
-// import s from './button.module.scss'
-
-// type Props = {
-//   name: string
-//   additionalClass: string
-//   disabled?: boolean
-//   callBack?: (() => void) | undefined
-// }
-
-// export const Button = memo(({ name, additionalClass, disabled, callBack }: Props) => {
-//   const onClickHandler = () => {
-//     if (callBack) callBack()
-//   }
-
-//   return (
-//     <button className={`button ${additionalClass}`} type="submit" onClick={onClickHandler} disabled={disabled}>
-//       {name}
-//     </button>
-//   )
-// })

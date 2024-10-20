@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { ChangeEvent, Dispatch, memo, MutableRefObject, SetStateAction } from 'react'
 import s from './index.module.scss'
 import { Box, List, ListItem, Typography } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
@@ -10,14 +10,14 @@ import { useUserFormList } from 'common/hooks/useUserFormList'
 type Props = {
   editMode: boolean
   profileUserState: ExtendedInitialResponseProfileUser
-  formRef: React.MutableRefObject<HTMLDivElement | null>
+  formRef: MutableRefObject<HTMLDivElement | null>
   setEditMode: (arg: boolean) => void
-  setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
+  setProfileUserState: Dispatch<SetStateAction<ExtendedInitialResponseProfileUser>>
   saveForm: () => void
 }
 
-export const UserFormList: React.FC<Props> = memo(
-  ({ profileUserState, editMode, formRef, setProfileUserState, setEditMode, saveForm }) => {
+export const UserFormList = memo(
+  ({ profileUserState, editMode, formRef, setProfileUserState, setEditMode, saveForm }: Props) => {
     const { errorLocal, formItems, collectionOfForm, collectionOfFormCheckbox, collectionOfFormSocial } =
       useUserFormList(profileUserState, setProfileUserState)
 
@@ -32,10 +32,10 @@ export const UserFormList: React.FC<Props> = memo(
                 helperText={errorLocal && errorLocal[item.prop]}
                 title={item.title}
                 label={item.label}
-                additionalClass={s.user__name}
+                className={s.user__name}
                 editMode={editMode}
                 setEditMode={setEditMode}
-                onChange={(title) => collectionOfForm(item.prop, title)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => collectionOfForm(item.prop, e.currentTarget.value)}
                 saveForm={saveForm}
               />
             </ListItem>

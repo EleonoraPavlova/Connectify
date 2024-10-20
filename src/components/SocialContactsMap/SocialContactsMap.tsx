@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useSelector } from 'react-redux'
 import s from './index.module.scss'
 import instaIcon from './icons/insta.png'
@@ -24,13 +24,13 @@ type Props = {
   collectionOfFormSocial?: (arg: SocialContacts) => void | undefined
 }
 
-export const SocialContactsMap: React.FC<Props> = ({
+export const SocialContactsMap = ({
   additionalClass,
   editMode,
   saveForm,
   setEditMode,
   collectionOfFormSocial = undefined,
-}) => {
+}: Props) => {
   const profileUser = useSelector(selectUserProfile)
   let [errorLocal, setErrorLocal] = useState<Partial<SocialContacts>>({})
 
@@ -45,7 +45,7 @@ export const SocialContactsMap: React.FC<Props> = ({
     { icon: mainLink, key: 'mainLink', link: 'https://fontawesome.com/' },
   ]
 
-  const handleChangeSocial = (key: keyof SocialContacts, newValue: string) => {
+  const changeSocialHandle = (key: keyof SocialContacts, newValue: string) => {
     if (isValidUrl(newValue)) {
       setErrorLocal((prev) => ({ ...prev, [key]: undefined }))
       if (collectionOfFormSocial) {
@@ -64,12 +64,11 @@ export const SocialContactsMap: React.FC<Props> = ({
           <EditableSpan
             error={!!errorLocal[key]}
             helperText={errorLocal[key] ? errorLocal[key] : undefined}
-            label={''}
             title={profileUser.contacts[key as keyof typeof profileUser.contacts] || ''}
             editMode={editMode}
             saveForm={saveForm ? saveForm : undefined}
             setEditMode={setEditMode ? setEditMode : undefined}
-            onChange={(newValue) => handleChangeSocial(key, newValue)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => changeSocialHandle(key, e.currentTarget.value)}
           />
         )}
       </Box>

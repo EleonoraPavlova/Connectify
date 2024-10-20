@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import './index.scss'
 import Box from '@mui/material/Box'
 import { Button } from 'components/Button'
