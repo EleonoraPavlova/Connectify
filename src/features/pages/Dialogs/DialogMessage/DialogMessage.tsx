@@ -1,12 +1,11 @@
-import React from 'react'
 import './index.scss'
 
-type DialogMessageProps = {
+type Props = {
   id: string
   message: string
 }
 
-export const DialogMessage: React.FC<DialogMessageProps> = ({ id, message }) => {
+export const DialogMessage = ({ id, message }: Props) => {
   return (
     <li className="dialog-message" id={`${id}`}>
       {message}

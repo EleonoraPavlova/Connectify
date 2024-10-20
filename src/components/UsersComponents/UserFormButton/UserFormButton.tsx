@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { Box, IconButton } from '@mui/material'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined'
 import { SaveAsOutlined } from '@mui/icons-material'
@@ -8,7 +8,7 @@ type Props = {
   saveForm: () => void
 }
 
-export const UserFormButton: React.FC<Props> = memo(({ editMode, saveForm }) => {
+export const UserFormButton = memo(({ editMode, saveForm }: Props) => {
   return (
     <Box sx={{ height: '100%', alignSelf: 'baseline' }}>
       <IconButton

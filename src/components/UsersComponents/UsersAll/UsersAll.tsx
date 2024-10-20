@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Box from '@mui/material/Box'
@@ -16,7 +16,7 @@ type Props = {
   btnText: string
 }
 
-export const UsersAll: React.FC<Props> = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }) => {
+export const UsersAll = ({ pagesCount, currentPage, setCurrentPageHandle, btnText }: Props) => {
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()
   const idFromSearchParams = searchParams.get('id')

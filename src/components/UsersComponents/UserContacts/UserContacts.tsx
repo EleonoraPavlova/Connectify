@@ -1,5 +1,4 @@
 import ListItem from '@mui/material/ListItem'
-import React from 'react'
 import s from './index.module.scss'
 
 type Props = {
@@ -7,7 +6,7 @@ type Props = {
   href: string
 }
 
-export const UserContacts: React.FC<Props> = ({ icon, href }) => {
+export const UserContacts = ({ icon, href }: Props) => {
   return (
     <ListItem className={s.contacts}>
       <a href={href} rel="noreferrer" target="_blank" className={s.link}>

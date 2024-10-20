@@ -1,4 +1,3 @@
-import React from 'react'
 import './index.scss'
 import { DialogMessages } from './DialogsRender/DialogMessages'
 import { Dialog } from './DialogsRender/Dialog'
@@ -7,7 +6,7 @@ type Props = {
   welcome?: string
 }
 
-const Dialogs: React.FC<Props> = ({ welcome }) => {
+const Dialogs = ({ welcome }: Props) => {
   return (
     <div>
       <h5 className="dialogs__welcome">{welcome}</h5>

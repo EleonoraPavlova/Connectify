@@ -1,12 +1,11 @@
-import React from 'react'
-import './index.scss'
+import s from './footer.module.scss'
 import { Logo } from 'components/Logo'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 
 export const Footer = () => {
   return (
-    <Box className="footer">
+    <div className={s.footer}>
       <Typography
         variant="body2"
         sx={{
@@ -16,9 +15,9 @@ export const Footer = () => {
         }}>
         ® 2023 All rights recerved
       </Typography>
-      <Box className="footer__logo">
-        <Logo img="footer__img" additionalClass="footer__text" />
+      <Box className={s.logo}>
+        <Logo img={s.img} additionalClass={s.text} />
       </Box>
-    </Box>
+    </div>
   )
 }

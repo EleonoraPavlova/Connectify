@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import './App.scss'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'

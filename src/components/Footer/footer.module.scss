@@ -7,14 +7,17 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-  &__logo {
-    float: right;
-  }
-  &__img {
-    width: 25px;
-    height: 19px;
-  }
-  &__text {
-    font-size: 15px !important;
-  }
+}
+
+.logo {
+  float: right;
+}
+
+.img {
+  width: 25px;
+  height: 19px;
+}
+
+.text {
+  font-size: 15px !important;
 }

@@ -1,15 +1,24 @@
 import { ExtendedInitialResponseProfileUser } from 'common/types'
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  MutableRefObject,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { selectUserProfile, userThunks } from 'BLL/reducers/userProfileSlice'
 import { useSelector } from 'react-redux'
 import { useActions } from './useActions'
 
 export function useUserForm(
   profileUserState: ExtendedInitialResponseProfileUser,
-  setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
+  setProfileUserState: Dispatch<SetStateAction<ExtendedInitialResponseProfileUser>>
 ) {
   const profileUser = useSelector(selectUserProfile)
-  const filePicker: React.MutableRefObject<HTMLInputElement | null> = useRef(null)
+  const filePicker: MutableRefObject<HTMLInputElement | null> = useRef(null)
   const formRef = useRef<HTMLDivElement | null>(null)
   const [editMode, setEditMode] = useState<boolean>(false)
   const { updateProfileUserTC, updateProfileUserStatusTC, updateProfileUserPhotoTC } = useActions(userThunks)

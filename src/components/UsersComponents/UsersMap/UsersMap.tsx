@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { UserApi } from 'common/types'
 import { usersThunks } from 'BLL/reducers/usersSlice'
@@ -11,7 +11,7 @@ export type Props = {
   user: UserApi
 }
 
-export const UsersMap: React.FC<Props> = ({ btnText, user }) => {
+export const UsersMap = ({ btnText, user }: Props) => {
   const { id, followed } = user
   const [activeModal, setActiveModal] = useState(false)
   let [searchParams, setSearchParams] = useSearchParams()

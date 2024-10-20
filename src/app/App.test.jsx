@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { render, screen } from '@testing-library/react'
 import { EditableSpan } from '../components/EditableSpan'

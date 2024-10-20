@@ -1,9 +1,9 @@
 import { ExtendedInitialResponseProfileUser, SocialContacts } from 'common/types'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 
 export function useUserFormList(
   profileUserState: ExtendedInitialResponseProfileUser,
-  setProfileUserState: React.Dispatch<React.SetStateAction<ExtendedInitialResponseProfileUser>>
+  setProfileUserState: Dispatch<SetStateAction<ExtendedInitialResponseProfileUser>>
 ) {
   const [errorLocal, setErrorLocal] = useState<{
     [key: string]: string | undefined

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { ChangeEvent, useCallback } from 'react'
 import './index.scss'
 import { Box, Pagination, Stack } from '@mui/material'
 
@@ -8,9 +8,9 @@ type Props = {
   setCurrentPage: (currPage: number) => void
 }
 
-export const PaginationsCustom: React.FC<Props> = ({ pagesCount, currentPage, setCurrentPage }) => {
+export const PaginationsCustom = ({ pagesCount, currentPage, setCurrentPage }: Props) => {
   const setCurrentPageHandler = useCallback(
-    (event: React.ChangeEvent<unknown>, page: number) => {
+    (e: ChangeEvent<unknown>, page: number) => {
       setCurrentPage(page)
     },
     [currentPage]

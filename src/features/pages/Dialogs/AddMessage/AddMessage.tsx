@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react'
+import { ChangeEvent, useState, KeyboardEvent, useCallback } from 'react'
 import './index.scss'
 import { Button } from 'components/Button'
 

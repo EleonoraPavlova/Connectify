@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
@@ -20,7 +20,7 @@ type Props = {
   setSearchParams: () => void
 }
 
-export const Modal: React.FC<Props> = memo(({ activeModal, idFromSearchParams, setActiveModal, setSearchParams }) => {
+export const Modal = memo(({ activeModal, idFromSearchParams, setActiveModal, setSearchParams }: Props) => {
   let profileUser = useSelector(selectUserProfile)
   let error = useSelector(selectAppError)
   const navigate = useNavigate()

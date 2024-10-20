@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import s from './index.module.scss'
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   additionalClass?: string
 }
 
-export const UserFoto: React.FC<Props> = memo(({ link, additionalClass }) => {
+export const UserFoto = memo(({ link, additionalClass }: Props) => {
   const mocPhoto = 'https://cdn.pixabay.com/photo/2017/05/11/08/48/woman-2303361_1280.jpg'
 
   if (link instanceof File) {
